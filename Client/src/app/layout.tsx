@@ -1,16 +1,35 @@
 // Home Page Layout
+'use client'
 
+import { useState, } from 'react';
 import React from "react";
-import '@/app/globals.css'
+import { LeftNav } from '@/components/LeftNav/LeftNav';
+import '@/app/globals.css';
 
 export default function HomeLayout({ children, }: { children: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(true);
+
+  const sidebarWidth = isOpen ? 'w-25' : 'w-0'
+
+
   return (
     <html lang="en">
-      <body>
+      <body className="flex">
         {/* Layout UI */}
         {/* Place children where you want to render a page or nested layout */}
-        <main>{children}</main>
+        <div className={`transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
+          {isOpen && (
+            <LeftNav />
+          )}
+        </div>
+        <button className="w-8 h-16 rounded-r-full bg-amber-700
+         fixed top-1/2 left -translate-y-1/2 z-22 
+         contain-content bg-no-repeat bg-center bg-contain"
+          onClick={() => setIsOpen(prev => !prev)}>
+          <img src="/pull.svg" alt="pull" className="scale-x-[-1]" />
+        </button>
+        <main className={`transition-all duration-300 flex-1`}>{children}</main>
       </body>
-    </html>
+    </html >
   )
 }
