@@ -16,6 +16,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
     <html lang="en">
       <body className="flex">
         {/* Layout UI */}
+
         {/* Place children where you want to render a page or nested layout */}
         <div className={`transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
           {isOpen && (
