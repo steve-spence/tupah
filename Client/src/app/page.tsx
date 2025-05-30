@@ -48,17 +48,16 @@ export default function HomePage() {
       <section>
         <div className="flex flex-row content-between">
           <div className="flex md:w-1/2 h-[60vh] border-radius-3">
-            <div className="flex flex-col items-left justify-left p-10 px-30">
-              <h1 className="text-white font-bold text-2xl">Why should you read?</h1>
-              <p className="text-white">Whether you're here to check out my work, or just exploring, I have something for you. I have some pretty
-                honest takes on here and if this age of AI generated content is annoying you too, I'm real.
+            <div className="flex flex-col items-left justify-baseline p-10 px-30 text-left">
+              <h1 className="text-white font-bold text-2xl">What's here</h1>
+              <p className="text-white w-44">A bunch of blog posts I have started to accumulate. I tend to post of cool stuff sometimes.
               </p>
             </div>
           </div>
-          <div className="flex grow flex-col w-[50%] items-right justify-center-safe p-10 px-30">
+          <div className="flex grow flex-col w-[50%] items-end justify-center p-10 px-30 text-right">
 
-            <h1 className="text-white font-bold text-2xl">What do I Post?</h1>
-            <p className="text-white">I post about gaming related topics. I like to play games with my freinds a lot. I have a youtube channel as well.
+            <h1 className="text-white font-bold text-2xl">Why it's here</h1>
+            <p className="text-white w-44">I made this blog because I have nothing better do with myself and I enjoy it.
             </p>
           </div>
         </div>
@@ -71,26 +70,27 @@ export default function HomePage() {
 
 
       {/* rs images */}
-      <div className="flex flex-col p-17 gap-2 w-full justify-center items-center bg-[#121212]">
-        <div>
-
+      <div className="flex flex-col p-17 gap-2 w-full justify-center items-center bg-[#121212]
+      text-white">
+        <h2 className="text-3xl">What do I post here?</h2>
+        <div className="flex justify-center items-center">
+          <div>
+            <h3 className="text-2xl">Gaming</h3>
+            <p>I've been playing Marvel Rivals and I like keeping my pages updated with the newest Marvel
+              related content. I used to play LoL, Overwatch, Old School RuneScape, and so many other titles
+              I could go on for days.</p>
+          </div>
+          <div>
+            <h3 className="text-2xl">Anime</h3>
+            <p>I enjoy watching seasonal anime and posting my favorites. I post about the worst and best anime of each season.</p>
+          </div>
+          <div>
+            <h3 className="text-2xl">Tech Support</h3>
+            <p>I graduated college with a computer science degree, so I know a thing or two about computers.
+              I have always wanted to start a page where I could let people know useful tutorials or helpful tips,
+              this is that dream realized.</p>
+          </div>
         </div>
-        <div>
-
-        </div>
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
-        <Image src="/test.png" alt="test" width={200} height={200} />
       </div>
 
 
