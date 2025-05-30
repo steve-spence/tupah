@@ -14,23 +14,36 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
 
   return (
     <html lang="en">
-      <body className="flex">
+      <body className="flex flex-col">
         {/* Layout UI */}
+        <div className="flex flex-1">
 
-        {/* Place children where you want to render a page or nested layout */}
-        <div className={`transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
-          {isOpen && (
-            <LeftNav className="bg-[#202020]" />
-          )}
-          <button className="w-8 h-16 rounded-r-full bg-amber-700
+          {/* Place children where you want to render a page or nested layout */}
+          <div className={`transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
+            {isOpen && (
+              <LeftNav className="bg-[#202020]" />
+            )}
+            <button className="w-8 h-16 rounded-r-full bg-[#B695FC]
          fixed top-1/2 left -translate-y-1/2 z-22 
          contain-content bg-no-repeat bg-center bg-contain"
-            onClick={() => setIsOpen(prev => !prev)}>
-            <img src="/pull.svg" alt="pull" className="scale-x-[-1]" />
-          </button>
+              onClick={() => setIsOpen(prev => !prev)}>
+              <img src="/pull.svg" alt="pull" className="scale-x-[-1]" />
+            </button>
+          </div>
+
+          <main className={`transition-all duration-300 flex-1`}>{children}</main>
         </div>
 
-        <main className={`transition-all duration-300 flex-1`}>{children}</main>
+        <footer>
+          <div className="flex flex-row w-full h-32 bg-[#212121]">
+            <div>
+
+            </div>
+            <div>
+
+            </div>
+          </div>
+        </footer>
       </body>
     </html >
   )

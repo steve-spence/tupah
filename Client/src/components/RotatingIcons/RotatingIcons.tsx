@@ -4,7 +4,7 @@ import { NavIcon, NavIconProps } from "@/components/NavIcon/NavIcon"
 import { MotionConfig } from "motion/react";
 import { motion } from 'motion/react'
 
-export function RotatingIcons({ data, }: Props) {
+export function RotatingIcons({ data, className }: Props) {
 
     const [icons, setIcons] = useState<NavIconProps[]>(data.icons);
 
@@ -22,7 +22,7 @@ export function RotatingIcons({ data, }: Props) {
     }, []);
 
     return (
-        <div className="w-full h-fit bg-amber-200">
+        <div className={`w-full h-fit ${className}`} >
             {/* Make this a component */}
             <div className="flex flex-row justify-center items-center p-5 transition-all duration-300 ease-in">
                 {icons.map((icon, index) => (

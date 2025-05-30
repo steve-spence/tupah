@@ -34,9 +34,13 @@ export default function HomePage() {
 
       {/* Home Page Header */}
       <section>
-        <div className="flex flex-col items-center bg-[#272727] p-5">
-          <h1 className="text-white font-extrabold mb-6 tracking-wide text-5xl">Tupah</h1>
-          <h4 className="text-gray-300 italic">Unfiltered thoughts with occasional genius.</h4>
+        <div className="flex justify-between bg-[#272727] p-5 h-32">
+          <img src="/owl_logo.png" className="h-full" alt="Logo"></img>
+          <div className="flex flex-col items-center">
+            <h1 className="text-white font-extrabold mb-6 tracking-wide text-5xl">Tupah</h1>
+            <h4 className="text-gray-300 italic">Unfiltered thoughts with occasional genius.</h4>
+          </div>
+          <div></div>
         </div>
       </section>
 
@@ -44,24 +48,30 @@ export default function HomePage() {
       <section>
         <div className="flex flex-row content-between">
           <div className="flex md:w-1/2 h-[60vh] border-radius-3">
-            <div className="flex grow items-center justify-center">
-              <h1 className="text-red-300">LEFT</h1>
+            <div className="flex flex-col items-left justify-left p-10 px-30">
+              <h1 className="text-white font-bold text-2xl">Why should you read?</h1>
+              <p className="text-white">Whether you're here to check out my work, or just exploring, I have something for you. I have some pretty
+                honest takes on here and if this age of AI generated content is annoying you too, I'm real.
+              </p>
             </div>
           </div>
-          <div className="flex grow items-center justify-center">
+          <div className="flex grow flex-col w-[50%] items-right justify-center-safe p-10 px-30">
 
-            <h1 className="text-red-300">RIGHT</h1>
+            <h1 className="text-white font-bold text-2xl">What do I Post?</h1>
+            <p className="text-white">I post about gaming related topics. I like to play games with my freinds a lot. I have a youtube channel as well.
+            </p>
           </div>
         </div>
       </section>
 
       {/* Rotating thing */}
       <section>
-        <RotatingIcons data={{ icons: rotating_icons }} />
+        <RotatingIcons data={{ icons: rotating_icons }} className="bg-[#B695FC]" />
       </section>
 
+
       {/* rs images */}
-      <div className="flex flex-col p-17 gap-2 w-full justify-center items-center bg-[#242424]">
+      <div className="flex flex-col p-17 gap-2 w-full justify-center items-center bg-[#121212]">
         <div>
 
         </div>
@@ -83,12 +93,18 @@ export default function HomePage() {
         <Image src="/test.png" alt="test" width={200} height={200} />
       </div>
 
-      {/* Brook page section */}
-      <div>
-        <div className="w-full h-[20%] bg-[">
+
+      {/* Brook Image */}
+      <section>
+        <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-amber-50 p-5">
+
+          <p className="italic text-2xl p-3">"Death leaves nothing behind."</p>
+          <img src="/brook.png" className="rounded-4xl h-32"></img>
+          <p>Brook</p>
+          <p className="text-gray-500">Musician, New World</p>
 
         </div>
-      </div>
+      </section>
 
     </div>
 
