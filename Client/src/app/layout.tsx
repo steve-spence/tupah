@@ -35,12 +35,33 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
         </div>
 
         <footer>
-          <div className="flex flex-row w-full h-32 bg-[#212121]">
-            <div>
-
+          <div className="flex flex-row w-full h-fit bg-[#212121] text-white gap-5">
+            <div className="flex flex-col items-center px-30 py-10">
+              <img src="/owl_logo.png" className="w-55 p-10"></img>
+              <h1 className="py-5">Tupah</h1>
+              <p className="text-gray-300 text-center">Steven Spencer's blog<br></br>about life.</p>
             </div>
-            <div>
-
+            <div className="flex flex-col flex-1 justify-center items-center">
+              <h5 className="p-5 text-2xl">About</h5>
+              <ul className="text-center">
+                <li><a>Me</a></li>
+                <li><a>Blogs</a></li>
+              </ul>
+            </div>
+            <div className="flex flex-col flex-1 justify-center items-center">
+              <h5 className="p-5 text-2xl">Privacy</h5>
+              <ul className="text-center">
+                <li><a>Privacy Policy</a></li>
+                <li><a>Terms and Conditions</a></li>
+              </ul>
+            </div>
+            <div className="flex flex-col flex-1 justify-center items-center">
+              <h5 className="p-5 text-2xl">Social</h5>
+              <ul className="text-center">
+                <li><a>Discord</a></li>
+                <li><a>Instagram</a></li>
+                <li><a>Twitter/X</a></li>
+              </ul>
             </div>
           </div>
         </footer>

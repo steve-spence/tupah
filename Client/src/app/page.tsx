@@ -40,7 +40,10 @@ export default function HomePage() {
             <h1 className="text-white font-extrabold mb-6 tracking-wide text-5xl">Tupah</h1>
             <h4 className="text-gray-300 italic">Unfiltered thoughts with occasional genius.</h4>
           </div>
-          <div></div>
+          <div className="flex flex-row text-white gap-5 items-center justify-center p-10 font-semibold">
+            <a>About</a>
+            <a>Blogs</a>
+          </div>
         </div>
       </section>
 
@@ -54,8 +57,7 @@ export default function HomePage() {
               </p>
             </div>
           </div>
-          <div className="flex grow flex-col w-[50%] items-end justify-center p-10 px-30 text-right">
-
+          <div className="flex grow flex-col w-[50%] items-end justify-end p-10 px-30 text-right">
             <h1 className="text-white font-bold text-2xl">Why it's here</h1>
             <p className="text-white w-44">I made this blog because I have nothing better do with myself and I enjoy it.
             </p>
@@ -63,29 +65,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Rotating thing */}
-      <section>
-        <RotatingIcons data={{ icons: rotating_icons }} className="bg-[#B695FC]" />
-      </section>
+
 
 
       {/* rs images */}
       <div className="flex flex-col p-17 gap-2 w-full justify-center items-center bg-[#121212]
       text-white">
-        <h2 className="text-3xl">What do I post here?</h2>
+        <h2 className="text-4xl font-bold">What do I post here?</h2>
         <div className="flex justify-center items-center">
-          <div>
-            <h3 className="text-2xl">Gaming</h3>
+          <div className="p-5">
+            <h3 className="text-2xl font-semibold">Gaming</h3>
             <p>I've been playing Marvel Rivals and I like keeping my pages updated with the newest Marvel
               related content. I used to play LoL, Overwatch, Old School RuneScape, and so many other titles
               I could go on for days.</p>
           </div>
-          <div>
-            <h3 className="text-2xl">Anime</h3>
+          <div className="p-5">
+            <h3 className="text-2xl font-semibold">Anime</h3>
             <p>I enjoy watching seasonal anime and posting my favorites. I post about the worst and best anime of each season.</p>
           </div>
-          <div>
-            <h3 className="text-2xl">Tech Support</h3>
+          <div className="p-5">
+            <h3 className="text-2xl font-semibold">Tech Support</h3>
             <p>I graduated college with a computer science degree, so I know a thing or two about computers.
               I have always wanted to start a page where I could let people know useful tutorials or helpful tips,
               this is that dream realized.</p>
@@ -93,6 +92,10 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* Rotating thing */}
+      <section>
+        <RotatingIcons data={{ icons: rotating_icons }} className="bg-[#9379cc] p-5" />
+      </section>
 
       {/* Brook Image */}
       <section>
