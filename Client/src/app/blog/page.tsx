@@ -6,7 +6,7 @@ import React from 'react'
 
 export default function BlogPage() {
     return (
-        <p>Hello world</p>
+        <p>Hello world blog</p>
     )
 
 }

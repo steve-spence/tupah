@@ -13,7 +13,6 @@ export function RotatingIcons({ data, className }: Props) {
         const interval = setInterval(() => {
             setIcons((prevIcons) => {
                 const [first, ...rest] = prevIcons; // spread operator so we extract the elements from the list so its not [[x,x], x] its [x, x, x]
-                console.log("interval");
                 return [...rest, first];
             });
         }, 3000);

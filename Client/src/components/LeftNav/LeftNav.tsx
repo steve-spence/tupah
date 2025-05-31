@@ -10,7 +10,7 @@ export function LeftNav({ data, className }: Props) {
     className = className == null ? "" : className;
 
     return (
-        <div className={`${className} h-screen flex flex-col justify-between items-center fixed`}>
+        <div className={`${className} h-full flex flex-col justify-between items-center fixed`}>
             <div>
                 <NavIcon data={{ id: "nav_home", title: "Home", bg_path: "/blog_icon.svg", link: "/" }} />
                 <NavIcon data={{ id: "nav_about", title: "About me", bg_path: "/blog_icon.svg", link: "/about" }} />

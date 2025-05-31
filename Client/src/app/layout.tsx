@@ -9,7 +9,7 @@ import '@/app/globals.css';
 export default function HomeLayout({ children, }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const sidebarWidth = isOpen ? 'w-25' : 'w-0' // also change in leftNav className w
+  const sidebarWidth = isOpen ? 'w-25' : 'w-0' // also change in leftNav className w and pull button
 
   return (
     <html lang="en">
@@ -20,17 +20,18 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
           {/* Place children where you want to render a page or nested layout */}
           <div className={`transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
             <LeftNav
-              className={`transition-all duration-300 bg-[#202020] overflow-hidden ${isOpen ? 'w-25 opacity-100' : 'w-0 opacity-0'}`}
+              className={`transition-all duration-300 bg-[#9379cc] overflow-hidden text-white ${isOpen ? 'w-25 opacity-100' : 'w-0 opacity-0'}`}
             ></LeftNav>
-            <button className="w-8 h-16 rounded-r-full bg-[#B695FC]
-         fixed top-1/2 left -translate-y-1/2 z-22 
-         contain-content bg-no-repeat bg-center bg-contain cursor-pointer"
+            <button className={`w-8 h-16 rounded-r-full
+         fixed top-1/2 -translate-y-1/2 z-22 transition-all duration-300 ${isOpen ? 'left-25 bg-[#9379cc]' : 'left-0 bg-[#B695FC]'}
+         contain-content bg-no-repeat bg-center bg-contain cursor-pointer`}
               onClick={() => setIsOpen(prev => !prev)}>
-              <img src="/pull.svg" alt="pull" className="scale-x-[-1]" />
+              <img src="/pull.svg" alt="Sidebar" className="scale-x-[-1]" />
             </button>
           </div>
 
           <main className={`transition-all duration-300 flex-1`}>{children}</main>
+
         </div>
 
         <footer>
@@ -43,23 +44,23 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
             <div className="flex flex-col flex-1 justify-center items-center">
               <h5 className="p-5 text-2xl text-[#9379cc]">About</h5>
               <ul className="text-center">
-                <li><a>Me</a></li>
-                <li><a>Blogs</a></li>
+                <li><a href="/about">Me</a></li>
+                <li><a href="/blog">Blogs</a></li>
               </ul>
             </div>
             <div className="flex flex-col flex-1 justify-center items-center">
               <h5 className="p-5 text-2xl text-[#9379cc]">Privacy</h5>
               <ul className="text-center">
-                <li><a>Privacy Policy</a></li>
-                <li><a>Terms and Conditions</a></li>
+                <li><a href="/privacy#policy">Privacy Policy</a></li>
+                <li><a href="/privacy#terms">Terms and Conditions</a></li>
               </ul>
             </div>
             <div className="flex flex-col flex-1 justify-center items-center">
               <h5 className="p-5 text-2xl text-[#9379cc]">Social</h5>
               <ul className="text-center">
-                <li><a>Discord</a></li>
-                <li><a>Instagram</a></li>
-                <li><a>Twitter/X</a></li>
+                <li><a href="/privacy#discord">Discord</a></li>
+                <li><a href="/privacy#instagram">Instagram</a></li>
+                <li><a href="/privacy#X">X</a></li>
               </ul>
             </div>
           </div>

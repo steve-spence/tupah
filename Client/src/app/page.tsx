@@ -33,7 +33,7 @@ export default function HomePage() {
 
 
       {/* Home Page Header */}
-      <section>
+      <section id="home">
         <div className="flex justify-between bg-[#272727] p-5 h-32">
           <img src="/owl_logo.png" className="h-full" alt="Logo"></img>
           <div className="flex flex-col items-center">
@@ -41,8 +41,8 @@ export default function HomePage() {
             <h4 className="text-gray-300 italic">Unfiltered thoughts with occasional genius.</h4>
           </div>
           <div className="flex flex-row text-white gap-5 items-center justify-center p-10 font-semibold">
-            <a href="/about" className="cursor-pointer">About</a>
-            <a href="/blog" className="cursor-pointer">Blogs</a>
+            <a href="/about">About</a>
+            <a href="/blog">Blogs</a>
           </div>
         </div>
       </section>
@@ -67,40 +67,38 @@ export default function HomePage() {
 
 
 
-
-      {/* rs images */}
-      <div className="flex flex-col p-17 gap-2 w-full justify-center items-center bg-[#121212]
+      {/* What I post section */}
+      <section id="posts">
+        <div className="flex flex-col p-17 gap-2 w-full justify-center items-center bg-[#121212]
       text-white">
-        <h2 className="text-4xl font-bold">What do I post here?</h2>
-        <div className="flex justify-center items-center">
-          <div className="p-5">
-            <h3 className="text-2xl font-semibold text-[#9379cc] underline">Gaming</h3>
-            <p>I've been playing Marvel Rivals and I like keeping my pages updated with the newest Marvel
-              related content. I used to play LoL, Overwatch, Old School RuneScape, and so many other titles
-              I could go on for days.</p>
-          </div>
-          <div className="p-5">
-            <h3 className="text-2xl font-semibold text-[#9379cc] underline">Anime</h3>
-            <p>I enjoy watching seasonal anime and posting my favorites. I post about the worst and best anime of each season.</p>
-          </div>
-          <div className="p-5">
-            <h3 className="text-2xl font-semibold text-[#9379cc] underline">Tech Support</h3>
-            <p>I graduated college with a computer science degree, so I know a thing or two about computers.
-              I have always wanted to start a page where I could let people know useful tutorials or helpful tips,
-              this is that dream realized.</p>
+          <h2 className="text-4xl font-bold">What do I post here?</h2>
+          <div className="flex justify-center items-center">
+            <div className="p-5">
+              <h3 className="text-2xl font-semibold text-[#9379cc] underline">Gaming</h3>
+              <p>I've been playing Marvel Rivals and I like keeping my pages updated with the newest Marvel
+                related content. I used to play LoL, Overwatch, Old School RuneScape, and so many other titles
+                I could go on for days.</p>
+            </div>
+            <div className="p-5">
+              <h3 className="text-2xl font-semibold text-[#9379cc] underline">Anime</h3>
+              <p>I enjoy watching seasonal anime and posting my favorites. I post about the worst and best anime of each season.</p>
+            </div>
+            <div className="p-5">
+              <h3 className="text-2xl font-semibold text-[#9379cc] underline">Tech Support</h3>
+              <p>I graduated college with a computer science degree, so I know a thing or two about computers.
+                I have always wanted to start a page where I could let people know useful tutorials or helpful tips,
+                this is that dream realized.</p>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Rotating thing */}
-      <section>
+        {/* Rotating Blog Posts */}
         <div className="flex items-center justify-center w-full h-fit bg-[#121212] py-5">
           <RotatingIcons data={{ icons: rotating_icons }} className="bg-[#9379cc] rounded-4xl" />
         </div>
       </section>
 
       {/* Brook Image */}
-      <section>
+      <section id="brook">
         <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-amber-50 p-5">
 
           <p className="italic text-2xl p-3">"Death leaves nothing behind."</p>
@@ -112,6 +110,5 @@ export default function HomePage() {
       </section>
 
     </div>
-
   )
 }
