@@ -7,7 +7,7 @@ import { LeftNav } from '@/components/LeftNav/LeftNav';
 import '@/app/globals.css';
 
 export default function HomeLayout({ children, }: { children: React.ReactNode }) {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const sidebarWidth = isOpen ? 'w-25' : 'w-0' // also change in leftNav className w
 
@@ -24,7 +24,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
             ></LeftNav>
             <button className="w-8 h-16 rounded-r-full bg-[#B695FC]
          fixed top-1/2 left -translate-y-1/2 z-22 
-         contain-content bg-no-repeat bg-center bg-contain"
+         contain-content bg-no-repeat bg-center bg-contain cursor-pointer"
               onClick={() => setIsOpen(prev => !prev)}>
               <img src="/pull.svg" alt="pull" className="scale-x-[-1]" />
             </button>

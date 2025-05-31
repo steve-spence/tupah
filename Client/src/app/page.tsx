@@ -41,8 +41,8 @@ export default function HomePage() {
             <h4 className="text-gray-300 italic">Unfiltered thoughts with occasional genius.</h4>
           </div>
           <div className="flex flex-row text-white gap-5 items-center justify-center p-10 font-semibold">
-            <a>About</a>
-            <a>Blogs</a>
+            <a href="/about" className="cursor-pointer">About</a>
+            <a href="/blog" className="cursor-pointer">Blogs</a>
           </div>
         </div>
       </section>
