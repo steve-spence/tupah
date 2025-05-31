@@ -9,8 +9,7 @@ import '@/app/globals.css';
 export default function HomeLayout({ children, }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(true);
 
-  const sidebarWidth = isOpen ? 'w-25' : 'w-0'
-
+  const sidebarWidth = isOpen ? 'w-25' : 'w-0' // also change in leftNav className w
 
   return (
     <html lang="en">
@@ -20,9 +19,9 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
 
           {/* Place children where you want to render a page or nested layout */}
           <div className={`transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
-            {isOpen && (
-              <LeftNav className="bg-[#202020]" />
-            )}
+            <LeftNav
+              className={`transition-all duration-300 bg-[#202020] overflow-hidden ${isOpen ? 'w-25 opacity-100' : 'w-0 opacity-0'}`}
+            ></LeftNav>
             <button className="w-8 h-16 rounded-r-full bg-[#B695FC]
          fixed top-1/2 left -translate-y-1/2 z-22 
          contain-content bg-no-repeat bg-center bg-contain"
@@ -42,21 +41,21 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
               <p className="text-gray-300 text-center">Steven Spencer's blog<br></br>about life.</p>
             </div>
             <div className="flex flex-col flex-1 justify-center items-center">
-              <h5 className="p-5 text-2xl">About</h5>
+              <h5 className="p-5 text-2xl text-[#9379cc]">About</h5>
               <ul className="text-center">
                 <li><a>Me</a></li>
                 <li><a>Blogs</a></li>
               </ul>
             </div>
             <div className="flex flex-col flex-1 justify-center items-center">
-              <h5 className="p-5 text-2xl">Privacy</h5>
+              <h5 className="p-5 text-2xl text-[#9379cc]">Privacy</h5>
               <ul className="text-center">
                 <li><a>Privacy Policy</a></li>
                 <li><a>Terms and Conditions</a></li>
               </ul>
             </div>
             <div className="flex flex-col flex-1 justify-center items-center">
-              <h5 className="p-5 text-2xl">Social</h5>
+              <h5 className="p-5 text-2xl text-[#9379cc]">Social</h5>
               <ul className="text-center">
                 <li><a>Discord</a></li>
                 <li><a>Instagram</a></li>

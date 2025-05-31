@@ -12,11 +12,11 @@ import { RotatingIcons } from '@/components/RotatingIcons/RotatingIcons'
 export default function HomePage() {
 
   const rotating_icons: NavIconProps[] = [
-    { id: "blog1", title: "Blog 1", bg_path: "/blog_icon.svg" },
-    { id: "blog2", title: "Blog 2", bg_path: "/blog_icon.svg" },
-    { id: "blog3", title: "Blog 3", bg_path: "/blog_icon.svg" },
-    { id: "blog4", title: "Blog 4", bg_path: "/blog_icon.svg" },
-    { id: "blog5", title: "Blog 5", bg_path: "/blog_icon.svg" }
+    { id: "blog1", title: "Who still reads?", bg_path: "/blog_icon.svg", link: "/" },
+    { id: "blog2", title: "What is color?", bg_path: "/blog_icon.svg", link: "/" },
+    { id: "blog3", title: "College Rambling", bg_path: "/blog_icon.svg", link: "/" },
+    { id: "blog4", title: "Why Solo Leveling?", bg_path: "/blog_icon.svg", link: "/" },
+    { id: "blog5", title: "June Marvel Update", bg_path: "/blog_icon.svg", link: "/" }
   ];
 
   return (
@@ -52,13 +52,13 @@ export default function HomePage() {
         <div className="flex flex-row content-between">
           <div className="flex md:w-1/2 h-[60vh] border-radius-3">
             <div className="flex flex-col items-left justify-baseline p-10 px-30 text-left">
-              <h1 className="text-white font-bold text-2xl">What's here</h1>
+              <h1 className="text-[#9379cc] font-bold text-2xl">What's here</h1>
               <p className="text-white w-44">A bunch of blog posts I have started to accumulate. I tend to post of cool stuff sometimes.
               </p>
             </div>
           </div>
           <div className="flex grow flex-col w-[50%] items-end justify-end p-10 px-30 text-right">
-            <h1 className="text-white font-bold text-2xl">Why it's here</h1>
+            <h1 className="text-[#9379cc] font-bold text-2xl ">Why it's here</h1>
             <p className="text-white w-44">I made this blog because I have nothing better do with myself and I enjoy it.
             </p>
           </div>
@@ -74,17 +74,17 @@ export default function HomePage() {
         <h2 className="text-4xl font-bold">What do I post here?</h2>
         <div className="flex justify-center items-center">
           <div className="p-5">
-            <h3 className="text-2xl font-semibold">Gaming</h3>
+            <h3 className="text-2xl font-semibold text-[#9379cc] underline">Gaming</h3>
             <p>I've been playing Marvel Rivals and I like keeping my pages updated with the newest Marvel
               related content. I used to play LoL, Overwatch, Old School RuneScape, and so many other titles
               I could go on for days.</p>
           </div>
           <div className="p-5">
-            <h3 className="text-2xl font-semibold">Anime</h3>
+            <h3 className="text-2xl font-semibold text-[#9379cc] underline">Anime</h3>
             <p>I enjoy watching seasonal anime and posting my favorites. I post about the worst and best anime of each season.</p>
           </div>
           <div className="p-5">
-            <h3 className="text-2xl font-semibold">Tech Support</h3>
+            <h3 className="text-2xl font-semibold text-[#9379cc] underline">Tech Support</h3>
             <p>I graduated college with a computer science degree, so I know a thing or two about computers.
               I have always wanted to start a page where I could let people know useful tutorials or helpful tips,
               this is that dream realized.</p>
@@ -94,7 +94,9 @@ export default function HomePage() {
 
       {/* Rotating thing */}
       <section>
-        <RotatingIcons data={{ icons: rotating_icons }} className="bg-[#9379cc] p-5" />
+        <div className="flex items-center justify-center w-full h-fit bg-[#121212] py-5">
+          <RotatingIcons data={{ icons: rotating_icons }} className="bg-[#9379cc] rounded-4xl" />
+        </div>
       </section>
 
       {/* Brook Image */}

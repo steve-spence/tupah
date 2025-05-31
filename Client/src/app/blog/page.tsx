@@ -4,12 +4,9 @@
 import Link from 'next/link'
 import React from 'react'
 
-export function BlogPage() {
+export default function BlogPage() {
     return (
-        <React.Fragment>
-            <h1>Blog</h1>
-            <Link href='/'>Home</Link>
-        </React.Fragment>
+        <p>Hello world</p>
     )
 
 }
