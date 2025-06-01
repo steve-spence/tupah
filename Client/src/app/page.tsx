@@ -8,6 +8,7 @@ import { LeftNav } from "@/components/LeftNav/LeftNav"
 import { useState } from 'react'
 import { NavIcon, NavIconProps } from '@/components/NavIcon/NavIcon'
 import { RotatingIcons } from '@/components/RotatingIcons/RotatingIcons'
+import { Header } from '@/components/Header/Header'
 
 export default function HomePage() {
 
@@ -34,17 +35,7 @@ export default function HomePage() {
 
       {/* Home Page Header */}
       <section id="home">
-        <div className="flex justify-between bg-[#272727] p-5 h-32">
-          <img src="/owl_logo.png" className="h-full" alt="Logo"></img>
-          <div className="flex flex-col items-center">
-            <h1 className="text-white font-extrabold mb-6 tracking-wide text-5xl">Tupah</h1>
-            <h4 className="text-gray-300 italic">Unfiltered thoughts with occasional genius.</h4>
-          </div>
-          <div className="flex flex-row text-white gap-5 items-center justify-center p-10 font-semibold">
-            <a href="/about">About</a>
-            <a href="/blog">Blogs</a>
-          </div>
-        </div>
+        <Header data={{ title: "Tupah", subtext: "Unfiltered thoughts with occasional genius." }} />
       </section>
 
       {/* The section in front of the background */}
@@ -64,8 +55,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-
 
       {/* What I post section */}
       <section id="posts">
