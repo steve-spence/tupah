@@ -1,14 +1,11 @@
 // Home Page 
 'use client'
 
-import Link from 'next/link'
-import Image from 'next/image'
 import React from 'react'
-import { LeftNav } from "@/components/LeftNav/LeftNav"
-import { useState } from 'react'
-import { NavIcon, NavIconProps } from '@/components/NavIcon/NavIcon'
+import { NavIconProps } from '@/components/NavIcon/NavIcon'
 import { RotatingIcons } from '@/components/RotatingIcons/RotatingIcons'
 import { Header } from '@/components/Header/Header'
+import Image from 'next/image'
 
 export default function HomePage() {
 
@@ -27,7 +24,8 @@ export default function HomePage() {
       <section>
         <div className="z-[-1] fixed flex top-0 left-0 w-full h-full items-top justify-center bg-[#171717]">
           <div className="transition-all duration-300 w-[50%] min-w-[640px] h-[50%]">
-            <img className="z-[-10%]" src="/my_favorite.svg" alt="https://pixabay.com/users/andsproject-26081561/ I love their art."></img>
+            {/* <img className="z-[-10%]" src="/my_favorite.svg" alt="https://pixabay.com/users/andsproject-26081561/ I love their art."></img> */}
+            <Image src="/my_favorite.svg" className="z-1" fill alt="https://pixabay.com/users/andsproject-26081561/ I love their art." />
           </div>
         </div>
       </section>
@@ -80,6 +78,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
         {/* Rotating Blog Posts */}
         <div className="flex items-center justify-center w-full h-fit bg-[#121212] py-5">
           <RotatingIcons data={{ icons: rotating_icons }} className="bg-[#9379cc] rounded-4xl" />
@@ -91,7 +90,8 @@ export default function HomePage() {
         <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-amber-50 p-5">
 
           <p className="italic text-2xl p-3">"Death leaves nothing behind."</p>
-          <img src="/brook.png" className="rounded-4xl h-32"></img>
+          {/* <img src="/brook.png" className="rounded-4xl h-32"></img> */}
+          <Image src="/brook.png" className="rounded-4xl" width="64" height="64" alt="Brook, One Piece" />
           <p>Brook</p>
           <p className="text-gray-500">Musician, New World</p>
 

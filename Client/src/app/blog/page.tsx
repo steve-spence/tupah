@@ -6,7 +6,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { Header } from '@/components/Header/Header'
-import { NavIcon, NavIconProps } from '@/components/NavIcon/NavIcon'
+import { NavIcon } from '@/components/NavIcon/NavIcon'
 
 // testing packages
 import Dropdown from 'react-bootstrap/Dropdown'

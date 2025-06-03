@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from "react";
 import { NavIcon, NavIconProps } from "@/components/NavIcon/NavIcon"
-import { MotionConfig } from "motion/react";
 import { motion } from 'motion/react'
 
 export function RotatingIcons({ data, className }: Props) {

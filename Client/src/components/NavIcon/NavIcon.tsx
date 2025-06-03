@@ -1,13 +1,12 @@
 // Navigation icon
 
 import React from 'react';
-import { motion } from 'motion/react'
 import Link from 'next/link'
 
 export function NavIcon({ data, }: Props) {
 
     const { title, bg_path, link } = data;
-    var hasPath = bg_path != null;
+    const hasPath = bg_path != null;
 
     return (
         // styling for the icon
