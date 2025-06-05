@@ -7,5 +7,4 @@ export default function BlogPostPage() {
             <p>This is a blog post</p>
         </div>
     )
-
 }
