@@ -12,18 +12,8 @@
 - 🧠 Powered by React and Next.js App Router
 
 ## 📂 Folder Structure
-/app
-/about
-/blog
-/components
-/Header
-/NavIcon
-/RotatingIcons
-/public
-/my_favorite.svg
-/owl_logo.png
-/blog_icon.svg
-/styles
+Client for client side code
+Server for server code if I need it
 
 
 ## 🚀 Tech Stack
