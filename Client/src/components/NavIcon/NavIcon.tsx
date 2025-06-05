@@ -13,7 +13,7 @@ export function NavIcon({ data, }: Props) {
         // might need to safelist this might cause error or something
         <Link href={link} className="no-underline text-inherit">
             <div className="flex flex-col items-center justify-center w-fit h-fit">
-                <div className={`w-25 h-15 rounded-2xl bg-no-repeat bg-center bg-contain p-6 
+                <div className={`w-fit h-auto rounded-2xl bg-no-repeat bg-center bg-contain p-6 
                 bg-grey-800 flex justify-center items-center`}
                     style={{ backgroundImage: `url(${hasPath ? bg_path : "#ff0000"})` }}>
 

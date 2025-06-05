@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { NavIcon, NavIconProps } from "@/components/NavIcon/NavIcon"
 import { motion } from 'motion/react'
 
+
+// Creates container that rotates icons horizontally
+// using more than 4 elements will make it go off the page on mobile
 export function RotatingIcons({ data, className }: Props) {
 
     const [icons, setIcons] = useState<NavIconProps[]>(data.icons);

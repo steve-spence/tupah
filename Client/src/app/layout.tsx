@@ -28,7 +28,6 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
          fixed top-1/2 -translate-y-1/2 z-22 transition-all duration-300 ${isOpen ? 'left-25 bg-[#9379cc]' : 'left-0 bg-[#B695FC]'}
          contain-content bg-no-repeat bg-center bg-contain cursor-pointer`}
               onClick={() => setIsOpen(prev => !prev)}>
-              {/* <img src="/pull.svg" alt="Sidebar" className="scale-x-[-1]" /> */}
               <Image src="pull.svg" fill alt="Sidebar" className="scale-x-[-1]" />
             </button>
           </div>
@@ -38,12 +37,13 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
         </div>
 
         <footer>
-          <div className="flex flex-row w-full h-fit bg-[#212121] text-white gap-5">
-            <div className="flex flex-col items-center px-30 py-10">
-              {/* <img src="/owl_logo.png" className="w-55 p-10"></img> */}
-              <Image src="/owl_logo.png" className="p-10" width="55" height="55" alt=" Owl Logo" />
+          <div className="flex flex-row w-full h-fit bg-[#212121] text-white gap-5 py-10">
+            <div className="hidden sm:flex flex-col items-center p-5">
+              <div className="relative lg:w-64 lg:h-64 w-48 h-48">
+                <Image src="/owl_logo.png" className="p-10 object-contain" fill alt=" Owl Logo" />
+              </div>
               <h1 className="py-5">Tupah</h1>
-              <p className="text-gray-300 text-center">Steven Spencer's blog<br></br>about life.</p>
+              <p className="text-gray-300 text-center">Steven Spencer's website<br></br>for stuff.</p>
             </div>
             <div className="flex flex-col flex-1 justify-center items-center">
               <h5 className="p-5 text-2xl text-[#9379cc]">About</h5>
