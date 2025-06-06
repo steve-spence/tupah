@@ -7,6 +7,8 @@ export function NavIcon({ data, }: Props) {
 
     const { title, bg_path, link } = data;
     const hasPath = bg_path != null;
+    console.log("Rendering NavIcon with link:", link);
+
 
     return (
         // styling for the icon

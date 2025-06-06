@@ -12,9 +12,9 @@ export default function HomePage() {
   // Max 4 otherwise responsive is thrown off
   const rotating_icons: NavIconProps[] = [
     { id: "blog1", title: "Who still reads?", bg_path: "/blog_icon.svg", link: "/" },
-    { id: "blog2", title: "What is color?", bg_path: "/blog_icon.svg", link: "/" },
-    { id: "blog3", title: "College Rambling", bg_path: "/blog_icon.svg", link: "/" },
-    { id: "blog4", title: "Why Solo Leveling?", bg_path: "/blog_icon.svg", link: "/" },
+    { id: "blog2", title: "The First Post", bg_path: "/blog_icon.svg", link: "blog/the-first-post" },
+    { id: "blog3", title: "What College gives you.", bg_path: "/blog_icon.svg", link: "blog/what-college-gives-you" },
+    { id: "blog4", title: "Why Solo Leveling?", bg_path: "/blog_icon.svg", link: "blog/why-solo-leveling" },
   ];
 
   return (
