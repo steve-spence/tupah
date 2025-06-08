@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link'
 
-export function NavIcon({ data, }: Props) {
+export function NavIcon({ data, className, onClick }: Props) {
 
     const { title, bg_path, link } = data;
     const hasPath = bg_path != null;
@@ -13,7 +13,7 @@ export function NavIcon({ data, }: Props) {
         // styling for the icon
         // might need to safelist this might cause error or something
         <Link href={link} className="no-underline text-inherit">
-            <div className="flex flex-col items-center justify-center w-fit h-fit">
+            <div onClick={onClick} className={`${className} flex flex-col items-center justify-center w-fit h-fit`}>
                 <div className={`w-fit h-auto rounded-2xl bg-no-repeat bg-center bg-contain p-6 
                 bg-grey-800 flex justify-center items-center`}
                     style={{ backgroundImage: `url(${hasPath ? bg_path : "#ff0000"})` }}>
@@ -33,5 +33,7 @@ export interface NavIconProps {
 }
 
 type Props = {
-    data: NavIconProps
+    data: NavIconProps,
+    className?: string,
+    onClick?: () => void,
 };
