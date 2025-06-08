@@ -1,6 +1,6 @@
 
 import React, { ImgHTMLAttributes } from 'react'
-import Image from 'next/image'
+import Image, { ImageProps } from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getPostBySlug } from '@/lib/mdx'
 import { notFound } from 'next/navigation'
@@ -23,12 +23,17 @@ export default async function BlogPost({ params }: Props) {
     const post = await getPostBySlug(slug);
 
     if (!post) return notFound();
-    console.log("slug, ", slug);
-    console.log("content, ", post.content);
 
     // Add components needed in mdx here NO DANGEROUS STUFF CHECK IT ALL FOR EVILLLLLLLL!!!!!!!!!!
     const components = {
-        img: (props: any) => (<Image {...props} alt={props.alt || ''} width={300} height={300} className="rounded-xl" />),
+        img: (props: ImageProps) => (<Image {...props} width={300} height={300} className="rounded-xl" />),
+        // img: (props) => (
+        //     <Image
+        //         sizes="100vw"
+        //         style={{ width: '100%', height: 'auto' }}
+        //         {...(props as ImageProps)}
+        //     />
+        // ),
     };
 
     return (
