@@ -32,7 +32,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
             </button>
           </div>
 
-          <main className={`transition-all duration-300 flex-1`}>{children}</main>
+          <main className={`transition-all duration-300 flex-1 overflow-x-hidden`}>{children}</main>
 
         </div>
 
