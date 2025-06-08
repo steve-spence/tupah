@@ -20,11 +20,9 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
 
-      {/* Background Image  ----------------- 4000x4000px size svg ------------------ */}
       <section>
         <div className="fixed top-0 w-full h-fit z-[-1] bg-[#171717] flex flex-col gap-10 items-center justify-center pb-30">
           <div className="w-[90vw] max-w-[640px] aspect-[1/1] relative">
-            {/* <img className="z-[-10%]" src="/my_favorite.svg" alt="https://pixabay.com/users/andsproject-26081561/ I love their art."></img> */}
             <Image src="/my_favorite.svg" className="z-1 object-contain" fill alt="https://pixabay.com/users/andsproject-26081561/ I love their art." />
           </div>
           <div className="w-[90vw] max-w-[640px] aspect-[1/1] relative">

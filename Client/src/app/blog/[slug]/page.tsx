@@ -1,8 +1,10 @@
 
-import React from 'react'
+import React, { ImgHTMLAttributes } from 'react'
+import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getPostBySlug } from '@/lib/mdx'
 import { notFound } from 'next/navigation'
+import { Header } from '@/components/Header/Header';
 
 
 interface Props {
@@ -21,13 +23,26 @@ export default async function BlogPost({ params }: Props) {
     const post = await getPostBySlug(slug);
 
     if (!post) return notFound();
-    console.log("slug", slug);
+    console.log("slug, ", slug);
+    console.log("content, ", post.content);
 
     // Add components needed in mdx here NO DANGEROUS STUFF CHECK IT ALL FOR EVILLLLLLLL!!!!!!!!!!
-    const components = {};
+    const components = {
+        img: (props: any) => (<Image {...props} alt={props.alt || ''} width={300} height={300} className="rounded-xl" />),
+    };
+
     return (
         <div>
-            <MDXRemote source={post.mdxSource} components={components} />
+            {/* Blog Post Header */}
+            <section id="home">
+                <Header data={{ title: "Tupah", subtext: "Unfiltered thoughts with occasional genius." }}
+                    className="flex sm:justify-between justify-center bg-[#272727] p-5 h-32 w-full z-2" />
+
+            </section>
+            <div className="prose lg:prose-xl mx-auto h-fit py-5">
+                <MDXRemote source={post.content} components={components} />
+            </div>
         </div>
+
     )
 }

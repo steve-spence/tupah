@@ -17,16 +17,11 @@ export async function getPostBySlug(slug: string) {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
     const { data, content } = matter(fileContents);
-    const mdxSource = await serialize(content, {
-        mdxOptions: {
-            remarkPlugins: [remarkGfm],
-        },
-        scope: data,
-    });
+    console.log("content, ", content);
 
     return {
         slug: realSlug,
         fontMatter: data,
-        mdxSource,
+        content,
     };
 }
