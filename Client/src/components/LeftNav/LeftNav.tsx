@@ -3,17 +3,18 @@
 import React from 'react';
 import { NavIcon } from '@/components/NavIcon/NavIcon'
 
-export function LeftNav({ data, className }: Props) {
+export function LeftNav({ data, className, onNavigate }: Props) {
     className = className == null ? "" : className;
 
     return (
         <div className={`${className} h-full flex flex-col justify-between items-center fixed z-100`}>
             <div className="flex flex-col items-center">
-                <NavIcon data={{ id: "nav_home", title: "Home", bg_path: "/blog_icon.svg", link: "/" }} />
-                <NavIcon data={{ id: "nav_about", title: "About me", bg_path: "/blog_icon.svg", link: "/about" }} />
-                <NavIcon data={{ id: "nav_blog", title: "Blog", bg_path: "/blog_icon.svg", link: "/blog" }} />
+                <NavIcon data={{ id: "nav_home", title: "Home", bg_path: "/blog_icon.svg", link: "/" }} onClick={onNavigate} />
+                <NavIcon data={{ id: "nav_about", title: "About me", bg_path: "/blog_icon.svg", link: "/about" }} onClick={onNavigate} className="whitespace-nowrap" />
+                <NavIcon data={{ id: "nav_blog", title: "Blog", bg_path: "/blog_icon.svg", link: "/blog" }} onClick={onNavigate} />
             </div>
-            <NavIcon data={{ id: "nav_settings", title: "Settings", bg_path: "/settings_icon.svg", link: "/settings" }} />
+            {/* This might have to be a different component for it to do dark mode */}
+            <NavIcon data={{ id: "nav_settings", title: "Mode", bg_path: "/settings_icon.svg", link: "" }} onClick={onNavigate} />
         </div>
     );
 }
@@ -25,5 +26,6 @@ interface LeftNavProps {
 
 type Props = {
     data?: LeftNavProps,
-    className?: string
+    className?: string,
+    onNavigate?: () => void,
 };

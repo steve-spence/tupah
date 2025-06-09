@@ -25,13 +25,6 @@ export default async function BlogPost({ params }: { params: PostParams }) {
     // Add components needed in mdx here NO DANGEROUS STUFF CHECK IT ALL FOR EVILLLLLLLL!!!!!!!!!!
     const components = {
         img: (props: ImageProps) => (<Image {...props} alt={props.alt || 'Blog Image'} width={300} height={300} className="rounded-xl" />),
-        // img: (props) => (
-        //     <Image
-        //         sizes="100vw"
-        //         style={{ width: '100%', height: 'auto' }}
-        //         {...(props as ImageProps)}
-        //     />
-        // ),
     };
 
     return (

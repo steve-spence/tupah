@@ -23,6 +23,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
           <div className={`transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
             <LeftNav
               className={`transition-all duration-300 bg-[#9379cc] overflow-hidden text-white ${isOpen ? 'w-25 opacity-100' : 'w-0 opacity-0'}`}
+              onNavigate={() => setIsOpen(false)}
             ></LeftNav>
             <button className={`w-8 h-16 rounded-r-full
          fixed top-1/2 -translate-y-1/2 z-22 transition-all duration-300 ${isOpen ? 'left-25 bg-[#9379cc]' : 'left-0 bg-[#B695FC]'}

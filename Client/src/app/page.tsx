@@ -11,9 +11,9 @@ export default function HomePage() {
 
   // Max 4 otherwise responsive is thrown off
   const rotating_icons: NavIconProps[] = [
-    { id: "blog1", title: "Who still reads?", bg_path: "/blog_icon.svg", link: "/" },
+    { id: "blog1", title: "Orlando", bg_path: "/blog_icon.svg", link: "/orlando" },
     { id: "blog2", title: "The First Post", bg_path: "/blog_icon.svg", link: "blog/the-first-post" },
-    { id: "blog3", title: "What College gives you.", bg_path: "/blog_icon.svg", link: "blog/what-college-gives-you" },
+    { id: "blog3", title: "Finding out", bg_path: "/blog_icon.svg", link: "blog/finding-out" },
     { id: "blog4", title: "Why Solo Leveling?", bg_path: "/blog_icon.svg", link: "blog/why-solo-leveling" },
   ];
 
@@ -31,7 +31,6 @@ export default function HomePage() {
 
         </div>
       </section>
-
 
       {/* Home Page Header */}
       <section id="home">
@@ -58,21 +57,20 @@ export default function HomePage() {
 
       {/* What I post section */}
       <section id="posts">
-        <div className="flex flex-col p-17 gap-2 w-full justify-center items-center bg-[#121212]
-      text-white">
+        <div className="flex flex-col p-10 gap-5 w-full justify-center items-center bg-[#121212] text-white">
           <h2 className="text-4xl font-bold text-center">What do I post here?</h2>
-          <div className="flex flex-col md:flex-row justify-center items-center">
-            <div className="p-5">
+          <div className="flex flex-col md:flex-row gap-5 justify-center items-center">
+            <div>
               <h3 className="text-2xl font-semibold text-[#9379cc] underline text-center md:text-left">Gaming</h3>
               <p>I've been playing Marvel Rivals and I like keeping my pages updated with the newest Marvel
                 related content. I used to play LoL, Overwatch, Old School RuneScape, and so many other titles
                 I could go on for days.</p>
             </div>
-            <div className="p-5">
+            <div>
               <h3 className="text-2xl font-semibold text-[#9379cc] underline text-center md:text-left">Anime</h3>
               <p>I enjoy watching seasonal anime and posting my favorites. I post about the worst and best anime of each season.</p>
             </div>
-            <div className="p-5">
+            <div>
               <h3 className="text-2xl font-semibold text-[#9379cc] underline text-center md:text-left">Tech Support</h3>
               <p>I graduated college with a computer science degree, so I know a thing or two about computers.
                 I have always wanted to start a page where I could let people know useful tutorials or helpful tips,
