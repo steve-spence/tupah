@@ -40,7 +40,7 @@ export function RotatingIcons({ data, className }: Props) {
 }
 
 const spring = {
-    type: "spring",
+    type: 'spring',
     damping: 25,
     stiffness: 300,
 }
