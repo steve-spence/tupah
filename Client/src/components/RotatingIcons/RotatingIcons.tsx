@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { NavIcon, NavIconProps } from "@/components/NavIcon/NavIcon"
 import { motion } from 'motion/react'
+import { Transition } from 'framer-motion'
 
 
 // Creates container that rotates icons horizontally
@@ -39,7 +40,7 @@ export function RotatingIcons({ data, className }: Props) {
     );
 }
 
-const spring = {
+const spring: Transition = {
     type: 'spring',
     damping: 25,
     stiffness: 300,
