@@ -23,3 +23,31 @@ export async function getPostBySlug(slug: string) {
         content,
     };
 }
+
+export type mdxProps = {
+    title: string,
+    date: string,
+    tags: string[],
+    slug: string,
+}
+
+export function getAllPosts(): mdxProps[] {
+    const fileNames = fs.readdirSync(POSTS_PATH);
+
+    const posts: mdxProps[] = fileNames
+        .filter((file) => file.endsWith('.mdx'))
+        .map((fileName) => {
+            const fullPath = path.join(POSTS_PATH, fileName);
+            const fileContents = fs.readFileSync(fullPath, 'utf8');
+            const { data } = matter(fileContents);
+
+            return {
+                title: data.title,
+                date: data.date,
+                tags: data.tags || [],
+                slug: data.slug || fileName.replace(/\.mdx$/, ''),
+            };
+        });
+
+    return posts;
+}

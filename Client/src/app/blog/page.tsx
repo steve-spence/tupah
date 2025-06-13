@@ -1,30 +1,20 @@
 // Blog Page
 // Add some display page for the home page for blogs like these are all my blogs!
 
-'use client'
-
 import Link from 'next/link'
 import React from 'react'
 import { Header } from '@/components/Header/Header'
 import { NavIcon } from '@/components/NavIcon/NavIcon'
-import { useState } from 'react'
+import { getAllPosts, mdxProps } from '@/lib/mdx';
+import ClientSearch from '@/components/ClientSearch/ClientSerach'
 
 // testing packages
 import TextField from '@mui/material/TextField'
 import Dropdown from 'react-bootstrap/Dropdown'
 
 
-export default function BlogPage() {
-
-    const [query, setQuery] = useState("");
-    const [results, setResults] = useState([]);
-
-    /* Link to slug? */
-    enum searchBarWords {
-        "Search",
-        "Explore",
-        "Enjoy",
-    };
+export default async function BlogPage() {
+    const posts = getAllPosts();
 
     return (
         <div>
@@ -48,9 +38,7 @@ export default function BlogPage() {
                 </div>
 
                 {/* Search Bar */}
-                <div className=" flex bg-[#9379cc] rounded-4xl m-10">
-                    <TextField className=" h-full w-full" label="Search" id="outlined-basic" type="text"></TextField>
-                </div>
+                <ClientSearch posts={posts} />
             </div>
 
             {/* Filtered Section */}
