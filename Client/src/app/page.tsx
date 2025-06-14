@@ -11,7 +11,7 @@ export default function HomePage() {
 
   // Max 4 otherwise responsive is thrown off
   const rotating_icons: NavIconProps[] = [
-    { id: "blog1", title: "Orlando", bg_path: "/blog_icon.svg", link: "/orlando" },
+    { id: "blog1", title: "Orlando", bg_path: "/blog_icon.svg", link: "blog/orlando" },
     { id: "blog2", title: "The First Post", bg_path: "/blog_icon.svg", link: "blog/the-first-post" },
     { id: "blog3", title: "Finding out", bg_path: "/blog_icon.svg", link: "blog/finding-out" },
     { id: "blog4", title: "Why Solo Leveling?", bg_path: "/blog_icon.svg", link: "blog/why-solo-leveling" },

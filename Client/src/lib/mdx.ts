@@ -29,6 +29,7 @@ export type mdxProps = {
     date: string,
     tags: string[],
     slug: string,
+    image_path: string,
 }
 
 export function getAllPosts(): mdxProps[] {
@@ -46,6 +47,7 @@ export function getAllPosts(): mdxProps[] {
                 date: data.date,
                 tags: data.tags || [],
                 slug: data.slug || fileName.replace(/\.mdx$/, ''),
+                image_path: data.image_path,
             };
         });
 
