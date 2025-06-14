@@ -29,7 +29,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
          fixed top-1/2 -translate-y-1/2 z-22 transition-all duration-300 ${isOpen ? 'left-25 bg-[#9379cc]' : 'left-0 bg-[#B695FC]'}
          contain-content bg-no-repeat bg-center bg-contain cursor-pointer`}
               onClick={() => setIsOpen(prev => !prev)}>
-              <Image src="/pull.svg" fill alt="Sidebar" className="scale-x-[-1]" />
+              <Image src="/icons/pull.svg" fill alt="Sidebar" className="scale-x-[-1]" />
             </button>
           </div>
 
@@ -41,7 +41,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
           <div className="flex flex-row w-full h-fit bg-[#212121] text-white gap-5 py-10">
             <div className="hidden sm:flex flex-col items-center p-5">
               <div className="relative lg:w-64 lg:h-64 w-48 h-48">
-                <Image src="/owl_logo.png" className="p-10 object-contain" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt=" Owl Logo" />
+                <Image src="/pictures/owl_logo.png" className="p-10 object-contain" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt=" Owl Logo" />
               </div>
               <h1 className="py-5">Tupah</h1>
               <p className="text-gray-300 text-center">Steven Spencer's website<br></br>for stuff.</p>

@@ -11,10 +11,10 @@ export default function HomePage() {
 
   // Max 4 otherwise responsive is thrown off
   const rotating_icons: NavIconProps[] = [
-    { id: "blog1", title: "Orlando", bg_path: "/blog_icon.svg", link: "blog/orlando" },
-    { id: "blog2", title: "The First Post", bg_path: "/blog_icon.svg", link: "blog/the-first-post" },
-    { id: "blog3", title: "Finding out", bg_path: "/blog_icon.svg", link: "blog/finding-out" },
-    { id: "blog4", title: "Why Solo Leveling?", bg_path: "/blog_icon.svg", link: "blog/why-solo-leveling" },
+    { id: "blog1", title: "Orlando", bg_path: "/pictures/blog/orlando.jpg", link: "blog/orlando" },
+    { id: "blog2", title: "The First Post", bg_path: "/pictures/blog/first_post.jpg", link: "blog/the-first-post" },
+    { id: "blog3", title: "Finding out", bg_path: "/pictures/blog/finding_out.jpg", link: "blog/finding-out" },
+    { id: "blog4", title: "Why Solo Leveling?", bg_path: "/pictures/blog/solo_leveling.png", link: "blog/why-solo-leveling" },
   ];
 
   return (
@@ -23,7 +23,7 @@ export default function HomePage() {
       <section>
         <div className="fixed top-0 w-full h-fit z-[-1] bg-[#171717] flex flex-col gap-10 items-center justify-center pb-30">
           <div className="w-[90vw] max-w-[640px] aspect-[1/1] relative">
-            <Image src="/my_favorite.svg" className="z-1 object-contain" fill alt="https://pixabay.com/users/andsproject-26081561/ I love their art." />
+            <Image src="/pictures/my_favorite.svg" className="z-1 object-contain" fill alt="https://pixabay.com/users/andsproject-26081561/ I love their art." />
           </div>
           <div className="w-[90vw] max-w-[640px] aspect-[1/1] relative">
             <Image src="/blowing_girl.png" className="z-1 object-contain" fill alt="https://pixabay.com/users/andsproject-26081561/ I love their art." />
@@ -93,7 +93,7 @@ export default function HomePage() {
           {/* Responsive Image Container */}
           <div className="relative lg:w-32 lg:h-32 md:w-24 md:h-24 w-16 h-16">
             <Image
-              src="/brook.png"
+              src="/pictures/brook.png"
               alt="Brook, One Piece"
               fill
               className="rounded-4xl object-contain"

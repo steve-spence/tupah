@@ -9,7 +9,7 @@ export function Header({ data, className }: Props) {
         <div className={`${className}`}>
             <div className="hidden relative sm:flex sm:w-24 sm:h-24">
                 <Link href="/">
-                    <Image src="/owl_logo.png" fill alt="Logo" />
+                    <Image src="/pictures/owl_logo.png" fill alt="Logo" />
                 </Link>
             </div>
             <div className="flex flex-col items-center">

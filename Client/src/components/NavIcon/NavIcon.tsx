@@ -17,7 +17,6 @@ export function NavIcon({ data, className, onClick }: Props) {
                 <div className={`w-fit h-auto rounded-2xl bg-no-repeat bg-center bg-contain p-6 
                 bg-grey-800 flex justify-center items-center`}
                     style={{ backgroundImage: `url(${hasPath ? bg_path : "#ff0000"})` }}>
-
                 </div>
                 <p className="p-3">{title}</p>
             </div>
