@@ -29,7 +29,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
          fixed top-1/2 -translate-y-1/2 z-22 transition-all duration-300 ${isOpen ? 'left-25 bg-[#9379cc]' : 'left-0 bg-[#B695FC]'}
          contain-content bg-no-repeat bg-center bg-contain cursor-pointer`}
               onClick={() => setIsOpen(prev => !prev)}>
-              <Image src="/icons/pull.svg" fill alt="Sidebar" className="scale-x-[-1]" />
+              <Image src={isOpen ? "/icons/pull_right.svg" : "/icons/pull_left.svg"} fill alt="Sidebar" className="scale-x-[-1] scale-80" />
             </button>
           </div>
 
