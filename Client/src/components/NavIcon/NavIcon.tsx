@@ -13,11 +13,10 @@ export function NavIcon({ data, className, onClick }: Props) {
         // styling for the icon
         // might need to safelist this might cause error or something
         <Link href={link} className="no-underline text-inherit">
-            <div onClick={onClick} className={`${className} flex flex-col items-center justify-center w-fit h-fit`}>
+            <div onClick={onClick} className={`${className} flex flex-col items-center justify-center`}>
                 <div className={`w-fit h-auto rounded-2xl bg-no-repeat bg-center bg-contain p-6 
                 bg-grey-800 flex justify-center items-center`}
                     style={{ backgroundImage: `url(${hasPath ? bg_path : "#ff0000"})` }}>
-
                 </div>
                 <p className="p-3">{title}</p>
             </div>
