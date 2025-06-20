@@ -1,7 +1,7 @@
 // Home Page Layout
 'use client'
 
-import { useState, } from 'react';
+import { useEffect, useState, } from 'react';
 import React from "react";
 import { LeftNav } from '@/components/LeftNav/LeftNav';
 import '@/app/globals.css';
@@ -22,11 +22,12 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
           {/* Place children where you want to render a page or nested layout */}
           <div className={`transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
             <LeftNav
-              className={`transition-all duration-300 bg-[#9379cc] overflow-hidden text-white ${isOpen ? 'w-25 opacity-100' : 'w-0 opacity-0'}`}
+              className={`bg-[#9379cc] text-white w-25 fixed top-0 left-0 h-full transition-transform duration-300 ease-in-out
+               ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
               onNavigate={() => setIsOpen(false)}
             ></LeftNav>
             <button className={`w-8 h-16 rounded-r-full
-         fixed top-1/2 -translate-y-1/2 z-22 transition-all duration-300 ${isOpen ? 'left-25 bg-[#9379cc]' : 'left-0 bg-[#B695FC]'}
+         fixed top-1/2 -translate-y-1/2 z-22 transition-all ease-in-out duration-300 ${isOpen ? 'left-25 bg-[#9379cc]' : 'left-0 bg-[#B695FC]'}
          contain-content bg-no-repeat bg-center bg-contain cursor-pointer`}
               onClick={() => setIsOpen(prev => !prev)}>
               <Image src={isOpen ? "/icons/pull_right.svg" : "/icons/pull_left.svg"} fill alt="Sidebar" className="scale-x-[-1] scale-80" />

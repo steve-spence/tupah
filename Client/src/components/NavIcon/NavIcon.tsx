@@ -18,7 +18,7 @@ export function NavIcon({ data, className, onClick }: Props) {
                 bg-grey-800 flex justify-center items-center`}
                     style={{ backgroundImage: `url(${hasPath ? bg_path : "#ff0000"})` }}>
                 </div>
-                <p className="p-3">{title}</p>
+                <p className="p-3 text-center">{title}</p>
             </div>
         </Link>
     );

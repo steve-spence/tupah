@@ -21,7 +21,9 @@ export default function HomePage() {
     <div className="flex flex-col">
 
       <section>
-        <div className="fixed top-0 w-full h-fit z-[-1] bg-[#171717] flex flex-col gap-10 items-center justify-center pb-30">
+        <div className="fixed top-0 w-full h-fit z-[-1] bg-[#ffffff] dark:bg-[#171717] 
+        transition-colors duration-300 ease-in-out
+          flex flex-col gap-10 items-center justify-center pb-30" >
           <div className="w-[90vw] max-w-[640px] aspect-[1/1] relative">
             <Image src="/pictures/my_favorite.svg" className="z-1 object-contain" fill alt="https://pixabay.com/users/andsproject-26081561/ I love their art." />
           </div>
@@ -35,7 +37,8 @@ export default function HomePage() {
       {/* Home Page Header */}
       <section id="home">
         <Header data={{ title: "Tupah", subtext: "Unfiltered thoughts with occasional genius." }}
-          className="flex sm:justify-between justify-center bg-[#272727] p-5 h-32 w-full z-2" />
+          className="flex sm:justify-between justify-center bg-[#272727] dark:bg-[#1c1c1c] p-5 h-32 w-full z-2"
+        />
 
       </section>
 
@@ -57,7 +60,7 @@ export default function HomePage() {
 
       {/* What I post section */}
       <section id="posts">
-        <div className="flex flex-col p-10 gap-5 w-full justify-center items-center bg-[#121212] text-white">
+        <div className="flex flex-col p-10 gap-5 w-full justify-center items-center bg-[#ffffff] dark:bg-[#0e0e0e] text-white">
           <h2 className="text-4xl font-bold text-center">What do I post here?</h2>
           <div className="flex flex-col md:flex-row gap-5 justify-center items-center">
             <div>
