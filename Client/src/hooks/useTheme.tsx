@@ -3,7 +3,12 @@
 import { useEffect, useState } from 'react'
 
 export function useTheme() {
-    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "system");
+    const [theme, setTheme] = useState(() => {
+        if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+            return localStorage.getItem("theme") || "system";
+        }
+        return "system";
+    });
 
     const element = document.documentElement;
     const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
