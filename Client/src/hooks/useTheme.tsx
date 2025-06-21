@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react'
 
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
 export function useTheme() {
     const [theme, setTheme] = useState(() => {
         if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
@@ -10,56 +12,25 @@ export function useTheme() {
         return "system";
     });
 
-    const element = document.documentElement;
-    const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    const onWindowMatch = () => {
-        if (localStorage.theme === "dark" || (!("theme" in localStorage) && darkQuery.matches)) {
-            element.classList.add("dark");
+    useEffect(() => {
+        if (typeof window === 'undefined') return
+
+        const element = document.documentElement;
+        const darkQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+        if (theme === 'dark') {
+            element.classList.add('dark')
+            localStorage.setItem('theme', 'dark')
+        } else if (theme === 'light') {
+            element.classList.remove('dark')
+            localStorage.setItem('theme', 'light')
         } else {
-            element.classList.remove("dark");
-        }
-    }
-
-    useEffect(() => {
-        onWindowMatch();
-    }, [])
-
-    useEffect(() => {
-        switch (theme) {
-            case "dark":
-                element.classList.add("dark");
-                localStorage.setItem("theme", "dark");
-                break;
-            case "light":
-                element.classList.remove("dark");
-                localStorage.setItem("theme", "light");
-                break;
-            default:
-                localStorage.removeItem("theme");
-                onWindowMatch();
-                break;
-
+            // system
+            localStorage.removeItem('theme')
+            darkQuery.matches ? element.classList.add('dark') : element.classList.remove('dark')
         }
     }, [theme]);
-
-    useEffect(() => {
-        const changeHandler = (e: MediaQueryListEvent) => {
-            if (!("theme" in localStorage)) {
-                if (e.matches) {
-                    element.classList.add("dark");
-                } else {
-                    element.classList.remove("dark");
-                }
-            }
-        }
-
-        darkQuery.addEventListener("change", changeHandler);
-
-        return () => {
-            darkQuery.removeEventListener("change", changeHandler);
-        };
-    }, []);
 
     return { theme, setTheme }
 }
