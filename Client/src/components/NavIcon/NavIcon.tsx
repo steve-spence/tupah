@@ -22,22 +22,29 @@ export function NavIcon({ data, className, onClick }: Props) {
         </div>
     )
 
-    // if they passed an onClick, don’t wrap in Link
-    if (onClick) return inner
+    // If there's a link prop, wrap inner in a Link
+    if (link) {
+        return (
+            <Link
+                href={link}
+                // prevent jump-to-top when clicking the theme toggle
+                {...(onClick ? { scroll: false } : {})}
+                className="no-underline text-inherit"
+            >
+                {inner}
+            </Link>
+        )
+    }
 
-    // otherwise treat it as navigation
-    return (
-        <Link href={link} className="no-underline text-inherit">
-            {inner}
-        </Link>
-    )
+    // Otherwise just render the div
+    return inner
 }
 
 export interface NavIconProps {
     id: string
     title: string,
     bg_path: string,
-    link: string,
+    link?: string,
 }
 
 type Props = {

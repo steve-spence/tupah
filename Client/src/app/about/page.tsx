@@ -1,12 +1,19 @@
+'use client'
 
 import React from 'react'
 import { Header } from '@/components/Header/Header'
 import Image from 'next/image'
 import Link from 'next/link'
+import dynamic from 'next/dynamic';
+import { ProjectIcon } from '@/components/ProjectIcon/ProjectIcon'
+
+
+// only load in client
+const Typewriter = dynamic(() => import('typewriter-effect'), { ssr: false });
 
 export default function AboutPage() {
     return (
-        <div>
+        <div className="bg-[#eaeaea] dark:bg-[#A1A1A1]">
             {/* Header */}
             <section className="relative">
                 <Header data={{ title: "Steven Spencer", subtext: "About me" }}
@@ -14,19 +21,37 @@ export default function AboutPage() {
             </section>
 
             {/* Hero Section */}
-            <div className="flex flex-row w-full h-[50vh] bg-[#131313] items-center justify-center gap-10">
-                <div className="text-[#ffffff]">
-                    <h1 className="font-sans font-bold text-4xl">Hey, I'm Steve.</h1>
+            <div className="flex flex-col md:flex-row-reverse items-center justify-center gap-5
+            text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] bg-[#131313]">
+                <div className="relative w-60 h-auto aspect-[3/4] rounded-3xl overflow-hidden">
+                    <Image className="object-cover" src="/pictures/good_pic.jpg" alt="The Hero" fill />
                 </div>
-                <div className="relative w-60 aspect-[3/4] rounded-3xl overflow-hidden">
-                    <Image className="object-cover" src="/pictures/good_pic.jpg" alt="The Hero" fill ></Image>
-                </div>
+                <Typewriter
+                    onInit={(typewriter) => {
+                        typewriter
+                            .pauseFor(2500)
+                            .typeString("Hey, I'm Steve.")
+                            .pauseFor(2500)        // show full text for 2.5s
+                            .deleteAll()          // wipe it
+                            .typeString('I build stuff.')
+                            .pauseFor(2500)
+                            .deleteAll()
+                            .typeString("Let's talk.")
+                            .pauseFor(2500)
+                            .start();             // kick off the loop
 
+                    }}
+                    options={{
+                        loop: true,
+                        delay: 50,
+                        deleteSpeed: 25,
+                    }}
+                />
             </div>
 
             <section className="bg-[#0f0f0f] text-white py-16 px-6 flex flex-col items-center text-center">
                 <h2 className="text-3xl font-bold mb-4">
-                    Let’s build something together.
+                    Let’s build together.
                 </h2>
                 <p className="max-w-2xl text-gray-400 mb-6">
                     Whether it’s a sleek website, an AI-powered app, or a creative experiment, I’m always open to new projects.
@@ -38,19 +63,27 @@ export default function AboutPage() {
                 >
                     Contact Me
                 </Link>
+
             </section>
 
+            {/* Dividor */}
+            <div className="flex items-center w-full h-fit bg-[#0F0F0F] px-20">
+                <div className="relative w-full h-1 bg-[#eaeaea] rounded-4xl"></div>
+            </div>
+
             {/* Background / Bio Section */}
-            <section className="p-10 flex flex-col gap-6 max-w-4xl mx-auto bg-[#0f0f0f] text-white">
-                <h2 className="text-2xl font-bold">Who I Am</h2>
-                <p className="text-gray-300">
-                    I’m Steven Spencer, a self-taught web developer with a background in computer science and a soft spot for clean interfaces.
-                    I’ve been building apps, experimenting with animation, and writing code that doesn't make me cringe when I come back to it 6 months later.
-                </p>
-                <p className="text-gray-300">
-                    Outside of code, I play guitar, mess around with game development, and pretend I’m better at chess than I actually am.
-                    I'm currently building my personal blog and working on a game called <i>Witchpaw</i>.
-                </p>
+            <section className="p-10 flex flex-col justyify-center items-center w-full mx-auto bg-[#0f0f0f] text-white">
+                <div className="w-full md:w-[70%] lg:w-[50%] text-center flex flex-col gap-5">
+                    <h2 className="text-2xl font-bold">Who I Am</h2>
+                    <p className="text-gray-300">
+                        I’m Steven Spencer, a self-taught web developer with a background in computer science and a soft spot for clean interfaces.
+                        I’ve been building apps, experimenting with animation, and writing code that doesn't make me cringe when I come back to it 6 months later.
+                    </p>
+                    <p className="text-gray-300">
+                        Outside of code, I play guitar, mess around with game development, and pretend I’m better at chess than I actually am.
+                        I'm currently building my personal blog and working on a game called <i>Witchpaw</i>.
+                    </p>
+                </div>
             </section>
 
 
@@ -104,6 +137,32 @@ export default function AboutPage() {
                 </div>
             </section>
 
+            {/* Skills Section */}
+            <section className="flex flex-col items-center gap-4 p-10 bg-[#0f0f0f]">
+                <h2 className="text-2xl font-bold dark:text-white">What can I work in?</h2>
+                <p className="text-[#000000] dark:text-[#ffffff] text-center">I am happy to start learning a new language or API if we need that. <br></br>These are some of the technoloiges I've learned to use on my own.</p>
+                <ul className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 text-gray-200">
+                    {[
+                        { icon_path: "/icons/react.svg", subscript: "React" },
+                        { icon_path: "/icons/nextjs.svg", subscript: "Next.js" },
+                        { icon_path: "/icons/tailwind.svg", subscript: "Tailwind" },
+                        { icon_path: "/icons/typescript.svg", subscript: "TypeScript" },
+                        { icon_path: "/icons/html.svg", subscript: "HTML" },
+                        { icon_path: "icons/css.svg", subscript: "CSS" },
+                        { icon_path: "/icons/javascript.svg", subscript: "JavaScript" },
+                        { icon_path: "/icons/mysql.svg", subscript: "MySQL" },
+                        { icon_path: "/icons/python.svg", subscript: "Python" },
+                        { icon_path: "/icons/c_plus_plus.svg", subscript: "C++" },
+                        { icon_path: "/icons/flask.svg", subscript: "Flask" },
+                        { icon_path: "/icons/unity.svg", subscript: "Unity (C#)" },
+                        { icon_path: "/icons/blender.svg", subscript: "Blender" },
+                    ].map((proj, i) => (
+                        <li key={i} className="bg-[#272727] px-4 py-2 rounded-lg transition-all hover:scale-110 hover:bg-[#212121]">
+                            <ProjectIcon project_props={proj} />
+                        </li>
+                    ))}
+                </ul>
+            </section>
 
             <section className="relative py-16 bg-[#131313] text-white text-center">
                 <h1 className="text-3xl font-bold mb-8">Connect with Me</h1>
@@ -111,61 +170,43 @@ export default function AboutPage() {
                 <div className="flex flex-wrap justify-center gap-8 max-w-3xl mx-auto">
                     {/* GitHub */}
                     <Link
-                        href="https://github.com/your-username"
+                        href="https://github.com/steve-spence"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex flex-col items-center hover:scale-105 transition-transform"
                     >
                         <div className="relative w-12 h-12 mb-2">
-                            <Image fill src="/icons/github-logo.svg" alt="GitHub" />
+                            <Image className="select-none" fill src="/icons/github-logo.svg" alt="GitHub" />
                         </div>
                         <span className="text-sm text-gray-300">GitHub</span>
                     </Link>
 
                     {/* LinkedIn */}
                     <Link
-                        href="https://linkedin.com/in/your-username"
+                        href="https://linkedin.com/in/stevenallenspencer"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex flex-col items-center hover:scale-105 transition-transform"
                     >
                         <div className="relative w-12 h-12 mb-2">
-                            <Image fill src="/icons/linkedin-logo.svg" alt="LinkedIn" />
+                            <Image className="select-none" fill src="/icons/linkedin-logo.svg" alt="LinkedIn" />
                         </div>
                         <span className="text-sm text-gray-300">LinkedIn</span>
                     </Link>
 
                     {/* Email */}
                     <Link
-                        href="mailto:steven@example.com"
+                        href="mailto:stevenistotallyawesome@gmail.com"
                         className="flex flex-col items-center hover:scale-105 transition-transform"
                     >
                         <div className="relative w-12 h-12 mb-2">
-                            <Image fill src="/icons/email-logo.svg" alt="Email" />
+                            <Image className="select-none" fill src="/icons/email-logo.svg" alt="Email" />
                         </div>
                         <span className="text-sm text-gray-300">Email</span>
                     </Link>
                 </div>
             </section>
 
-
-
-
-
-            {/* Skills Section */}
-            <section className="p-10 bg-[#0f0f0f]">
-                <h2 className="text-2xl font-bold mb-4">Tech I Use</h2>
-                <ul className="flex flex-wrap gap-4 text-gray-200">
-                    <li className="bg-[#272727] px-4 py-2 rounded-lg">React</li>
-                    <li className="bg-[#272727] px-4 py-2 rounded-lg">Next.js</li>
-                    <li className="bg-[#272727] px-4 py-2 rounded-lg">Tailwind CSS</li>
-                    <li className="bg-[#272727] px-4 py-2 rounded-lg">TypeScript</li>
-                    <li className="bg-[#272727] px-4 py-2 rounded-lg">Python</li>
-                    <li className="bg-[#272727] px-4 py-2 rounded-lg">MySQL</li>
-                    <li className="bg-[#272727] px-4 py-2 rounded-lg">Unity (C#)</li>
-                    <li className="bg-[#272727] px-4 py-2 rounded-lg">FastAPI</li>
-                </ul>
-            </section>
         </div>
     )
 

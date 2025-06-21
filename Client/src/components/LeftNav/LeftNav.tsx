@@ -23,7 +23,7 @@ export function LeftNav({ data, className, onNavigate }: Props) {
                 <NavIcon data={{ id: "nav_blog", title: "Blog", bg_path: "/icons/quill.svg", link: "/blog" }} onClick={onNavigate} />
             </div>
             {/* This might have to be a different component for it to do dark mode */}
-            <NavIcon data={{ id: "nav_settings", title: "Mode", bg_path: "/icons/theme.svg", link: "" }} onClick={toggleTheme} />
+            <NavIcon data={{ id: "nav_settings", title: "Mode", bg_path: "/icons/theme.svg" }} onClick={toggleTheme} />
         </div>
     );
 }
