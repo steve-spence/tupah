@@ -8,13 +8,15 @@ import { useTheme } from '@/hooks/useTheme';
 
 export function LeftNav({ data, className, onNavigate }: Props) {
     className = className == null ? "" : className;
+
+    // Dark mode support
     const { theme, setTheme } = useTheme();
     const toggleTheme = () => {
         setTheme(theme === 'dark' ? 'light' : 'dark')
     }
 
     return (
-        <div className={`h-full flex flex-col justify-between items-center py-5 z-10`}>
+        <div className={`${className} h-full flex flex-col justify-between items-center py-5 z-10`}>
             <div className="flex flex-col items-center justify-center">
                 <NavIcon data={{ id: "nav_home", title: "Home", bg_path: "/icons/home.svg", link: "/" }} onClick={onNavigate} />
                 <NavIcon data={{ id: "nav_about", title: "About me", bg_path: "/icons/about_me.svg", link: "/about" }} onClick={onNavigate} className="whitespace-nowrap" />

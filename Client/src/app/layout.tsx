@@ -20,17 +20,13 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
         <div className="flex flex-1">
 
           {/* Place children where you want to render a page or nested layout */}
-          <div
-            className={`
-             relative h-full
-             bg-[#9379cc] text-white
-             overflow-hidden
-             !transition-all duration-300
-             ${sidebarWidth}
-           `}
-          >
-            <LeftNav className={'none'} onNavigate={() => setIsOpen(false)} ></LeftNav>
+          <div className={`!transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
+            <LeftNav
+              className={`fixed !transition-all duration-300 bg-[#9379cc] overflow-hidden text-white ${sidebarWidth}`}
+              onNavigate={() => setIsOpen(false)}
+            ></LeftNav>
           </div>
+
           {/* Pull Button */}
           <button
             onClick={() => setIsOpen(v => !v)}
