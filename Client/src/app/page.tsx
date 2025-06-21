@@ -23,12 +23,27 @@ export default function HomePage() {
       <section>
         <div className="fixed top-0 w-full h-fit z-[-1] bg-[#ffffff] dark:bg-[#171717] 
         transition-colors duration-300 ease-in-out
-          flex flex-col gap-10 items-center justify-center pb-30" >
-          <div className="w-[90vw] max-w-[640px] aspect-[1/1] relative">
-            <Image src="/pictures/my_favorite.svg" className="z-1 object-contain" fill alt="https://pixabay.com/users/andsproject-26081561/ I love their art." />
+        flex flex-col gap-10 items-center justify-center pb-30" >
+          <div className=" relative w-[90vw] max-w-[640px] aspect-[1/1]">
+            <Image src="/pictures/favorite_dark.svg" className="
+            z-1 object-contain 
+            opacity-0 hidden 
+            dark:block dark:opacity-100 
+            transition-all duration-700 ease-in"
+              fill
+              alt="https://pixabay.com/users/andsproject-26081561/ I love their art."
+            />
+            <Image src="/pictures/favorite_light.svg" className="
+            z-1 object-contain 
+            dark:hidden dark:opacity-0 
+            opcaity-100 block 
+            transition-all duration-700 ease-in"
+              fill
+              alt="https://pixabay.com/users/andsproject-26081561/ I love their art."
+            />
           </div>
           <div className="w-[90vw] max-w-[640px] aspect-[1/1] relative">
-            <Image src="/blowing_girl.png" className="z-1 object-contain" fill alt="https://pixabay.com/users/andsproject-26081561/ I love their art." />
+            <Image src="/blowing_girl.png" className="z-1 object-contain block" fill alt="https://pixabay.com/users/andsproject-26081561/ I love their art." />
           </div>
 
         </div>
