@@ -1,5 +1,4 @@
 
-
 import React from 'react'
 import { Header } from '@/components/Header/Header'
 import Image from 'next/image'
@@ -8,7 +7,6 @@ import Link from 'next/link'
 export default function AboutPage() {
     return (
         <div>
-
             {/* Header */}
             <section className="relative">
                 <Header data={{ title: "Steven Spencer", subtext: "About me" }}
@@ -43,7 +41,7 @@ export default function AboutPage() {
             </section>
 
             {/* Background / Bio Section */}
-            <section className="p-10 flex flex-col gap-6 max-w-4xl mx-auto">
+            <section className="p-10 flex flex-col gap-6 max-w-4xl mx-auto bg-[#0f0f0f] text-white">
                 <h2 className="text-2xl font-bold">Who I Am</h2>
                 <p className="text-gray-300">
                     I’m Steven Spencer, a self-taught web developer with a background in computer science and a soft spot for clean interfaces.
@@ -107,7 +105,7 @@ export default function AboutPage() {
             </section>
 
 
-            <section className="relative py-16 px-6 bg-[#131313] text-white text-center">
+            <section className="relative py-16 bg-[#131313] text-white text-center">
                 <h1 className="text-3xl font-bold mb-8">Connect with Me</h1>
 
                 <div className="flex flex-wrap justify-center gap-8 max-w-3xl mx-auto">
@@ -118,7 +116,9 @@ export default function AboutPage() {
                         rel="noopener noreferrer"
                         className="flex flex-col items-center hover:scale-105 transition-transform"
                     >
-                        <Image fill src="/icons/github-dark.svg" alt="GitHub" className="w-12 h-12 mb-2" />
+                        <div className="relative w-12 h-12 mb-2">
+                            <Image fill src="/icons/github-logo.svg" alt="GitHub" />
+                        </div>
                         <span className="text-sm text-gray-300">GitHub</span>
                     </Link>
 
@@ -129,7 +129,9 @@ export default function AboutPage() {
                         rel="noopener noreferrer"
                         className="flex flex-col items-center hover:scale-105 transition-transform"
                     >
-                        <Image fill src="/icons/linkedin.svg" alt="LinkedIn" className="w-12 h-12 mb-2" />
+                        <div className="relative w-12 h-12 mb-2">
+                            <Image fill src="/icons/linkedin-logo.svg" alt="LinkedIn" />
+                        </div>
                         <span className="text-sm text-gray-300">LinkedIn</span>
                     </Link>
 
@@ -138,7 +140,9 @@ export default function AboutPage() {
                         href="mailto:steven@example.com"
                         className="flex flex-col items-center hover:scale-105 transition-transform"
                     >
-                        <Image fill src="/icons/email.svg" alt="Email" className="w-12 h-12 mb-2" />
+                        <div className="relative w-12 h-12 mb-2">
+                            <Image fill src="/icons/email-logo.svg" alt="Email" />
+                        </div>
                         <span className="text-sm text-gray-300">Email</span>
                     </Link>
                 </div>

@@ -9,19 +9,28 @@ export function NavIcon({ data, className, onClick }: Props) {
     const hasPath = bg_path != null;
 
 
+    const inner = (
+        <div
+            className={`${className} cursor-pointer flex flex-col items-center justify-center`}
+            onClick={onClick}
+        >
+            <div
+                className="w-12 h-12 rounded-2xl bg-no-repeat bg-center bg-contain p-3"
+                style={{ backgroundImage: `url(${bg_path})` }}
+            />
+            <p className="mt-1 text-sm text-center">{title}</p>
+        </div>
+    )
+
+    // if they passed an onClick, don’t wrap in Link
+    if (onClick) return inner
+
+    // otherwise treat it as navigation
     return (
-        // styling for the icon
-        // might need to safelist this might cause error or something
         <Link href={link} className="no-underline text-inherit">
-            <div onClick={onClick} className={`${className} flex flex-col items-center justify-center`}>
-                <div className={`w-fit h-auto rounded-2xl bg-no-repeat bg-center bg-contain p-6 
-                bg-grey-800 flex justify-center items-center`}
-                    style={{ backgroundImage: `url(${hasPath ? bg_path : "#ff0000"})` }}>
-                </div>
-                <p className="p-3">{title}</p>
-            </div>
+            {inner}
         </Link>
-    );
+    )
 }
 
 export interface NavIconProps {
