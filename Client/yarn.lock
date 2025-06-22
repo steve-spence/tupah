@@ -1326,6 +1326,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@theme-toggles/react@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "@theme-toggles/react@npm:4.1.0"
+  peerDependencies:
+    react: ^16 || ^17 || ^18
+    react-dom: ^16 || ^17 || ^18
+  checksum: 10c0/3c1b1917fa0183028492d36d2fe766794cb76f58467b6ac88f8cef1e6ae5705adf64279f5a2846d29cbfc3b08ec391af14b161bb6d9ec6469e04d114e9eb4cfc
+  languageName: node
+  linkType: hard
+
 "@tybys/wasm-util@npm:^0.9.0":
   version: 0.9.0
   resolution: "@tybys/wasm-util@npm:0.9.0"
@@ -1971,6 +1981,7 @@ __metadata:
     "@supabase/supabase-js": "npm:^2.49.4"
     "@tailwindcss/postcss": "npm:^4"
     "@tailwindcss/typography": "npm:^0.5.16"
+    "@theme-toggles/react": "npm:^4.1.0"
     "@types/bootstrap": "npm:^5"
     "@types/mdx": "npm:^2.0.13"
     "@types/node": "npm:^20"

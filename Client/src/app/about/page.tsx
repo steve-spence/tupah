@@ -55,7 +55,7 @@ export default function AboutPage() {
                 </h2>
                 <p className="max-w-2xl text-gray-400 mb-6">
                     Whether it’s a sleek website, an AI-powered app, or a creative experiment, I’m always open to new projects.
-                    I’ve been exploring LLMs, training models, and building full-stack applications. If you've got an idea, I’m in.
+                    I’ve been exploring LLMs, training models, and building full-stack applications for about a year now. If you've got an idea, I’m in.
                 </p>
                 <Link
                     href="stevenallenspencer@gmail.com"
@@ -77,10 +77,10 @@ export default function AboutPage() {
                     <h2 className="text-2xl font-bold">Who I Am</h2>
                     <p className="text-gray-300">
                         I’m Steven Spencer, a self-taught web developer with a background in computer science and a soft spot for clean interfaces.
-                        I’ve been building apps, experimenting with animation, and writing code that doesn't make me cringe when I come back to it 6 months later.
+                        I’ve been building apps, experimenting with animation, and automating workflows as much as I can.
                     </p>
                     <p className="text-gray-300">
-                        Outside of code, I play guitar, mess around with game development, and pretend I’m better at chess than I actually am.
+                        Outside of code, I play guitar, mess around with game development, and I like reading.
                         I'm currently building my personal blog and working on a game called <i>Witchpaw</i>.
                     </p>
                 </div>
