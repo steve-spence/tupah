@@ -10,14 +10,8 @@ export function NavIcon({ data, className, onClick }: Props) {
 
 
     const inner = (
-        <div
-            className={`${className} cursor-pointer flex flex-col items-center justify-center`}
-            onClick={onClick}
-        >
-            <div
-                className="w-12 h-12 rounded-2xl bg-no-repeat bg-center bg-contain p-3"
-                style={{ backgroundImage: `url(${bg_path})` }}
-            />
+        <div className={`${className} cursor-pointer flex flex-col items-center justify-center`} onClick={onClick} >
+            <div className="w-12 h-12 rounded-2xl bg-no-repeat bg-center bg-contain p-3" style={{ backgroundImage: `url(${bg_path})` }} />
             <p className="mt-1 text-sm text-center">{title}</p>
         </div>
     )
@@ -35,8 +29,6 @@ export function NavIcon({ data, className, onClick }: Props) {
             </Link>
         )
     }
-
-    // Otherwise just render the div
     return inner
 }
 

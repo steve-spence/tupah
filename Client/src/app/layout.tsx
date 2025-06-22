@@ -22,26 +22,27 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
           {/* Place children where you want to render a page or nested layout */}
           <div className={`!transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
             <LeftNav
-              className={`fixed !transition-all duration-300 bg-[#9379cc] overflow-hidden text-white ${sidebarWidth}`}
+              className={`fixed top-0 left-0 !transition-all duration-300 ${sidebarWidth} h-full py-5 z-10
+                bg-gray-300 overflow-hidden text-white `}
               onNavigate={() => setIsOpen(false)}
             ></LeftNav>
           </div>
-
-          {/* Pull Button */}
+          {/* 9379cc B695FC */}
+          {/* Pull Button !not relative!*/}
           <button
             onClick={() => setIsOpen(v => !v)}
             className={`
              fixed top-1/2 -translate-y-1/2 z-20
-             w-8 h-16 rounded-r-full
+             w-7 h-14 rounded-r-full
              transition-all duration-300
-             ${isOpen ? 'left-24' : 'left-0'}
-             bg-[#B695FC] bg-no-repeat bg-center bg-contain
+             ${isOpen ? 'left-24 bg-gray-300' : 'left-0'}
+             bg-gray-200 bg-no-repeat bg-center bg-contain select-none cursor-pointer
            `}
           >
             <Image src={isOpen ? "/icons/pull_right.svg" : "/icons/pull_left.svg"} fill alt="Toggle Sidebar" className="scale-x-[-1] scale-80" />
           </button>
 
-          <main className={`transition-all duration-300 flex-1 overflow-x-hidden`}>{children}</main>
+          <main className={`transition-all duration-300 flex-1 overflow-x-hidden overflow-y-hidden`}>{children}</main>
 
         </div>
 
