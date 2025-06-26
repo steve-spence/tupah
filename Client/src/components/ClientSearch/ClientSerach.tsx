@@ -44,7 +44,7 @@ export default function ClientSearch({ posts, className }: { posts: mdxProps[], 
                 />
 
                 <div className={`z-10 !transition-all duration-300 ease-in-out overflow-hidden 
-                ${focus ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                ${focus && query != '' ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
                     <div className="flex flex-col gap-2 p-2 text-white">
                         {filtered.length === 0 && query !== '' ? (
                             <p>No posts found.</p>

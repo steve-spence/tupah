@@ -8,7 +8,7 @@ import { Header } from '@/components/Header/Header'
 import { NavIcon } from '@/components/NavIcon/NavIcon'
 import { getAllPosts, mdxProps } from '@/lib/mdx';
 import ClientSearch from '@/components/ClientSearch/ClientSerach'
-import { TrendingCarousel, TrendingProps } from '@/components/TrendingCarousel/TrendingCarousel'
+import { TrendingCarousel } from '@/components/TrendingCarousel/TrendingCarousel'
 
 // testing packages
 import TextField from '@mui/material/TextField'
@@ -37,7 +37,7 @@ export default async function BlogPage() {
 
 
             {/* Trending Section */}
-            <section className="flex items-center justify-center">
+            <section className="flex items-center justify-center my-5">
                 <TrendingCarousel images={trending_images}></TrendingCarousel>
             </section>
 
