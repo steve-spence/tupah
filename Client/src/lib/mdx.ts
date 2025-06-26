@@ -30,6 +30,7 @@ export type mdxProps = {
     tags: string[],
     slug: string,
     image_path: string,
+    content?: string,
 }
 
 export function getAllPosts(): mdxProps[] {
@@ -40,7 +41,7 @@ export function getAllPosts(): mdxProps[] {
         .map((fileName) => {
             const fullPath = path.join(POSTS_PATH, fileName);
             const fileContents = fs.readFileSync(fullPath, 'utf8');
-            const { data } = matter(fileContents);
+            const { data, content } = matter(fileContents);
 
             return {
                 title: data.title,
@@ -48,6 +49,7 @@ export function getAllPosts(): mdxProps[] {
                 tags: data.tags || [],
                 slug: data.slug || fileName.replace(/\.mdx$/, ''),
                 image_path: data.image_path,
+                content: content,
             };
         });
 
