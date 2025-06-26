@@ -61,14 +61,18 @@ export default function HomePage() {
       <section>
         <div className="flex flex-col md:flex-row content-between py-30 text-center">
           <div className="flex flex-col flex-1 items-start justify-baseline p-10">
-            <h1 className="text-[#9379cc] font-bold text-2xl">What's here</h1>
-            <p className="text-white outline-black w-44 overflow-hidden">A bunch of blog posts I have started to accumulate. I tend to post of cool stuff sometimes.
-            </p>
+            <div>
+              <h1 className="text-[#9379cc] font-bold text-2xl">What's here</h1>
+              <p className="text-white outline-black w-44 overflow-hidden">A bunch of blog posts I have started to accumulate. I post cool stuff sometimes.
+              </p>
+            </div>
           </div>
           <div className="flex flex-col flex-1 items-end justify-end p-10 text-center">
-            <h1 className="text-[#9379cc] font-bold text-2xl text-center">Why it's here</h1>
-            <p className="text-white outline-black w-44 overflow-hidden">I made this blog because I have nothing better do with myself and I enjoy it.
-            </p>
+            <div>
+              <h1 className="text-[#9379cc] font-bold text-2xl text-center">Why it's here</h1>
+              <p className="text-white outline-black w-44 overflow-hidden">I made this blog because I have nothing better do with myself and I enjoy it.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -79,18 +83,18 @@ export default function HomePage() {
           <h2 className="text-4xl font-bold text-center">What do I post here?</h2>
           <div className="flex flex-col md:flex-row gap-5 justify-center items-center">
             <div>
-              <h3 className="text-2xl font-semibold text-[#9379cc] underline text-center md:text-left">Gaming</h3>
+              <h3 className="text-2xl font-semibold text-[#9379cc] underline text-center md:text-left mb-2">Gaming</h3>
               <p>I've been playing Marvel Rivals and I like keeping my pages updated with the newest Marvel
                 related content. I used to play LoL, Overwatch, Old School RuneScape, and so many other titles
                 I could go on for days.</p>
             </div>
             <div>
-              <h3 className="text-2xl font-semibold text-[#9379cc] underline text-center md:text-left">Anime</h3>
+              <h3 className="text-2xl font-semibold text-[#9379cc] underline text-center md:text-left mb-2">Anime</h3>
               <p>I enjoy watching seasonal anime and posting my favorites. I post about the worst and best anime of each season.</p>
             </div>
             <div>
-              <h3 className="text-2xl font-semibold text-[#9379cc] underline text-center md:text-left">Tech Support</h3>
-              <p>I graduated college with a computer science degree, so I know a thing or two about computers.
+              <h3 className="text-2xl font-semibold text-[#9379cc] underline text-center md:text-left mb-2">Tech Support</h3>
+              <p>I'm at Michigan State University studying for my Bachelor's in Computer Science, so I know might know something about computers.
                 I have always wanted to start a page where I could let people know useful tutorials or helpful tips,
                 this is that dream realized.</p>
             </div>

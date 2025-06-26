@@ -76,8 +76,9 @@ export default function AboutPage() {
                 <div className="w-full md:w-[70%] lg:w-[50%] text-center flex flex-col gap-5">
                     <h2 className="text-2xl font-bold">Who I Am</h2>
                     <p className="text-gray-300">
-                        I’m Steven Spencer, a self-taught web developer with a background in computer science and a soft spot for clean interfaces.
-                        I’ve been building apps, experimenting with animation, and automating workflows as much as I can.
+                        I’m Steven Spencer. I'm working towards my Bachelor's Degree in Computer Scinece at Michigan State University.
+                        I have a background in web development, scripting, and game development.
+                        I’ve been building apps, experimenting with animation, and automating workflows since I've been in college.
                     </p>
                     <p className="text-gray-300">
                         Outside of code, I play guitar, mess around with game development, and I like reading.
