@@ -38,7 +38,15 @@ export default async function BlogPost({ params }: { params: PostParams }) {
             <div className="prose lg:prose-xl mx-auto h-fit py-5">
                 <MDXRemote source={post.content} components={components} />
             </div>
-        </div>
+
+            {/* Lets make an auto scroller that is good */}
+            {/* 
+            The header will stick and the text in the middle will turn into a slider for 
+            reading speed the text will be long and down th emiddle. After text takes up 
+            4 lines then make a new paragraph
+             */}
+
+        </div >
 
     )
 }

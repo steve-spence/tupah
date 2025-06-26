@@ -1,34 +1,33 @@
 // Blog Page
 // Add some display page for the home page for blogs like these are all my blogs!
 
-'use client'
-
 import Link from 'next/link'
+import Image from 'next/image'
 import React from 'react'
 import { Header } from '@/components/Header/Header'
 import { NavIcon } from '@/components/NavIcon/NavIcon'
-import { useState } from 'react'
+import { getAllPosts, mdxProps } from '@/lib/mdx';
+import ClientSearch from '@/components/ClientSearch/ClientSerach'
+import { TrendingCarousel, TrendingProps } from '@/components/TrendingCarousel/TrendingCarousel'
 
 // testing packages
 import TextField from '@mui/material/TextField'
 import Dropdown from 'react-bootstrap/Dropdown'
 
+export default async function BlogPage() {
+    const posts = getAllPosts();
 
-export default function BlogPage() {
+    const trending_images: string[] = [
+        "/pictures/blog/solo_leveling.png",
+        "/pictures/blog/solo_leveling.png",
+        "/pictures/blog/solo_leveling.png",
+    ];
 
-    const [query, setQuery] = useState("");
-    const [results, setResults] = useState([]);
-
-    /* Link to slug? */
-    enum searchBarWords {
-        "Search",
-        "Explore",
-        "Enjoy",
-    };
+    const shuffledPosts = [...posts].sort(() => Math.random() - 0.5);
+    const randomPosts = shuffledPosts.slice(0, 3);
 
     return (
         <div>
-
             {/* Header */}
             <section>
                 <Header data={{ title: "Blogs", subtext: "I be bloggin'" }}
@@ -36,60 +35,53 @@ export default function BlogPage() {
                 />
             </section>
 
+
             {/* Trending Section */}
-            <div className="flex flex-col justify-center p-10 gap-5 bg-[#ffffff]">
-                <h2 className="text-[#9379cc] text-3xl font-bold">Trending</h2>
-                {/* Trending Icons */}
-                <div className="flex flex-row justify-center items-center gap-3">
-                    <NavIcon data={{ id: "trending1", title: "1", bg_path: "/blog_icon.svg", link: "/" }}></NavIcon>
-                    <NavIcon data={{ id: "trending2", title: "2", bg_path: "/blog_icon.svg", link: "/" }}></NavIcon>
-                    <NavIcon data={{ id: "trending3", title: "3", bg_path: "/blog_icon.svg", link: "/" }}></NavIcon>
-                    <NavIcon data={{ id: "trending4", title: "4", bg_path: "/blog_icon.svg", link: "/" }}></NavIcon>
-                </div>
+            <section className="flex items-center justify-center">
+                <TrendingCarousel images={trending_images}></TrendingCarousel>
+            </section>
 
-                {/* Search Bar */}
-                <div className=" flex bg-[#9379cc] rounded-4xl m-10">
-                    <TextField className=" h-full w-full" label="Search" id="outlined-basic" type="text"></TextField>
-                </div>
-            </div>
-
-            {/* Filtered Section */}
-            <div className="flex flex-col items-center justify-center bg-[#212121]">
-                {/* Filter part */}
-                <div className="flex flex-row gap-5 w-fit bg-[#9379cc] items-center justify-center">
-                    <h4>Filter</h4>
-                    {/* <Dropdown className="m-2">
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            Dropdown Button
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown> */}
-                </div>
-
-                {/* Random Rotation */}
-                <div>
-
-                </div>
-
+            {/* Search Bar */}
+            <div className="flex justify-center items-center my-5 w-full">
+                <ClientSearch className="bg-[#9379cc] rounded-4xl" posts={posts} />
             </div>
 
 
-            <div>
+            <section className="bg-[#1a1a1a] p-10 text-white w-full mx-auto flex flex-col items-center justify-center text-center">
+                <h2 className="text-2xl font-bold mb-4">Why I Started Blogging</h2>
+                <p className="text-gray-300 leading-relaxed max-w-4xl">
+                    I started blogging as a way to document what I'm working on — whether it's coding projects,
+                    game design thoughts, or just cool stuff I’ve been learning. Writing helps me think more clearly
+                    and gives me a place to look back at my progress. If someone else finds it helpful or interesting,
+                    that’s just a bonus.
+                </p>
+            </section>
 
+            {/* Random Posts Cards */}
+            <div className="p-10 flex flex-wrap gap-6 justify-center bg-[#1a1a1a]">
+                {randomPosts.map((post) => (
+                    <Link key={post.slug} href={`/blog/${post.slug}`} className="max-w-sm bg-[#272727] rounded-xl overflow-hidden hover:shadow-lg transition-all group">
+                        <div className="relative h-40 w-full">
+                            <Image src={post.image_path || "/pictures/blog/default.png"} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" />
+                        </div>
+                        <div className="p-4 text-white">
+                            <h3 className="text-xl font-bold">{post.title}</h3>
+                            <p className="text-sm text-gray-400 mt-2">{getPreview(post.content ?? '', 200)}</p>
+                        </div>
+                    </Link>
+                ))}
             </div>
 
-            {/* Lets make an auto scroller that is good */}
-            {/* 
-            The header will stick and the text in the middle will turn into a slider for 
-            reading speed the text will be long and down th emiddle. After text takes up 
-            4 lines then make a new paragraph
-             */}
         </div>
     )
 
+}
+
+function getPreview(content: string, length = 200) {
+    return content
+        .replace(/!\[.*?\]\(.*?\)/g, '')
+        .replace(/[#>*_\-\n]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .slice(0, length) + '...';
 }

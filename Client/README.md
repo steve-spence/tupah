@@ -1,18 +1,24 @@
 This is a [Next.js](https://nextjs.org) project.
 
-## Getting Started
+## How to run this project
 
-First, run the development server:
+Install dependencies, start dev server
 
 ```bash
-npm run dev
+yarn install
 # or
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000](http://localhost:3000) with your browser (If ur using chrome, dont.)
 
 ## Project Structure
+there's an app directory
+all my images are in public
+got some components in a component folder
+all the pages are in the app dir because thats the new standard instead of /pages
 
+# FYI 
+Running yarn dev from tupah dir does not start the server.
+You have to be in the client dir. 
+aafffdddddddd

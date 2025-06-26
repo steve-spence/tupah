@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { NavIcon, NavIconProps } from "@/components/NavIcon/NavIcon"
 import { motion } from 'motion/react'
+import { Transition } from 'framer-motion'
 
 
 // Creates container that rotates icons horizontally
@@ -24,7 +25,7 @@ export function RotatingIcons({ data, className }: Props) {
 
     return (
         <div className={`w-fit h-fit ${className}`} >
-            <div className="flex flex-row justify-center items-center p-5 transition-all duration-300 ease-in">
+            <div className="flex flex-row justify-center items-center p-5 transition-all duration-300 ease-in gap-5">
                 {icons.map((icon, index) => (
                     <motion.div
                         key={icon.id}
@@ -39,8 +40,8 @@ export function RotatingIcons({ data, className }: Props) {
     );
 }
 
-const spring = {
-    type: "spring",
+const spring: Transition = {
+    type: 'spring',
     damping: 25,
     stiffness: 300,
 }

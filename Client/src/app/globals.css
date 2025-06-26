@@ -2,6 +2,12 @@
 @plugin "@tailwindcss/typography";
 /* @import "~bootstrap/scss/bootstrap"; */
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+body, div, section, header, footer, main, article {
+  @apply transition-colors duration-300 ease-in-out;
+}
+
 h1, h2, h3, h4, h5, h6, p {
   cursor: default;
 }
