@@ -1,75 +1,49 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface TrendingCarouselProps {
+export interface TrendingProps {
     images: string[]
-    className?: string
 }
 
-export function TrendingCarousel({
-    images,
-    className = '',
-}: TrendingCarouselProps) {
-    const containerRef = useRef<HTMLDivElement>(null)
-    const cardRef = useRef<HTMLDivElement>(null)
-    const [cardWidth, setCardWidth] = useState(0)
+export function TrendingCarousel({ images }: TrendingProps) {
+    const [index, setIndex] = useState(0)
 
-    // Measure the first card’s total width (including margin-right)
     useEffect(() => {
-        if (!cardRef.current) return
-        const style = window.getComputedStyle(cardRef.current)
-        const margin = parseFloat(style.marginRight)
-        setCardWidth(cardRef.current.offsetWidth + margin)
-    }, [])
-
-    // Auto-scroll by measured width
-    useEffect(() => {
-        const el = containerRef.current
-        if (!el || cardWidth === 0) return
-
         const interval = setInterval(() => {
-            // if at (or beyond) end, jump back
-            if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 1) {
-                el.scrollTo({ left: 0, behavior: 'smooth' })
-            } else {
-                el.scrollBy({ left: cardWidth, behavior: 'smooth' })
-            }
-        }, 4000)
+            setIndex((prev) => (prev + 1) % images.length)
+        }, 6000)
 
         return () => clearInterval(interval)
-    }, [cardWidth, images])
+    }, [])
+
+    const CARD_WIDTH = 400 + 16 // width + gap
 
     return (
-        <div
-            ref={containerRef}
-            className={`overflow-x-auto no-scrollbar w-full py-5 ${className}`}
-        >
-            <div className="flex gap-4 px-4 w-max">
+        <div className="overflow-hidden w-full py-5">
+            <motion.div
+                className="flex gap-4"
+                animate={{ x: -index * CARD_WIDTH }}
+                transition={{ duration: 0.8, ease: 'easeInOut' }}
+            >
                 {images.map((img, idx) => (
                     <Link
                         key={idx}
                         href="/"
-                        className="shrink-0 rounded-2xl overflow-hidden bg-[#333]"
+                        className="relative flex-shrink-0 w-[400px] h-[225px] bg-amber-500 rounded-2xl"
                     >
-                        <div
-                            // attach ref only to the first card so we measure it once
-                            ref={idx === 0 ? cardRef : null}
-                            className="relative w-72 h-48"
-                        >
-                            <Image
-                                src={img}
-                                alt={`Slide ${idx + 1}`}
-                                fill
-                                className="object-cover"
-                            />
-                        </div>
+                        <Image
+                            src={img}
+                            alt={`Blog ${idx}`}
+                            fill
+                            className="object-cover rounded-2xl"
+                        />
                     </Link>
                 ))}
-            </div>
+            </motion.div>
         </div>
     )
 }
-

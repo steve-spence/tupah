@@ -13,9 +13,11 @@ import { TrendingCarousel } from '@/components/TrendingCarousel/TrendingCarousel
 // testing packages
 import TextField from '@mui/material/TextField'
 import Dropdown from 'react-bootstrap/Dropdown'
+import { ImageCarousel } from '@/components/ImageCarousel/ImageCarousel'
 
 export default async function BlogPage() {
     const posts = getAllPosts();
+
 
     const trending_images: string[] = [
         "/pictures/blog/solo_leveling.png",
@@ -35,16 +37,47 @@ export default async function BlogPage() {
                 />
             </section>
 
+            <section>
+                <div className="flex flex-col-reverse items-center sm:flex-row h-fit bg-[#171717] p-5">
+                    <div className="flex flex-col flex-1 p-10 text-center items-center justify-center">
+                        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
+                            Is Blogging Art?
+                        </h1>
+                        <p className="md:text-lg leading-relaxed text-gray-700 dark:text-gray-300 max-w-prose">
+                            Blogging is the art of capturing fleeting moments—like the neon glow of a Tokyo side street at dusk—and
+                            transforming them into stories that resonate across time and space. Each post becomes a brushstroke,
+                            blending personal insight with vivid imagery to create a living tapestry of ideas. Whether you’re sharing travel
+                            musings, technical deep dives, or reflections on daily life, your words have the power to engage, inspire,
+                            and connect. In this way, blogging isn’t just writing—it’s a form of modern storytelling that combines
+                            creativity, authenticity, and community.
+                        </p>
+                    </div>
+                    <div className="flex items-center justify-center w-[50vw] mx-5">
+                        <ImageCarousel
+                            verticalImages={[
+                                '/pictures/codingview.jpg',
+                                '/pictures/codingview2.jpg',
+                                '/pictures/japan_streetview.jpg',
+                            ]}
+                            wideImages={[
+                                '/pictures/wide_codingview.jpg',
+                                '/pictures/wide_japan_codingview.jpg',
+                            ]}
+                        ></ImageCarousel>
+                    </div>
+                </div>
+            </section >
+
 
             {/* Trending Section */}
-            <section className="flex items-center justify-center my-5">
+            < section className="flex items-center justify-center my-5" >
                 <TrendingCarousel images={trending_images}></TrendingCarousel>
-            </section>
+            </ section>
 
             {/* Search Bar */}
-            <div className="flex justify-center items-center my-5 w-full">
+            < div className="flex justify-center items-center my-5 w-full" >
                 <ClientSearch className="bg-[#9379cc] rounded-4xl" posts={posts} />
-            </div>
+            </ div>
 
 
             <section className="bg-[#1a1a1a] p-10 text-white w-full mx-auto flex flex-col items-center justify-center text-center">
@@ -72,7 +105,7 @@ export default async function BlogPage() {
                 ))}
             </div>
 
-        </div>
+        </div >
     )
 
 }
