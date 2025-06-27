@@ -34,7 +34,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
             className={`
              fixed top-1/2 -translate-y-1/2 z-20
              w-7 h-14 rounded-r-full
-             transition-all duration-300
+             !transition-all duration-300
              ${isOpen ? 'left-24 bg-gray-300' : 'left-0'}
              bg-gray-200 bg-no-repeat bg-center bg-contain select-none cursor-pointer
            `}

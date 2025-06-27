@@ -5,13 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 
-// const images = [
-//     "/pictures/blog/solo_leveling.png",
-//     "/pictures/blog/solo_leveling.png",
-//     "/pictures/blog/solo_leveling.png",
-//     // Add more if needed
-// ]
-
 export interface TrendingProps {
     images: string[]
 }

@@ -25,7 +25,7 @@ export function RotatingIcons({ data, className }: Props) {
 
     return (
         <div className={`w-fit h-fit ${className}`} >
-            <div className="flex flex-row justify-center items-center p-5 transition-all duration-300 ease-in gap-5">
+            <div className="flex flex-row justify-baseline items-baseline p-5 transition-all duration-300 ease-in gap-5">
                 {icons.map((icon, index) => (
                     <motion.div
                         key={icon.id}
