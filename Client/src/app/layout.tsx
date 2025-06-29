@@ -47,30 +47,30 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
         </div>
 
         <footer>
-          <div className="flex flex-row w-full h-fit bg-[#212121] text-white gap-5 py-10">
+          <div className="flex flex-row w-full h-fit bg-gray-300 dark:bg-[#212121] text-black dark:text-white gap-5 py-10">
             <div className="hidden sm:flex flex-col items-center p-5">
               <div className="relative lg:w-64 lg:h-64 w-48 h-48">
                 <Image src="/pictures/owl_logo.png" className="p-10 object-contain" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt=" Owl Logo" />
               </div>
               <h1 className="py-5">Tupah</h1>
-              <p className="text-gray-300 text-center">Steven Spencer's website<br></br>for stuff.</p>
+              <p className="font-bold text-center">Steven Spencer's website<br></br>for stuff.</p>
             </div>
             <div className="flex flex-col flex-1 justify-center items-center">
-              <h5 className="p-5 text-2xl text-[#9379cc]">About</h5>
+              <h5 className="p-5 text-2xl text-[#1272CC] dark:text-[#9379cc]">About</h5>
               <ul className="text-center">
                 <li><Link href="/about">Me</Link></li>
                 <li><Link href="/blog">Blogs</Link></li>
               </ul>
             </div>
             <div className="flex flex-col flex-1 justify-center items-center">
-              <h5 className="p-5 text-2xl text-[#9379cc]">Privacy</h5>
+              <h5 className="p-5 text-2xl text-[#1272CC] dark:text-[#9379cc]">Privacy</h5>
               <ul className="text-center">
                 <li><Link href="/privacy#policy">Privacy Policy</Link></li>
                 <li><Link href="/privacy#terms">Terms and Conditions</Link></li>
               </ul>
             </div>
             <div className="flex flex-col flex-1 justify-center items-center">
-              <h5 className="p-5 text-2xl text-[#9379cc]">Social</h5>
+              <h5 className="p-5 text-2xl text-[#1272CC] dark:text-[#9379cc]">Social</h5>
               <ul className="text-center">
                 <li><Link href="/privacy#discord">Discord</Link></li>
                 <li><Link href="/privacy#instagram">Instagram</Link></li>

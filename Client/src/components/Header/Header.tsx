@@ -13,10 +13,10 @@ export function Header({ data, className }: Props) {
                 </Link>
             </div>
             <div className="flex flex-col items-center">
-                <h1 className="text-white font-extrabold mb-6 tracking-wide text-5xl">{title}</h1>
-                <h4 className="text-gray-300 italic">{subtext}</h4>
+                <h1 className="text-gray-800 dark:text-white font-extrabold mb-6 tracking-wide text-5xl">{title}</h1>
+                <h4 className="text-gray-400 dark:text-gray-300 italic">{subtext}</h4>
             </div>
-            <div className="hidden sm:flex flex-row text-white gap-5 items-center justify-center p-10 font-semibold">
+            <div className="hidden sm:flex flex-row text-gray-800 dark:text-white gap-5 items-center justify-center p-10 font-semibold">
                 <Link href="/about">About</Link>
                 <Link href="/blog">Blogs</Link>
             </div>

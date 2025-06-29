@@ -8,6 +8,9 @@ import dynamic from 'next/dynamic';
 import { ProjectIcon } from '@/components/ProjectIcon/ProjectIcon'
 
 
+//1272CC
+//
+
 // only load in client
 const Typewriter = dynamic(() => import('typewriter-effect'), { ssr: false });
 
@@ -17,12 +20,13 @@ export default function AboutPage() {
             {/* Header */}
             <section className="relative">
                 <Header data={{ title: "Steven Spencer", subtext: "About me" }}
-                    className="flex sm:justify-between justify-center bg-[#272727] p-5 h-32 w-full z-2" />
+                    className="flex sm:justify-between justify-center bg-[#eff1f1] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 w-full z-2"
+                />
             </section>
 
             {/* Hero Section */}
             <div className="flex flex-col md:flex-row-reverse items-center justify-center gap-5
-            text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] bg-[#131313]">
+            text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] bg-gray-100 dark:bg-[#131313] shadow-md">
                 <div className="relative w-60 h-auto aspect-[3/4] rounded-3xl overflow-hidden">
                     <Image className="object-cover" src="/pictures/good_pic.jpg" alt="The Hero" fill />
                 </div>
@@ -49,17 +53,17 @@ export default function AboutPage() {
                 />
             </div>
 
-            <section className="bg-[#0f0f0f] text-white py-16 px-6 flex flex-col items-center text-center">
-                <h2 className="text-3xl font-bold mb-4">
+            <section className="bg-gray-300 dark:bg-[#0f0f0f] text-white py-16 px-6 flex flex-col items-center text-center">
+                <h2 className="text-3xl font-bold mb-4 text-black dark:text-white">
                     Let’s build together.
                 </h2>
-                <p className="max-w-2xl text-gray-400 mb-6">
+                <p className="max-w-2xl text-gray-900 dark:text-gray-400 mb-6">
                     Whether it’s a sleek website, an AI-powered app, or a creative experiment, I’m always open to new projects.
                     I’ve been exploring LLMs, training models, and building full-stack applications for about a year now. If you've got an idea, I’m in.
                 </p>
                 <Link
                     href="stevenallenspencer@gmail.com"
-                    className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-xl transition duration-300"
+                    className="bg-blue-400 hover:bg-blue-500 dark:bg-purple-600 dark:hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-xl transition duration-300"
                 >
                     Contact Me
                 </Link>
@@ -67,20 +71,20 @@ export default function AboutPage() {
             </section>
 
             {/* Dividor */}
-            <div className="flex items-center w-full h-fit bg-[#0F0F0F] px-20">
-                <div className="relative w-full h-1 bg-[#eaeaea] rounded-4xl"></div>
+            <div className="flex justify-center w-full h-fit py-5 bg-gray-200 dark:bg-[#0f0f0f]">
+                <div className="relative w-[80%] h-1 bg-gray-700 dark:bg-[#eaeaea] rounded-4xl"></div>
             </div>
 
             {/* Background / Bio Section */}
-            <section className="p-10 flex flex-col justyify-center items-center w-full mx-auto bg-[#0f0f0f] text-white">
+            <section className="p-10 flex flex-col justyify-center items-center w-full mx-auto bg-gray-200 dark:bg-[#0f0f0f] text-white">
                 <div className="w-full md:w-[70%] lg:w-[50%] text-center flex flex-col gap-5">
-                    <h2 className="text-2xl font-bold">Who I Am</h2>
-                    <p className="text-gray-300">
+                    <h2 className="text-2xl font-bold text-black dark:text-white">Who I Am</h2>
+                    <p className="text-gray-900 dark:text-gray-300">
                         I’m Steven Spencer. I'm working towards my Bachelor's Degree in Computer Scinece at Michigan State University.
                         I have a background in web development, scripting, and game development.
                         I’ve been building apps, experimenting with animation, and automating workflows since I've been in college.
                     </p>
-                    <p className="text-gray-300">
+                    <p className="text-gray-900 dark:text-gray-300">
                         Outside of code, I play guitar, mess around with game development, and I like reading.
                         I'm currently building my personal blog and working on a game called <i>Witchpaw</i>.
                     </p>
@@ -89,40 +93,40 @@ export default function AboutPage() {
 
 
             <section className="p-10 max-w-6xl mx-auto">
-                <h1 className="text-3xl font-bold mb-8 text-white">Projects</h1>
+                <h1 className="text-3xl font-bold mb-8 text-black dark:text-white">Projects</h1>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {/* Project 1 */}
-                    <div className="bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                        <h3 className="text-xl font-semibold text-white mb-2">🧙 Witchpaw</h3>
-                        <p className="text-gray-400 mb-4">
+                    <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                        <h3 className="text-xl font-semibold text-black dark:text-white mb-2">🧙 Witchpaw</h3>
+                        <p className="text-gray-900 dark:text-gray-400 mb-4">
                             A magic-focused indie game where you play as a raccoon wizard. Built in Unity, inspired by Soulslike aesthetics.
                         </p>
                         <Link
                             href="/projects/witchpaw" // Replace with actual route or GitHub
-                            className="text-purple-400 hover:underline"
+                            className="text-[#1272CC] dark:text-purple-400 hover:underline"
                         >
                             Learn more →
                         </Link>
                     </div>
 
                     {/* Project 2 */}
-                    <div className="bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                        <h3 className="text-xl font-semibold text-white mb-2">📓 Blog & Portfolio</h3>
+                    <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                        <h3 className="text-xl font-semibold text-black dark:text-white mb-2">📓 Blog & Portfolio</h3>
                         <p className="text-gray-400 mb-4">
                             My personal blog and site (this one!) built with Next.js, Tailwind, MDX, and good vibes. Fully responsive and searchable.
                         </p>
                         <Link
                             href="/blog"
-                            className="text-purple-400 hover:underline"
+                            className="text-[#1272CC] dark:text-purple-400 hover:underline"
                         >
                             View blog →
                         </Link>
                     </div>
 
                     {/* Project 3 */}
-                    <div className="bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                        <h3 className="text-xl font-semibold text-white mb-2">📈 AI Stock Prediction</h3>
+                    <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+                        <h3 className="text-xl font-semibold text-black dark:text-white mb-2">📈 AI Stock Prediction</h3>
                         <p className="text-gray-400 mb-4">
                             LSTM + sentiment model to predict stock movement using hourly price windows and news article timestamps.
                         </p>
@@ -130,7 +134,7 @@ export default function AboutPage() {
                             href="https://github.com/MSU-AI/investment-ai" // Update with real repo
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-purple-400 hover:underline"
+                            className="text-[#1272CC] dark:text-purple-400 hover:underline"
                         >
                             View on GitHub →
                         </Link>
@@ -139,10 +143,10 @@ export default function AboutPage() {
             </section>
 
             {/* Skills Section */}
-            <section className="flex flex-col items-center gap-4 p-10 bg-[#0f0f0f]">
-                <h2 className="text-2xl font-bold dark:text-white">What can I work in?</h2>
+            <section className="flex flex-col items-center gap-4 p-10 bg-gary-500 dark:bg-[#0f0f0f]">
+                <h2 className="text-2xl font-bold text-black dark:text-white">What can I work in?</h2>
                 <p className="text-[#000000] dark:text-[#ffffff] text-center">I am happy to start learning a new language or API if we need that. <br></br>These are some of the technoloiges I've learned to use on my own.</p>
-                <ul className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 text-gray-200">
+                <ul className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 text-black dark:text-gray-200">
                     {[
                         { icon_path: "/icons/react.svg", subscript: "React" },
                         { icon_path: "/icons/nextjs.svg", subscript: "Next.js" },
@@ -158,14 +162,14 @@ export default function AboutPage() {
                         { icon_path: "/icons/unity.svg", subscript: "Unity (C#)" },
                         { icon_path: "/icons/blender.svg", subscript: "Blender" },
                     ].map((proj, i) => (
-                        <li key={i} className="bg-[#272727] px-4 py-2 rounded-lg transition-all hover:scale-110 hover:bg-[#212121]">
+                        <li key={i} className="bg-gray-400 dark:bg-[#272727] px-4 py-2 rounded-lg transition-all hover:scale-110 hover:bg-gray-500 dark:hover:bg-[#212121]">
                             <ProjectIcon project_props={proj} />
                         </li>
                     ))}
                 </ul>
             </section>
 
-            <section className="relative py-16 bg-[#131313] text-white text-center">
+            <section className="relative py-16 bg-gray-700 dark:bg-[#131313] text-white text-center">
                 <h1 className="text-3xl font-bold mb-8">Connect with Me</h1>
 
                 <div className="flex flex-wrap justify-center gap-8 max-w-3xl mx-auto">

@@ -19,7 +19,7 @@ export default function ClientSearch({ posts, className }: { posts: mdxProps[], 
             <div className="mx-5">
                 {/* Actual Search Bar */}
                 <TextField
-                    className="w-full"
+                    className="w-full dark:text-white text-black"
                     label="Search"
                     value={query}
                     onFocus={() => setFocus(true)}
@@ -31,6 +31,7 @@ export default function ClientSearch({ posts, className }: { posts: mdxProps[], 
                                 border: 'none',
                                 boxShadow: 'none',
                                 textAlign: 'center',
+                                color: 'inherit',
                             },
                         },
                     }}
