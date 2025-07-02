@@ -26,7 +26,7 @@ export default async function BlogPage() {
             {/* Header */}
             <section>
                 <Header data={{ title: "Blogs", subtext: "I be bloggin'" }}
-                    className="flex sm:justify-between justify-center bg-[#ffffff] dark:bg-[#272727] p-5 h-32 w-full z-2"
+                    className="flex sm:justify-between justify-center bg-[#ffffff] dark:bg-[#272727] p-5 h-32 w-full z-10 shadow-md shadow-black"
                 />
             </section>
 
@@ -37,12 +37,12 @@ export default async function BlogPage() {
                             Is Blogging Art?
                         </h1>
                         <p className="md:text-lg leading-relaxed text-gray-700 dark:text-gray-300 max-w-prose">
-                            Blogging is the art of capturing fleeting moments—like the neon glow of a Tokyo side street at dusk—and
-                            transforming them into stories that resonate across time and space. Each post becomes a brushstroke,
-                            blending personal insight with vivid imagery to create a living tapestry of ideas. Whether you’re sharing travel
-                            musings, technical deep dives, or reflections on daily life, your words have the power to engage, inspire,
-                            and connect. In this way, blogging isn’t just writing—it’s a form of modern storytelling that combines
-                            creativity, authenticity, and community.
+                            While you might not see blogging in a gallery, it's still a form of self-expression. When others
+                            share a personal story, solve a problem, or just document thier experiences, they create something from nothing.
+                            Their voice. Their angle. Their take.
+                            The way an author structures thier words, images, even thier site’s layout—it all adds up to a creative fingerprint.
+                            You don’t need to be a professional writer to make something meaningful. In the end, blogging is less about being perfect
+                            and more about being real—and that’s what makes it art in its own way.
                         </p>
                     </div>
                     <div className="flex items-center justify-center w-[50vw] mx-5">
@@ -62,12 +62,6 @@ export default async function BlogPage() {
                 </div>
             </section >
 
-
-            {/* Trending Section */}
-            {/* < section className="flex items-center justify-center my-5" >
-                <TrendingCarousel images={trending_images}></TrendingCarousel>
-            </ section> */}
-
             {/* Search Bar */}
             < div className="flex justify-center items-center my-5 w-full" >
                 <ClientSearch className="bg-[#2a8ae4] dark:bg-[#9379cc] rounded-4xl" posts={posts} />
@@ -80,7 +74,7 @@ export default async function BlogPage() {
                     I started blogging as a way to document what I'm working on — whether it's coding projects,
                     game design thoughts, or just cool stuff I’ve been learning. Writing helps me think more clearly
                     and gives me a place to look back at my progress. If someone else finds it helpful or interesting,
-                    that’s just a bonus.
+                    that is the whole reason.
                 </p>
             </section>
 
@@ -105,9 +99,12 @@ export default async function BlogPage() {
 
 function getPreview(content: string, length = 200) {
     return content
-        .replace(/!\[.*?\]\(.*?\)/g, '')
-        .replace(/[#>*_\-\n]/g, ' ')
-        .replace(/\s+/g, ' ')
+        .replace(/^---[\s\S]*?---/, '')               // Strip frontmatter
+        .replace(/!\[.*?\]\(.*?\)/g, '')              // Strip images
+        .replace(/^# .*$\n?/m, '')
+        .replace(/<BlogImage\s+[^>]*\/>/g, '')
+        .replace(/[#>*_\-\n]/g, ' ')                  // Strip markdown syntax
+        .replace(/\s+/g, ' ')                         // Normalize whitespace
         .trim()
         .slice(0, length) + '...';
 }

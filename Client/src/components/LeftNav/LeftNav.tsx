@@ -2,7 +2,7 @@
 'use client'
 
 import React from 'react';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NavIcon } from '@/components/NavIcon/NavIcon'
 import { useTheme } from '@/hooks/useTheme';
 
@@ -12,8 +12,13 @@ import { InnerMoon } from "@theme-toggles/react"
 
 import { Classic } from "@theme-toggles/react"
 
-export function LeftNav({ data, className, onNavigate }: Props) {
-    className = className == null ? "" : className;
+export function LeftNav({ data, className = "", onNavigate }: Props) {
+    //className = className == null ? "" : className;
+    const [hasMounted, setHasMounted] = useState(false);
+
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
 
     // Dark mode support
     const { theme, setTheme } = useTheme();
@@ -34,8 +39,11 @@ export function LeftNav({ data, className, onNavigate }: Props) {
             </div>
 
             {/* Real Dark Mode button */}
-            <InnerMoon className="transition-colors duration-200 text-6xl dark:text-[#131313] text-white" onToggle={(next) => setTheme(next ? 'dark' : 'light')} toggled={isDark} duration={750}
-                placeholder="" onPointerEnterCapture={() => { }} onPointerLeaveCapture={() => { }} />
+            {hasMounted && (
+                <InnerMoon className="transition-colors duration-200 text-6xl dark:text-[#131313] text-white" onToggle={(next) => setTheme(next ? 'dark' : 'light')}
+                    toggled={isDark} duration={750}
+                    placeholder="" onPointerEnterCapture={() => { }} onPointerLeaveCapture={() => { }} />
+            )}
         </div>
     );
 }

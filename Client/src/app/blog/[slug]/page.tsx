@@ -6,6 +6,9 @@ import { getPostBySlug } from '@/lib/mdx'
 import { notFound } from 'next/navigation'
 import { Header } from '@/components/Header/Header';
 
+// Blog Components
+import BlogImage from '@/components/BlogImage'
+
 
 type PostParams = Promise<{ slug: string }>
 
@@ -22,21 +25,26 @@ export default async function BlogPost({ params }: { params: PostParams }) {
 
     if (!post) return notFound();
 
+
+
     // Add components needed in mdx here NO DANGEROUS STUFF CHECK IT ALL FOR EVILLLLLLLL!!!!!!!!!!
     const components = {
-        img: (props: ImageProps) => (<Image {...props} alt={props.alt || 'Blog Image'} width={300} height={300} className="rounded-xl" />),
+        BlogImage,
     };
 
     return (
-        <div>
+        <div className="flex flex-col">
             {/* Blog Post Header */}
             <section id="home">
                 <Header data={{ title: "Tupah", subtext: "Unfiltered thoughts with occasional genius." }}
-                    className="flex sm:justify-between justify-center bg-[#272727] p-5 h-32 w-full z-2" />
-
+                    className="flex sm:justify-between justify-center bg-white dark:bg-[#272727] p-5 h-32 w-full z-2" />
             </section>
-            <div className="prose lg:prose-xl mx-auto h-fit py-5">
-                <MDXRemote source={post.content} components={components} />
+
+            {/* Content */}
+            <div className="w-full bg-white dark:bg-[#171717]">
+                <div className="flex flex-col prose lg:prose-xl dark:prose-invert mx-auto h-fit py-5 ">
+                    <MDXRemote source={post.content} components={components} />
+                </div>
             </div>
 
             {/* Lets make an auto scroller that is good */}

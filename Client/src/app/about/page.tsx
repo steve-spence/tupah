@@ -61,12 +61,12 @@ export default function AboutPage() {
                     Whether it’s a sleek website, an AI-powered app, or a creative experiment, I’m always open to new projects.
                     I’ve been exploring LLMs, training models, and building full-stack applications for about a year now. If you've got an idea, I’m in.
                 </p>
-                <Link
-                    href="stevenallenspencer@gmail.com"
+                <a
+                    href="mailto:stevenallenspencer@gmail.com"
                     className="bg-blue-400 hover:bg-blue-500 dark:bg-purple-600 dark:hover:bg-purple-700 text-white font-medium py-3 px-6 rounded-xl transition duration-300"
                 >
                     Contact Me
-                </Link>
+                </a>
 
             </section>
 
@@ -98,12 +98,12 @@ export default function AboutPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {/* Project 1 */}
                     <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                        <h3 className="text-xl font-semibold text-black dark:text-white mb-2">🧙 Witchpaw</h3>
+                        <h3 className="text-xl font-semibold text-white mb-2">🧙 Witchpaw</h3>
                         <p className="text-gray-900 dark:text-gray-400 mb-4">
                             A magic-focused indie game where you play as a raccoon wizard. Built in Unity, inspired by Soulslike aesthetics.
                         </p>
                         <Link
-                            href="/projects/witchpaw" // Replace with actual route or GitHub
+                            href="https://github.com/steve-spence/racoon_game"
                             className="text-[#1272CC] dark:text-purple-400 hover:underline"
                         >
                             Learn more →
@@ -112,9 +112,9 @@ export default function AboutPage() {
 
                     {/* Project 2 */}
                     <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                        <h3 className="text-xl font-semibold text-black dark:text-white mb-2">📓 Blog & Portfolio</h3>
-                        <p className="text-gray-400 mb-4">
-                            My personal blog and site (this one!) built with Next.js, Tailwind, MDX, and good vibes. Fully responsive and searchable.
+                        <h3 className="text-xl font-semibold text-white mb-2">📓 Blog & Portfolio</h3>
+                        <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
+                            My personal blog and site (this one!) built with Next.js, Tailwind and Typescript. Fully responsive and searchable.
                         </p>
                         <Link
                             href="/blog"
@@ -126,12 +126,12 @@ export default function AboutPage() {
 
                     {/* Project 3 */}
                     <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-                        <h3 className="text-xl font-semibold text-black dark:text-white mb-2">📈 AI Stock Prediction</h3>
-                        <p className="text-gray-400 mb-4">
+                        <h3 className="text-xl font-semibold text-white mb-2">📈 AI Stock Prediction</h3>
+                        <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
                             LSTM + sentiment model to predict stock movement using hourly price windows and news article timestamps.
                         </p>
                         <Link
-                            href="https://github.com/MSU-AI/investment-ai" // Update with real repo
+                            href="https://github.com/MSU-AI/investment-ai"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-[#1272CC] dark:text-purple-400 hover:underline"
@@ -211,8 +211,6 @@ export default function AboutPage() {
                     </Link>
                 </div>
             </section>
-
         </div>
     )
-
 }
