@@ -9,12 +9,13 @@ import Image from 'next/image'
 
 export default function HomePage() {
 
-  // Max 4 otherwise responsive is thrown off
+  // Max 4 otherwise responsive is thrown off 
+  // This is also just terrible code I need to fix this soon. When I feel like featuring other posts.
   const rotating_icons: NavIconProps[] = [
-    { id: "blog1", title: "Orlando", bg_path: "/pictures/blog/orlando.jpg", link: "blog/orlando" },
-    { id: "blog2", title: "The First Post", bg_path: "/pictures/blog/first_post.jpg", link: "blog/the-first-post" },
-    { id: "blog3", title: "Finding out", bg_path: "/pictures/blog/finding_out.jpg", link: "blog/finding-out" },
-    { id: "blog4", title: "Why Solo Leveling?", bg_path: "/pictures/blog/solo_leveling.png", link: "blog/why-solo-leveling" },
+    { id: "blog1", title: "Dark vs Light Mode", bg_path: "/pictures/blog/dark-vs-light.png", link: "blog/dark-mode-vs-light-mode" },
+    { id: "blog2", title: "What I wish I knew...", bg_path: "/pictures/blog/tailwind-cheatsheet.png", link: "blog/things-i-wish-i-knew-before-tailwind" },
+    { id: "blog3", title: "AI Buzz", bg_path: "/pictures/blog/ai-buzz.png", link: "blog/why-ai-is-just-buzz" },
+    { id: "blog4", title: "Why I Built from Scratch", bg_path: "/pictures/blog/react-logo.png", link: "blog/why-i-built-from-scratch" },
   ];
 
   return (
@@ -63,14 +64,14 @@ export default function HomePage() {
           <div className="flex flex-col flex-1 items-start justify-baseline p-10">
             <div>
               <h1 className="text-[#1272CC] dark:text-[#9379cc] font-bold text-2xl text-shadow-2xs">What's here</h1>
-              <p className=" text-gray-800 dark:text-white outline-black w-44 overflow-hidden">A bunch of blog posts I have started to accumulate. I post cool stuff sometimes.
+              <p className=" text-gray-800 dark:text-white outline-black max-w-3xs overflow-hidden">A growing pile of thoughts - from tech rants to anime, whatever's on my mind. It's controlled chaos.
               </p>
             </div>
           </div>
           <div className="flex flex-col flex-1 items-end justify-end p-10 text-center">
             <div>
               <h1 className="text-[#1272CC] dark:text-[#9379cc] font-bold text-2xl text-center text-shadow-2xs">Why it's here</h1>
-              <p className="text-gray-800 dark:text-white outline-black w-44 overflow-hidden">I made this blog because I have nothing better do with myself and I enjoy it.
+              <p className="text-gray-800 dark:text-white outline-black max-w-3xs overflow-hidden">I built this blog to keep my brain from rotting. Writing clears my head, and if someone finds value in it, that's a win.
               </p>
             </div>
           </div>
@@ -82,30 +83,31 @@ export default function HomePage() {
         <div className="flex flex-col p-10 gap-5 w-full justify-center items-center bg-[#f0f0f0] dark:bg-[#0e0e0e] shadow-xl shodow-indigo-500/50 text-white">
           <h2 className="text-4xl font-bold text-center text-gray-700 dark:text-white">What do I post here?</h2>
           <div className="flex flex-col md:flex-row gap-5 justify-center items-center">
-            <div className="flex flex-col items-center">
-              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc] underline text-center md:text-left mb-2">Gaming</h3>
-              <p className="text-1xl font-normal text-gray-800 dark:text-white">I've been playing Marvel Rivals and I like keeping my pages updated with the newest Marvel
-                related content. I used to play LoL, Overwatch, Old School RuneScape, and so many other titles
-                I could go on for days.</p>
+            <div className="flex flex-col items-center grow-1">
+              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc] underline text-center mb-2">Gaming</h3>
+              <p className="text-1xl font-normal text-gray-800 dark:text-white text-center">I've been gaming since I could move a mouse. From Halo 4 on launch day to 7,000 hours in Overwatch and RuneScape,
+                I've grinded everything from shooters to survival sims, MMO's to puzzle co-ops. If the game has a community, a meta, or a boss fight, I've probably been there.</p>
             </div>
             <div className="relative bg-black rounded-4xl"></div>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center grow-1">
               <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc] underline text-center md:text-left mb-2">Anime</h3>
-              <p className="text-gray-800 dark:text-white">I enjoy watching seasonal anime and posting my favorites. I post about the worst and best anime of each season.</p>
+              <p className="text-gray-800 dark:text-white text-center">I keep up with seasonal anime and always have something to say. Whether it’s praise, slander, or a new favorite,
+                expect honest takes and unfiltered opinions.</p>
             </div>
 
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center grow-1">
               <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc] underline text-center md:text-left mb-2">Tech Support</h3>
-              <p className="text-gray-800 dark:text-white">I'm at Michigan State University studying for my Bachelor's in Computer Science, so I know might know something about computers.
-                I have always wanted to start a page where I could let people know useful tutorials or helpful tips,
-                this is that dream realized.</p>
+              <p className="text-gray-800 dark:text-white text-center">I'm a CS major at Michigan State,
+                and I've helped enough people fix their computers to know it’s worth writing down. Tips, tools, rants, and tutorials, it's all here.</p>
             </div>
           </div>
         </div>
 
         {/* Rotating Blog Posts */}
-        <div className="flex items-center justify-center w-full h-fit bg-gray-200 dark:bg-[#121212] py-5">
-          <RotatingIcons data={{ icons: rotating_icons }} className="bg-[#5994cc] dark:bg-[#9379cc] rounded-4xl m-5" />
+        <div className="flex flex-col items-center w-full h-fit bg-gray-200 dark:bg-[#121212] py-5">
+          <h1 className="text-3xl text-black dark:text-white font-bold grow-1 text-left">Featured Posts</h1>
+          <RotatingIcons data={{ icons: rotating_icons }} className="bg-gradient-to-br from-[#88c9ff] to-[#5994cc] dark:from-[#4a3577] dark:to-[#9379cc]
+      rounded-4xl m-5 dark:text-white text-black font-semibold" />
         </div>
       </section>
 

@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link'
 
-export function NavIcon({ data, className, onClick }: Props) {
+export function NavIcon({ data, className = "", size = "12", onClick }: Props) {
 
     const { title, bg_path, link } = data;
     const hasPath = bg_path != null;
@@ -11,7 +11,7 @@ export function NavIcon({ data, className, onClick }: Props) {
 
     const inner = (
         <div className={`${className} cursor-pointer flex flex-col items-center justify-center`} onClick={onClick} >
-            <div className="w-12 h-12 rounded-2xl bg-no-repeat bg-center bg-contain p-3" style={{ backgroundImage: `url(${bg_path})` }} />
+            <div className={`w-${size} h-${size} rounded-2xl bg-no-repeat bg-center bg-contain p-3`} style={{ backgroundImage: `url(${bg_path})` }} />
             <p className="mt-1 text-sm text-center">{title}</p>
         </div>
     )
@@ -42,5 +42,6 @@ export interface NavIconProps {
 type Props = {
     data: NavIconProps,
     className?: string,
+    size?: string,
     onClick?: () => void,
 };

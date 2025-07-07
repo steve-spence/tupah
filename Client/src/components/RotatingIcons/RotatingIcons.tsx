@@ -32,7 +32,7 @@ export function RotatingIcons({ data, className }: Props) {
                         layout
                         transition={spring}
                     >
-                        <NavIcon key={index} data={icon} />
+                        <NavIcon key={index} data={icon} size="16" />
                     </motion.div>
                 ))}
             </div>

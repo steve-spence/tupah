@@ -41,8 +41,8 @@ export default async function BlogPost({ params }: { params: PostParams }) {
             </section>
 
             {/* Content */}
-            <div className="w-full bg-white dark:bg-[#171717]">
-                <div className="flex flex-col prose lg:prose-xl dark:prose-invert mx-auto h-fit py-5 ">
+            <div className="w-full px-10 bg-white dark:bg-[#171717]">
+                <div className="flex flex-col prose lg:prose-xl dark:prose-invert mx-auto h-fit py-5">
                     <MDXRemote source={post.content} components={components} />
                 </div>
             </div>
