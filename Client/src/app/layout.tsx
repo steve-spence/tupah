@@ -18,12 +18,12 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
       <body className="flex flex-col">
         {/* Layout UI */}
         <div className="flex flex-1">
-
+          {/* bg-gradient-to-b from-[#9379cc] to-[#4B0A1B] */}
           {/* Place children where you want to render a page or nested layout */}
           <div className={`!transition-all duration-300 overflow-hidden ${sidebarWidth}`}>
             <LeftNav
               className={`fixed top-0 left-0 !transition-all duration-300 ${sidebarWidth} h-full py-5 z-10
-                bg-gray-300 overflow-hidden text-white `}
+     overflow-hidden text-white bg-gradient-to-b from-gray-100 to-gray-300`}
               onNavigate={() => setIsOpen(false)}
             ></LeftNav>
           </div>
@@ -35,8 +35,8 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
              fixed top-1/2 -translate-y-1/2 z-20
              w-7 h-14 rounded-r-full
              !transition-all duration-300
-             ${isOpen ? 'left-24 bg-gray-300' : 'left-0'}
-             bg-gray-200 bg-no-repeat bg-center bg-contain select-none cursor-pointer
+             ${isOpen ? 'left-24 bg-gray-200' : 'left-0'}
+             bg-gray-200  bg-no-repeat bg-center bg-contain select-none cursor-pointer
            `}
           >
             <Image src={isOpen ? "/icons/pull_right.svg" : "/icons/pull_left.svg"} fill alt="Toggle Sidebar" className="scale-x-[-1] scale-80" />
@@ -47,10 +47,10 @@ export default function HomeLayout({ children, }: { children: React.ReactNode })
         </div>
 
         <footer>
-          <div className="flex flex-row w-full h-fit bg-gray-300 dark:bg-[#212121] text-black dark:text-white gap-5 py-10">
-            <div className="hidden sm:flex flex-col items-center p-5">
-              <div className="relative lg:w-64 lg:h-64 w-48 h-48">
-                <Image src="/pictures/owl_logo.png" className="p-10 object-contain" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt=" Owl Logo" />
+          <div className="flex flex-row w-full h-fit bg-gray-300 dark:bg-[#212121] text-black dark:text-white gap-5">
+            <div className="hidden sm:flex flex-col items-center">
+              <div className="relative lg:w-48 lg:h-48 w-32 h-32">
+                <Image src="/pictures/owl_logo.png" className="object-contain p-5" fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" alt=" Owl Logo" />
               </div>
               <h1 className="py-5">Tupah</h1>
               <p className="font-bold text-center">Steven Spencer's website<br></br>for stuff.</p>

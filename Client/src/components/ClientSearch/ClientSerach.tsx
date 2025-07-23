@@ -14,8 +14,9 @@ export default function ClientSearch({ posts, className }: { posts: mdxProps[], 
         post.title.toLowerCase().includes(query.toLowerCase())
     );
 
+    // MAKE THIS CENTERED and make it smaller an come out to like 50%
     return (
-        <div className={`!transition-all duration-300 ease-in-out overflow-hidden ${className || ''} ${focus ? 'w-[90%]' : 'w-[70%] sm:w-[60%] md:w-[50%]'}`}>
+        <div className={`!transition-all duration-300 ease-in-out overflow-hidden ${className || ''} ${focus ? 'w-[70%]' : 'w-[70%] sm:w-[60%] md:w-[50%]'}`}>
             <div className="mx-5">
                 {/* Actual Search Bar */}
                 <TextField

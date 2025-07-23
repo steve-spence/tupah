@@ -37,8 +37,9 @@ export default async function BlogPost({ params }: { params: PostParams }) {
             {/* Blog Post Header */}
             <section id="home">
                 <Header data={{ title: "Tupah", subtext: "Unfiltered thoughts with occasional genius." }}
-                    className="flex sm:justify-between justify-center bg-white dark:bg-[#272727] p-5 h-32 w-full z-2" />
+                    className="flex sm:justify-between justify-center bg-white dark:bg-[#272727] p-5 h-32 w-full z-2 fixed" />
             </section>
+            <div className="h-32"></div>
 
             {/* Content */}
             <div className="w-full px-10 bg-white dark:bg-[#171717]">
