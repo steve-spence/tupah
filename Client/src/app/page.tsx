@@ -94,10 +94,10 @@ export default function HomePage() {
         <div className="flex flex-col md:flex-row content-between py-30 text-center">
           <div className="flex flex-col flex-1 items-start justify-center px-20 py-10">
             <div>
-              <h1 className="text-[#1272CC] dark:text-[#9379cc] font-bold text-2xl text-shadow-2xs">
+              <h1 className="text-[#1272CC] dark:sm:text-[#9379cc] dark:text-[#ffffff] font-bold text-2xl text-shadow-2xs transition-colors">
                 What's here
               </h1>
-              <p className=" text-gray-800 dark:text-white outline-black max-w-3xs overflow-hidden">
+              <p className=" text-gray-800 dark:text-white outline-black max-w-3xs overflow-hidden font-semibold">
                 A growing pile of thoughts. From tech rants to anime, whatever's
                 on my mind. It's controlled chaos.
               </p>
@@ -106,10 +106,10 @@ export default function HomePage() {
           <div className=""></div>
           <div className="flex flex-col flex-1 items-end justify-end px-20 py-10 text-center">
             <div>
-              <h1 className="text-[#1272CC] dark:text-[#9379cc] font-bold text-2xl text-center text-shadow-2xs">
+              <h1 className="text-[#1272CC] dark:sm:text-[#9379cc] dark:text-[#ffffff] font-bold text-2xl text-center text-shadow-2xs transition-colors">
                 Why it's here
               </h1>
-              <p className="text-gray-800 dark:text-white outline-black max-w-3xs overflow-hidden">
+              <p className="text-gray-800 dark:text-white outline-black max-w-3xs overflow-hidden font-semibold">
                 I built this blog to keep my brain from rotting. Writing clears
                 my head, and if someone finds value in it, that's a win.
               </p>
