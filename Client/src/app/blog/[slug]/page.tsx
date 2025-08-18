@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: { params: PostParams }) {
   if (!post) return {};
 
   return generatePageMetadata(
-    post.frontmatter.title || "Blog Post",
-    post.frontmatter.description || "A blog post from Tupah",
+    post.fontMatter.title || "Blog Post",
+    post.fontMatter.description || "A blog post from Tupah",
     `/blog/${slug}`
   );
 }
