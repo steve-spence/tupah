@@ -1,13 +1,27 @@
 // Home Page
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { NavIconProps } from "@/components/NavIcon/NavIcon";
 import { RotatingIcons } from "@/components/RotatingIcons/RotatingIcons";
 import { Header } from "@/components/Header/Header";
 import Image from "next/image";
 
 export default function HomePage() {
+  // Add canonical URL for home page
+  useEffect(() => {
+    const canonicalUrl = "https://tupah.me";
+    let canonicalLink = document.querySelector(
+      'link[rel="canonical"]'
+    ) as HTMLLinkElement;
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.rel = "canonical";
+      document.head.appendChild(canonicalLink);
+    }
+    canonicalLink.href = canonicalUrl;
+  }, []);
+
   // Max 4 otherwise responsive is thrown off
   // This is also just terrible code I need to fix this soon. When I feel like featuring other posts.
   const rotating_icons: NavIconProps[] = [
@@ -31,9 +45,9 @@ export default function HomePage() {
     },
     {
       id: "blog4",
-      title: "Why I Built from Scratch",
-      bg_path: "/pictures/blog/react-logo.png",
-      link: "blog/why-i-built-from-scratch",
+      title: "The Best First Mic",
+      bg_path: "/pictures/blog/mv7-1.jpg",
+      link: "blog/the-best-first-mic",
     },
   ];
 
