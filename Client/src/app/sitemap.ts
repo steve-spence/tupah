@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { getPostSlugs } from '@/lib/mdx'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const baseUrl = 'https://tupah.me'
+    const baseUrl = 'https://www.tupah.me'
 
     // Get all blog post slugs
     const blogSlugs = getPostSlugs()
