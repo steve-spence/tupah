@@ -1,1 +1,8 @@
-{}
+{
+  "editor.formatOnSave": false,
+  "files.insertFinalNewline": false,
+  "files.trimTrailingWhitespace": false,
+  "[mdx]": {
+    "editor.formatOnSave": false
+  }
+}

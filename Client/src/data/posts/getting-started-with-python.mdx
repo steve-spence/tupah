@@ -5,18 +5,62 @@ tags: ["general", "fun"]
 slug: "getting-started-with-python"
 image_path: "/pictures/blog/getting-started-python.png"
 ---
+
 <BlogImage src="/pictures/blog/getting-started-python.png" alt="Python Logo" />
 
 # Getting Started wtih Python
 
-So you want to be the 10x python dev that can solve every Leetcode problem in 10 minutes or less? 
+So you want to be the 10x python dev that can solve every Leetcode problem in 10 minutes or less?
 Well let's get back to reality. There is no guide that can do everything for you. The best way to learn python
-is by doing the small tasks. Don't look at the big picture let's just focus on one small step at a time. You want to make a 
+is by doing the small tasks. Don't look at the big picture let's just focus on one small step at a time. You want to make a
 stock market prediction model that can give you higher returns than half of Congress? Sorry but this is the wrong place, I wouldn't be here either
-if I knew how to do that. What you can do is learn to set up an environment to run your code and what is happening in the back end. 
+if I knew how to do that. What you can do is learn to set up an environment to run your code and what is happening in the back end.
 
 ## Virtual Environments
 
-Assuming you have python installed on your computer if you don't go to [Python Installation](https://www.python.org/downloads/) and click Download Python x.xx.x (version).
-This will allow you to execute python on your system. Once you have python downlaoded, we need to set up a place to execute python code. The best way I can think of to describe 
-what is happening in 
+Assuming you have Python installed on your computer if you don't go to [Python Installation](https://www.python.org/downloads/) and click Download
+Python 3.12.x (whatever version you want, LTS is best). Follow the intructions there. This will allow you to execute python on your system.
+You can verify this by opening a terminal window (Press your Windows key and type "cmd" and open the Command Prompt),
+then typing
+```
+python --verison
+```
+This should respond with something like "Python 3.11.9"
+
+Once you have python downlaoded, we need to set up a place to execute python code. This is super important for every project you will ever do in python. 
+Everyone who has written code for you to use has consolidated it into python packages and libraries for you to use. When you want to build on their work
+or use it for your own projects, it's best to do it locally in a virtual environment. These packages people have made are things like video to audio
+or web technologies like ajax or flask. These are packages you install and then you can use them in your project. The reason we use them in a virtual 
+environment is because not every project needs ajax, flask, openai, transformer, torch, video2audio, or even discord in the project. It will confuse you
+and bloats(extra code that doesn't need to be there) the system that you are building. So if we use our package manager pip (Pip Installs Packages) 
+to install our packages into our project we will be happy because we know what our project is going to be doing just by looking at our packages!
+
+I know locally was a scary word for me when I was new to the programming space. Locally and Globally are confusing at first, but as time goes on and you
+complete more projects it will make more sense. Locally is just close by and Globally is everywhere, seems intuitive, but I struggled.
+
+## Actually Coding
+
+So it's time to write some code. This is the fun part. I've always wanted to write a hello world program, and now it's my time to shine. 
+So lets find an empty directory on your system and get started. First we are going to make python print us hello world from the shell. Shell is another
+really scary word. There are lots of shells, its just a place to execute your code directly. Let's start with the python shell. With your terminal open, 
+type 
+```
+python
+```
+This should put your cursor next to a new line
+>>>
+This will allow you to execute your first command with python. Python's standard library includes print() which will print your output. So a great first start is to 
+decide a phrase like "I enjoy reading" and we can make python respond back by echoing our phrase back. To do this we simply type 
+```
+print("I enjoy reading")
+```
+Now you should see I enjoy reading spit back at you. How useful right? Well no, the point of this is not to build something useful. An understanding of these concepts is critical to
+any aspiring programmer. Once you understand the shell, the virtual environemnt executing the code, and the standard library you use so that print() actually works. If you can understand 
+the underlying concepts here and study them independently, you will have success in programming. These are things I with I knew before I started learning how algorithms worked. Drop the ego 
+and start from the basics. That quote is critial to all disciplines. 
+
+## Writing a Script
+
+Now this is where things tend to get a little more complex. Well I'm gonna hope you have an IDE installed if you don't you can check [this](tupah.me/blog/installing-an-ide)
+
+
