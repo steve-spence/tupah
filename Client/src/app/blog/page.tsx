@@ -40,15 +40,15 @@ export default async function BlogPage() {
               Is Blogging Art?
             </h1>
             <p className="md:text-lg leading-relaxed text-gray-700 dark:text-gray-300 max-w-prose">
-              While you might not see blogging in a gallery, it's still a form
+              While you might not see blogging in a gallery or museum, it's still a form
               of self-expression. When others share a personal story, solve a
               problem, or just document thier experiences, they create something
-              from nothing. Their voice. Their angle. Their take. The way an
-              author structures thier words, images, even thier site’s layout—it
+              from nothing. Their voice. Their platform. Their take. The way an
+              author structures thier words, images, or even thier site’s layout. It
               all adds up to a creative fingerprint. You don’t need to be a
               professional writer to make something meaningful. In the end,
-              blogging is less about being perfect and more about being real—and
-              that’s what makes it art in its own way.
+              blogging is less about being perfect and more about being real.
+              That’s what makes it art in its own way.
             </p>
           </div>
           <div className="flex items-center justify-center w-[50vw] mx-5">
@@ -71,7 +71,7 @@ export default async function BlogPage() {
       {/* Search Bar */}
       <div className="flex justify-center items-center my-5 w-full">
         <ClientSearch
-          className="bg-[#2a8ae4] dark:bg-[#9379cc] rounded-4xl"
+          className="bg-[#2a8ae4] dark:bg-radial from-[#9379cc] to-[#c0abe6] rounded-4xl"
           posts={posts}
         />
       </div>

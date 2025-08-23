@@ -38,11 +38,10 @@ export function LeftNav({ data, className = "", onNavigate }: Props) {
                     className="text-[#000000] font-bold" onClick={onNavigate} />
             </div>
 
-            {/* Real Dark Mode button */}
+            {/* Real Dark Mode button / Had to remove onPointerEnterCapture, onPointerLeaveCapture, placehodler from the actual InnerMoon.ts file in the node_modules*/}
             {hasMounted && (
                 <InnerMoon className="transition-colors duration-200 text-6xl dark:text-[#131313] text-white" onToggle={(next) => setTheme(next ? 'dark' : 'light')}
-                    toggled={isDark} duration={750}
-                    placeholder="" onPointerEnterCapture={() => { }} onPointerLeaveCapture={() => { }} />
+                    toggled={isDark} duration={750} />
             )}
         </div>
     );
