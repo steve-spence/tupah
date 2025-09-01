@@ -240,7 +240,7 @@ export default function AboutPage() {
                 network upgrades for the residence halls.
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                • Expected graduation: 2026
+                • Expected graduation: 2025
               </p>
             </div>
           </div>
