@@ -287,7 +287,7 @@ export default function AboutPage() {
       </section>
 
       <section className="relative py-16 bg-gray-700 dark:bg-[#131313] text-white text-center">
-        <h1 className="text-3xl font-bold mb-8">Connect with Me</h1>
+        <h1 className="text-3xl font-bold mb-8">Connect with Me!</h1>
 
         <div className="flex flex-wrap justify-center gap-8 max-w-3xl mx-auto">
           {/* GitHub */}
