@@ -8,7 +8,7 @@ interface ImageCarouselProps {
     wideImages: string[],
 }
 
-export function ImageCarousel({ verticalImages, wideImages }: ImageCarouselProps) {
+export default function ImageCarousel({ verticalImages, wideImages }: ImageCarouselProps) {
     const mainImage = verticalImages[0];
 
     const [isMd, setIsMd] = useState(false)

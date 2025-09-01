@@ -1,11 +1,9 @@
 {
-  "name": "availability",
+  "name": "tupah",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build-backend": "docker build -t flask-backend ../Server",
-    "dev-backend": "docker run --rm -p 5000:5000 flask-backend",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -21,6 +19,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "@theme-toggles/react": "^4.1.0",
     "@types/mdx": "^2.0.13",
+    "axios": "^1.11.0",
     "bootstrap": "^5.3.6",
     "gray-matter": "^4.0.3",
     "motion": "^12.12.1",

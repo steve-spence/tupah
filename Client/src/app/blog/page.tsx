@@ -5,15 +5,9 @@ import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { Header } from "@/components/Header/Header";
-import { NavIcon } from "@/components/NavIcon/NavIcon";
-import { getAllPosts, mdxProps } from "@/lib/mdx";
+import { getAllPosts } from "@/lib/mdx";
 import ClientSearch from "@/components/ClientSearch/ClientSerach";
-import { TrendingCarousel } from "@/components/TrendingCarousel/TrendingCarousel";
-
-// testing packages
-import TextField from "@mui/material/TextField";
-import Dropdown from "react-bootstrap/Dropdown";
-import { ImageCarousel } from "@/components/ImageCarousel/ImageCarousel";
+import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
 
 const AMOUNT_OF_POSTS = 10;
 

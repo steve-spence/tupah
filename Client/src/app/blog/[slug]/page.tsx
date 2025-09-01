@@ -1,18 +1,20 @@
-import React, { ImgHTMLAttributes } from "react";
+import React, { ImgHTMLAttributes, useState } from "react";
 import Image, { ImageProps } from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { getPostBySlug } from "@/lib/mdx";
+import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/Header/Header";
 import { generatePageMetadata } from "@/lib/metadata";
+import CommentEditor from "@/components/CommentEditor/CommentEditor";
+
 
 // Blog Components
-import BlogImage from "@/components/BlogImage";
+import BlogImage from "@/components/BlogImage/BlogImage";
 
 type PostParams = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
-  const slugs = (await import("@/lib/mdx")).getPostSlugs();
+  const slugs = getPostSlugs();
   return slugs.map((slug) => ({
     slug: slug.replace(/\.mdx$/, ""),
   }));
@@ -34,8 +36,13 @@ export async function generateMetadata({ params }: { params: PostParams }) {
 export default async function BlogPost({ params }: { params: PostParams }) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
+  const [comment, setComment] = useState({});
 
   if (!post) return notFound();
+
+  const handleUpdates = (e: any) => {
+    setComment(e);
+  }
 
   // Add components needed in mdx here NO DANGEROUS STUFF CHECK IT ALL FOR EVILLLLLLLL!!!!!!!!!!
   const components = {
@@ -63,12 +70,7 @@ export default async function BlogPost({ params }: { params: PostParams }) {
         </div>
       </div>
 
-      {/* Lets make an auto scroller that is good */}
-      {/* 
-            The header will stick and the text in the middle will turn into a slider for 
-            reading speed the text will be long and down th emiddle. After text takes up 
-            4 lines then make a new paragraph
-             */}
+      <CommentEditor updateComments={handleUpdates} />
     </div>
   );
 }
