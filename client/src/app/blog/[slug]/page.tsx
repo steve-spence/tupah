@@ -6,8 +6,6 @@ import { notFound } from "next/navigation";
 import { Header } from "@/components/Header/Header";
 import { generatePageMetadata } from "@/lib/metadata";
 import CommentEditor from "@/components/CommentEditor/CommentEditor";
-
-
 // Blog Components
 import BlogImage from "@/components/BlogImage/BlogImage";
 
