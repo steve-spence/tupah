@@ -19,7 +19,7 @@ Server for server code if I need it
 ## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/)
-- **Supabase** Database
+- **Database** Supabase (PostgreSQL)
 - **Language**: TypeScript
 
 ## Getting Started
