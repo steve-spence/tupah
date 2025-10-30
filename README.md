@@ -19,8 +19,7 @@ Server for server code if I need it
 ## Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Images**: `next/image` for performance and responsiveness
+- **Supabase** Database
 - **Language**: TypeScript
 
 ## Getting Started
