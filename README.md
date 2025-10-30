@@ -1,6 +1,6 @@
 # Tupah
 
-**Tupah** is a personal blog and portfolio site built with Next.js and Tailwind CSS. It features rotating blog previews, custom art integration, and sections for gaming updates, anime commentary, and tech tutorials.
+**Tupah** is a side project I work on when I test out new updates React features. I built this site with Next.js and Tailwind. It features an about page, a blog page, and a landing page. I am still developing the site occationally.
 
 ## Features
 
