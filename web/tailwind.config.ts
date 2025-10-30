@@ -9,7 +9,12 @@ export default {
     ],
     darkMode: 'class',
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                'light-text': 'var(--light-text-color)',
+                'dark-text': 'var(--dark-text-color)',
+            },
+        },
     },
     plugins: [typography],
 } satisfies Config

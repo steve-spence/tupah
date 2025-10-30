@@ -57,9 +57,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode; }
           </main>
         </div>
 
-        <Footer>
-
-        </Footer>
+        <Footer />
       </body>
     </html>
   );

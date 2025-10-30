@@ -15,7 +15,7 @@ const Typewriter = dynamic(() => import("typewriter-effect"), { ssr: false });
 
 export default function AboutPage() {
   return (
-    <div className="bg-[#eaeaea] dark:bg-[#A1A1A1]">
+    <div className="bg-[#ffffff] dark:bg-[#A1A1A1]">
       {/* Header */}
       <section className="relative">
         <Header
@@ -41,10 +41,10 @@ export default function AboutPage() {
           onInit={(typewriter) => {
             typewriter
               .pauseFor(2500)
-              .typeString("Hey, I'm Steve.")
+              .typeString("Hi, I'm Steve.")
               .pauseFor(2500) // show full text for 2.5s
               .deleteAll() // wipe it
-              .typeString("I build stuff.")
+              .typeString("I build software solutions.")
               .pauseFor(2500)
               .deleteAll()
               .typeString("Let's talk.")
@@ -111,7 +111,7 @@ export default function AboutPage() {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Project 1 */}
-          <div className="bg-gray-500 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+          <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
             <h3 className="text-xl font-semibold text-white mb-2">
               🧙 Witchpaw
             </h3>
@@ -286,10 +286,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="relative py-16 bg-gray-700 dark:bg-[#131313] text-white text-center">
+      <section className="relative py-16 bg-[#ffffff] dark:bg-[#131313] text-white text-center">
         <h1 className="text-3xl font-bold mb-8">Connect with Me</h1>
 
-        <div className="flex flex-wrap justify-center gap-8 max-w-3xl mx-auto">
+        <div className="flex flex-wrap justify-center items-center gap-8 max-w-3xl mx-auto">
           {/* GitHub */}
           <Link
             href="https://github.com/steve-spence"
@@ -305,7 +305,7 @@ export default function AboutPage() {
                 alt="GitHub"
               />
             </div>
-            <span className="text-sm text-gray-300">GitHub</span>
+            <span className="text-sm text-gray-900 dark:text-[#fff]">Github</span>
           </Link>
 
           {/* LinkedIn */}
@@ -323,13 +323,13 @@ export default function AboutPage() {
                 alt="LinkedIn"
               />
             </div>
-            <span className="text-sm text-gray-300">LinkedIn</span>
+            <span className="text-sm text-gray-900 dark:text-[#fff]">Linkedin</span>
           </Link>
 
           {/* Email */}
           <Link
             href="mailto:stevenistotallyawesome@gmail.com"
-            className="flex flex-col items-center hover:scale-105 transition-transform"
+            className=""
           >
             <div className="relative w-12 h-12 mb-2">
               <Image
@@ -339,7 +339,7 @@ export default function AboutPage() {
                 alt="Email"
               />
             </div>
-            <span className="text-sm text-gray-300">Email</span>
+            <span className="text-sm text-gray-900 dark:text-[#fff]">Email</span>
           </Link>
         </div>
       </section>

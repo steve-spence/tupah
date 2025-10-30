@@ -15,3 +15,8 @@ h1, h2, h3, h4, h5, h6, p {
 a {
     cursor: pointer;
 }
+
+:root {
+  --dark-text-color: white;
+  --light-text-color: #212121;
+}
