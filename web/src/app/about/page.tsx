@@ -15,49 +15,52 @@ const Typewriter = dynamic(() => import("typewriter-effect"), { ssr: false });
 
 export default function AboutPage() {
   return (
-    <div className="bg-[#ffffff] dark:bg-[#A1A1A1]">
+    <div className="bg-[#fff] dark:bg-[#A1A1A1]">
       {/* Header */}
       <section className="relative">
         <Header
           data={{ title: "Steven Spencer", subtext: "About me" }}
-          className="flex sm:justify-between justify-center bg-[#eff1f1] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 w-full z-2"
+          className="flex sm:justify-between justify-center bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 w-full z-2"
         />
       </section>
 
       {/* Hero Section */}
-      <div
-        className="flex flex-col md:flex-row-reverse items-center justify-center gap-5
-            text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] bg-gray-100 dark:bg-[#131313] shadow-md"
-      >
-        <div className="relative w-60 h-auto aspect-[3/4] rounded-3xl overflow-hidden">
-          <Image
-            className="object-cover"
-            src="/pictures/good_pic.jpg"
-            alt="The Hero"
-            fill
+      <div className="flex items-center justify-center">
+        <div
+          className="flex flex-col md:flex-row-reverse items-center justify-center gap-5 grow-[0.6]
+            text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] dark:bg-[#131313] shadow-md"
+        >
+          <div className="relative w-60 h-auto aspect-[3/4] rounded-3xl overflow-hidden">
+            <Image
+              className="object-cover"
+              src="/pictures/good_pic.jpg"
+              alt="The Hero"
+              fill
+            />
+          </div>
+          <Typewriter
+            onInit={(typewriter) => {
+              typewriter
+                .pauseFor(2500)
+                .typeString("Hi, I'm Steve.")
+                .pauseFor(2500) // show full text for 2.5s
+                .deleteAll() // wipe it
+                .typeString("I build software solutions.")
+                .pauseFor(2500)
+                .deleteAll()
+                .typeString("Let's talk.")
+                .pauseFor(2500)
+                .start(); // kick off the loop
+            }}
+            options={{
+              loop: true,
+              delay: 50,
+              deleteSpeed: 25,
+            }}
           />
         </div>
-        <Typewriter
-          onInit={(typewriter) => {
-            typewriter
-              .pauseFor(2500)
-              .typeString("Hi, I'm Steve.")
-              .pauseFor(2500) // show full text for 2.5s
-              .deleteAll() // wipe it
-              .typeString("I build software solutions.")
-              .pauseFor(2500)
-              .deleteAll()
-              .typeString("Let's talk.")
-              .pauseFor(2500)
-              .start(); // kick off the loop
-          }}
-          options={{
-            loop: true,
-            delay: 50,
-            deleteSpeed: 25,
-          }}
-        />
       </div>
+
 
       {/* Lets Build */}
       <section className="dark:bg-[#0f0f0f] text-white py-10 flex flex-col items-center text-center">
@@ -79,12 +82,12 @@ export default function AboutPage() {
       </section>
 
       {/* Dividor */}
-      <div className="flex justify-center w-full h-fit py-5 bg-gray-200 dark:bg-[#0f0f0f]">
-        <div className="relative w-[80%] h-1 bg-gray-700 dark:bg-[#eaeaea] rounded-4xl"></div>
+      <div className="flex justify-center w-full h-fit py-5 bg-white dark:bg-[#0f0f0f]">
+        <div className="relative w-[80%] h-1 bg-gray-900 dark:bg-[#eaeaea] rounded-4xl"></div>
       </div>
 
       {/* Who I Am */}
-      <section className="p-10 flex flex-col justyify-center items-center w-full mx-auto bg-gray-200 dark:bg-[#0f0f0f] text-white">
+      <section className="p-10 flex flex-col justyify-center items-center w-full mx-auto bg-white dark:bg-[#0f0f0f] text-white">
         <div className="w-full md:w-[70%] lg:w-[50%] text-center flex flex-col gap-5">
           <h2 className="text-2xl font-bold text-black dark:text-white">
             Who I Am

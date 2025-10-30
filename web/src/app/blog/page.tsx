@@ -1,6 +1,6 @@
 // Blog Page
 // Add some display page for the home page for blogs like these are all my blogs!
-
+'use client'
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
