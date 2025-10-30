@@ -5,7 +5,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.tupah.me'
 
     // Get all blog post slugs
-    const blogSlugs = getPostSlugs()
+    const blogSlugs = await getPostSlugs()
 
     // Static pages
     const staticPages = [

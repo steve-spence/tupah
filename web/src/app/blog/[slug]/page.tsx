@@ -1,5 +1,3 @@
-import React, { ImgHTMLAttributes, useState } from "react";
-import Image, { ImageProps } from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getPostBySlug, getPostSlugs } from "@/lib/mdx";
 import { notFound } from "next/navigation";
@@ -12,7 +10,7 @@ import BlogImage from "@/components/BlogImage/BlogImage";
 type PostParams = Promise<{ slug: string }>;
 
 export async function generateStaticParams() {
-  const slugs = getPostSlugs();
+  const slugs = await getPostSlugs();
   return slugs.map((slug) => ({
     slug: slug.replace(/\.mdx$/, ""),
   }));
@@ -34,13 +32,8 @@ export async function generateMetadata({ params }: { params: PostParams }) {
 export default async function BlogPost({ params }: { params: PostParams }) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  const [comment, setComment] = useState({});
 
   if (!post) return notFound();
-
-  const handleUpdates = (e: any) => {
-    setComment(e);
-  }
 
   // Add components needed in mdx here NO DANGEROUS STUFF CHECK IT ALL FOR EVILLLLLLLL!!!!!!!!!!
   const components = {
@@ -67,8 +60,6 @@ export default async function BlogPost({ params }: { params: PostParams }) {
           <MDXRemote source={post.content} components={components} />
         </div>
       </div>
-
-      <CommentEditor updateComments={handleUpdates} />
     </div>
   );
 }

@@ -12,7 +12,7 @@ import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
 const AMOUNT_OF_POSTS = 10;
 
 export default async function BlogPage() {
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
 
   const shuffledPosts = [...posts].sort(() => Math.random() - 0.5);
   const randomPosts = shuffledPosts.slice(0, AMOUNT_OF_POSTS);

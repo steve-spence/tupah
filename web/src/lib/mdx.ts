@@ -1,5 +1,8 @@
+'use server';
+import 'server-only'
+
 import path from 'path'
-import fs from 'fs'
+import fs, { readdirSync, readFileSync } from 'fs'
 import matter from 'gray-matter'
 import remarkGfm from 'remark-gfm';
 import { serialize } from 'next-mdx-remote/serialize';
@@ -7,7 +10,7 @@ import { serialize } from 'next-mdx-remote/serialize';
 
 const POSTS_PATH = path.join(process.cwd(), 'src/data/posts');
 
-export function getPostSlugs() {
+export async function getPostSlugs() {
     return fs.readdirSync(POSTS_PATH).filter((file) => file.endsWith('.mdx'));
 }
 
@@ -33,14 +36,15 @@ export type mdxProps = {
     content?: string,
 }
 
-export function getAllPosts(): mdxProps[] {
-    const fileNames = fs.readdirSync(POSTS_PATH);
+export async function getAllPosts(): Promise<mdxProps[]> {
+    const fileNames = await readdirSync(POSTS_PATH);
 
-    const posts: mdxProps[] = fileNames
-        .filter((file) => file.endsWith('.mdx'))
-        .map((fileName) => {
+    const mdxFiles = fileNames.filter((f) => f.endsWith('.mdx'));
+
+    const posts = await Promise.all(
+        mdxFiles.map(async (fileName) => {
             const fullPath = path.join(POSTS_PATH, fileName);
-            const fileContents = fs.readFileSync(fullPath, 'utf8');
+            const fileContents = await readFileSync(fullPath, 'utf8');
             const { data, content } = matter(fileContents);
 
             return {
@@ -49,9 +53,12 @@ export function getAllPosts(): mdxProps[] {
                 tags: data.tags || [],
                 slug: data.slug || fileName.replace(/\.mdx$/, ''),
                 image_path: data.image_path,
-                content: content,
-            };
-        });
+                content,
+            } as mdxProps;
+        })
+    );
 
+    // optional: sort newest → oldest
+    posts.sort((a, b) => +new Date(b.date) - +new Date(a.date));
     return posts;
 }
