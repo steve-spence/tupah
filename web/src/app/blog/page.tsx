@@ -1,18 +1,19 @@
 // Blog Page
 // Add some display page for the home page for blogs like these are all my blogs!
-'use client'
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
 import { Header } from "@/components/Header/Header";
-import { getAllPosts } from "@/lib/mdx";
 import ClientSearch from "@/components/ClientSearch/ClientSerach";
 import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
+import { Post } from "@/utils/types";
 
 const AMOUNT_OF_POSTS = 10;
 
 export default async function BlogPage() {
-  const posts = await getAllPosts();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`, { cache: "no-store" });
+  if (!res.ok) throw new Error("Faild to load posts.");
+  const posts: Post[] = await res.json();
 
   const shuffledPosts = [...posts].sort(() => Math.random() - 0.5);
   const randomPosts = shuffledPosts.slice(0, AMOUNT_OF_POSTS);
@@ -93,7 +94,7 @@ export default async function BlogPage() {
           >
             <div className="relative h-40 w-full">
               <Image
-                src={post.image_path || "/pictures/blog/default.png"}
+                src={post.coverImagePath || "/pictures/blog/default.png"}
                 alt={post.title}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -102,7 +103,7 @@ export default async function BlogPage() {
             <div className="p-4 text-white">
               <h3 className="text-xl font-bold">{post.title}</h3>
               <p className="text-sm text-gray-300 mt-2">
-                {getPreview(post.content ?? "", 200)}
+                {getPreview(post.contentMd ?? "", 200)}
               </p>
             </div>
           </Link>

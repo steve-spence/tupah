@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "proxy": "http://localhost:5000",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "drizzle-kit migrate",
+    "generate": "drizzle-kit generate"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -16,16 +18,20 @@
     "@mdx-js/react": "^3.1.0",
     "@mui/material": "^7.1.1",
     "@next/mdx": "^15.3.3",
+    "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.49.4",
     "@tailwindcss/typography": "^0.5.16",
     "@theme-toggles/react": "^4.1.0",
     "@types/mdx": "^2.0.13",
     "axios": "^1.11.0",
     "bootstrap": "^5.3.6",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.7",
     "gray-matter": "^4.0.3",
     "motion": "^12.12.1",
     "next": "15.3.1",
     "next-mdx-remote": "^5.0.0",
+    "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.0.0",
@@ -39,9 +45,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "drizzle-kit": "^0.31.6",
     "eslint": "^9",
     "eslint-config-next": "15.3.1",
     "tailwindcss": "^4.1.6",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   },
   "packageManager": "yarn@4.8.1+sha512.bc946f2a022d7a1a38adfc15b36a66a3807a67629789496c3714dd1703d2e6c6b1c69ff9ec3b43141ac7a1dd853b7685638eb0074300386a59c18df351ef8ff6"

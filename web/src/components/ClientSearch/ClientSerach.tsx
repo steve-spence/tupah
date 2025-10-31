@@ -4,10 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
-import type { mdxProps } from "@/lib/mdx";
 import { isObject } from "motion";
+import { Post } from "@/utils/types";
 
-export default function ClientSearch({ posts, className, }: { posts: mdxProps[]; className?: string; }) {
+export default function ClientSearch({ posts, className, }: { posts: Post[]; className?: string; }) {
 
   const [query, setQuery] = useState("");
   const [focus, setFocus] = useState(false);
@@ -77,7 +77,7 @@ export default function ClientSearch({ posts, className, }: { posts: mdxProps[];
                       <div className="relative h-10 aspect-[16/9]">
                         <Image
                           className="rounded-2xl"
-                          src={post.image_path}
+                          src={post.coverImagePath!}
                           alt="Image for blog post"
                           fill
                         ></Image>
@@ -87,7 +87,9 @@ export default function ClientSearch({ posts, className, }: { posts: mdxProps[];
                       <h3 className="text-lg font-bold whitespace-nowrap">{post.title}</h3>
                     </div>
                     {/* Date */}
-                    <p className="text-sm text-gray-300">{formatDate(post.date)}</p>
+                    <p className="text-sm text-gray-300">
+                      {post.publishedAt ? new Date(post.publishedAt).toDateString() : ""}
+                    </p>
 
                   </div>
                 </Link>
