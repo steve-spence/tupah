@@ -6,6 +6,8 @@
 // // Blog Components
 // import BlogImage from "@/components/BlogImage/BlogImage";
 
+import { Post } from "@/utils/types";
+
 // type PostParams = Promise<{ slug: string }>;
 
 // export async function generateStaticParams() {
@@ -28,6 +30,9 @@
 //   );
 // }
 
+export default async function BlogPost({ params }: { params: Post }) {
+  return 0;
+}
 // export default async function BlogPost({ params }: { params: PostParams }) {
 //   const { slug } = await params;
 //   const post = await getPostBySlug(slug);
