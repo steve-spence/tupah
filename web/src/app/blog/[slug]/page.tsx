@@ -29,9 +29,12 @@ import { Post } from "@/utils/types";
 //     `/blog/${slug}`
 //   );
 // }
+type PostProps = {
+  post: Post,
+}
 
-export default async function BlogPost({ params }: { params: Post }) {
-  return 0;
+export default function BlogPost() {
+  return (<div>Slug Page works!</div>)
 }
 // export default async function BlogPost({ params }: { params: PostParams }) {
 //   const { slug } = await params;
