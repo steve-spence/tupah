@@ -25,7 +25,7 @@ export default function AboutPage() {
       </section>
 
       {/* Hero Section */}
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center bg-[#1C1C1C]">
         <div
           className="flex flex-col md:flex-row-reverse items-center justify-center gap-5 grow-[0.6]
             text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] dark:bg-[#131313] shadow-md"
