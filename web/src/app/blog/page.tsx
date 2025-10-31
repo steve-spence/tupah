@@ -67,7 +67,7 @@ export default async function BlogPage() {
       <div className="flex justify-center items-center my-5 w-full">
         <ClientSearch
           className="bg-[#2a8ae4] dark:bg-radial from-[#9379cc] to-[#c0abe6] rounded-4xl"
-          posts={posts}
+          posts={await posts}
         />
       </div>
 
@@ -86,31 +86,35 @@ export default async function BlogPage() {
 
       {/* Random Posts Cards */}
       <div className="p-10 flex flex-wrap gap-6 justify-center bg-gray-400 dark:bg-[#1a1a1a]">
-        {randomPosts.map((post) => (
-          <Link
-            key={post.slug}
-            href={`/blog/${post.slug}`}
-            className="max-w-sm bg-gray-600 dark:bg-[#272727] rounded-xl overflow-hidden hover:shadow-lg transition-all group"
-          >
-            <div className="relative h-40 w-full">
-              <Image
-                src={post.coverImagePath || "/pictures/brook.png"}
-                alt={post.title}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div className="p-4 text-white">
-              <h3 className="text-xl font-bold">{post.title}</h3>
-              <p className="text-sm text-gray-300 mt-2">
-                {getPreview(post.contentMd ?? "", 200)}
-              </p>
-            </div>
-          </Link>
-        ))}
+        {randomPosts.map((post) => {
+          //console.log(post);
+          return (
+            <Link
+              key={post.slug}
+              href={`/blog/${post.slug}`}
+              className="max-w-sm bg-gray-600 dark:bg-[#272727] rounded-xl overflow-hidden hover:shadow-lg transition-all group"
+            >
+              <div className="relative h-40 w-full">
+                <Image
+                  src={post.cover_image_path ?? "/pictures/blog/default.png"}
+                  alt={post.title ?? "Blog cover"}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 384px"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-4 text-white">
+                <h3 className="text-xl font-bold">{post.title}</h3>
+                <p className="text-sm text-gray-300 mt-2">
+                  {getPreview(post.contentMd ?? "", 200)}
+                </p>
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
-  );
+  )
 }
 
 function getPreview(content: string, length = 200) {

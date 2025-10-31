@@ -32,15 +32,13 @@ export default function ImageCarousel({ verticalImages, wideImages }: ImageCarou
 
     const src = isMd ? wideImages[idx] : verticalImages[idx]
     const aspectRatio = isMd ? 'aspect-[16/9]' : 'aspect-[3/4]'
-
     return (
         <div
             className={`relative flex items-center justify-center w-full overflow-hidden rounded-2xl shadow-lg ${aspectRatio}`}
         >
             <Image
                 fill
-                sizes="200px"
-                src={"/pictures/brook.png"}
+                src={src}
                 alt="Blog hero"
                 className="object-cover transition-opacity duration-700 ease-in-out"
             />

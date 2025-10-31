@@ -3,7 +3,7 @@
 export type UUID = string;
 export type PostStatus = "draft" | "published" | "archived";
 
-export interface Post {
+export type Post = {
     id: UUID;
     slug: string;
     title: string;
@@ -14,7 +14,7 @@ export interface Post {
     createdAt: Date;
     updatedAt: Date;
     status: PostStatus;
-    coverImagePath: string | null;
+    cover_image_path: string | null;
     tags: string[];
     wordCount?: number | null;
     readingTimeMin?: number | null;
@@ -22,7 +22,7 @@ export interface Post {
 }
 
 
-export interface PostCreate {
+export type PostCreate = {
     slug: string;
     title: string;
     contentMd: string;
@@ -37,7 +37,7 @@ export interface PostCreate {
     authorId?: UUID;
 }
 
-export interface PostUpdate {
+export type PostUpdate = {
     slug?: string;
     title?: string;
     contentMd?: string;

@@ -72,17 +72,6 @@ export default function ClientSearch({ posts, className, }: { posts: Post[]; cla
                 <Link key={post.slug} href={`/blog/${post.slug}`}>
                   <div className="bg-[#333] p-4 rounded-4xl hover:bg-[#444] transition flex flex-row items-center justify-between">
                     <div className="flex gap-5 items-center justify-between">
-                      {/* Image */}
-                      <div className="relative h-10 aspect-[16/9]">
-                        <Image
-                          className="rounded-2xl"
-                          src={post.coverImagePath || "/pictures/brook.png"}
-                          alt="Image for blog post"
-                          fill
-                        ></Image>
-                      </div>
-                      {/* Title */}
-
                       <h3 className="text-lg font-bold whitespace-nowrap">{post.title}</h3>
                     </div>
                     {/* Date */}
