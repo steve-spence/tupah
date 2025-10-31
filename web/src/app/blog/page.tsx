@@ -94,7 +94,7 @@ export default async function BlogPage() {
           >
             <div className="relative h-40 w-full">
               <Image
-                src={post.coverImagePath || "/pictures/blog/default.png"}
+                src={post.coverImagePath || "/pictures/brook.png"}
                 alt={post.title}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-300"

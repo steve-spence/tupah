@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
-import { isObject } from "motion";
 import { Post } from "@/utils/types";
 
 export default function ClientSearch({ posts, className, }: { posts: Post[]; className?: string; }) {
@@ -13,7 +12,7 @@ export default function ClientSearch({ posts, className, }: { posts: Post[]; cla
   const [focus, setFocus] = useState(false);
   const [hint, setHint] = useState("Search Blogs");
 
-  const filtered = posts.filter((post) =>
+  const filtered: Post[] = (posts ?? []).filter((post) =>
     post.title.toLowerCase().includes(query.toLowerCase())
   );
 
@@ -77,7 +76,7 @@ export default function ClientSearch({ posts, className, }: { posts: Post[]; cla
                       <div className="relative h-10 aspect-[16/9]">
                         <Image
                           className="rounded-2xl"
-                          src={post.coverImagePath!}
+                          src={post.coverImagePath || "/pictures/brook.png"}
                           alt="Image for blog post"
                           fill
                         ></Image>
@@ -98,7 +97,7 @@ export default function ClientSearch({ posts, className, }: { posts: Post[]; cla
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

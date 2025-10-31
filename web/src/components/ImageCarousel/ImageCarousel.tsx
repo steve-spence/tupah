@@ -9,11 +9,8 @@ interface ImageCarouselProps {
 }
 
 export default function ImageCarousel({ verticalImages, wideImages }: ImageCarouselProps) {
-    const mainImage = verticalImages[0];
-
     const [isMd, setIsMd] = useState(false)
     const [idx, setIdx] = useState(0)
-
     // Watch for md breakpoint
     useEffect(() => {
         const mql = window.matchMedia('(min-width: 1440px)')
@@ -42,7 +39,8 @@ export default function ImageCarousel({ verticalImages, wideImages }: ImageCarou
         >
             <Image
                 fill
-                src={src}
+                sizes="200px"
+                src={"/pictures/brook.png"}
                 alt="Blog hero"
                 className="object-cover transition-opacity duration-700 ease-in-out"
             />

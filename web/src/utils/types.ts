@@ -14,7 +14,7 @@ export interface Post {
     createdAt: Date;
     updatedAt: Date;
     status: PostStatus;
-    coverImagePath?: string | null;
+    coverImagePath: string | null;
     tags: string[];
     wordCount?: number | null;
     readingTimeMin?: number | null;

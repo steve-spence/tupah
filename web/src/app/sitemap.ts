@@ -1,11 +1,7 @@
 import { MetadataRoute } from 'next'
-import { getPostSlugs } from '@/lib/mdx'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.tupah.me'
-
-    // Get all blog post slugs
-    const blogSlugs = await getPostSlugs()
 
     // Static pages
     const staticPages = [
@@ -42,12 +38,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]
 
     // Dynamic blog pages
-    const blogPages = blogSlugs.map((slug) => ({
-        url: `${baseUrl}/blog/${slug.replace(/\.mdx$/, '')}`,
-        lastModified: new Date(),
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
-    }))
+    // const blogPages = blogSlugs.map((slug) => ({
+    //     url: `${baseUrl}/blog/${slug.replace(/\.mdx$/, '')}`,
+    //     lastModified: new Date(),
+    //     changeFrequency: 'monthly' as const,
+    //     priority: 0.6,
+    // }))
 
-    return [...staticPages, ...blogPages]
+    return [...staticPages]
+    //...blogPages
 }
