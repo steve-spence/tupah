@@ -1,13 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-<<<<<<<< HEAD:.gitignore
 node_modules/
 .pnp
 ========
 node_modules
 /.pnp
->>>>>>>> main:web/.gitignore
+
 .pnp.*
 .yarn
 !.yarn/patches
@@ -43,9 +42,9 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-<<<<<<<< HEAD:.gitignore
+
 next-env.d.ts
 .yarn/
 ========
 /next-env.d.ts
->>>>>>>> main:web/.gitignore
+
