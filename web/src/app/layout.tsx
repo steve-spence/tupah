@@ -6,8 +6,9 @@ import React from "react";
 import { LeftNav } from "@/components/LeftNav/LeftNav";
 import "@/app/globals.css";
 import Image from "next/image";
-
 import Footer from "@/components/Footer/Footer";
+
+
 
 export default function HomeLayout({ children, }: { children: React.ReactNode; }) {
   const [isOpen, setIsOpen] = useState(false);

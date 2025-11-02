@@ -18,16 +18,17 @@
     "@mdx-js/react": "^3.1.0",
     "@mui/material": "^7.1.1",
     "@next/mdx": "^15.3.3",
+    "@popperjs/core": "^2.11.8",
     "@supabase/ssr": "^0.7.0",
     "@supabase/supabase-js": "^2.49.4",
     "@tailwindcss/typography": "^0.5.16",
-    "@theme-toggles/react": "^4.1.0",
     "@types/mdx": "^2.0.13",
     "axios": "^1.11.0",
     "bootstrap": "^5.3.6",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.7",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^0.552.0",
     "motion": "^12.12.1",
     "next": "15.3.1",
     "next-mdx-remote": "^5.0.0",
@@ -52,5 +53,5 @@
     "tsx": "^4.20.6",
     "typescript": "^5"
   },
-  "packageManager": "yarn@4.8.1+sha512.bc946f2a022d7a1a38adfc15b36a66a3807a67629789496c3714dd1703d2e6c6b1c69ff9ec3b43141ac7a1dd853b7685638eb0074300386a59c18df351ef8ff6"
+  "packageManager": "yarn@4.10.3"
 }
