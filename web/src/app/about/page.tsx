@@ -25,10 +25,11 @@ export default function AboutPage() {
       </section>
 
       {/* Hero Section */}
-      <div className="flex items-center justify-center bg-[#1C1C1C]">
+      <div className="flex items-center justify-center bg-[#fffafa] dark:bg-[#1C1C1C]">
         <div
           className="flex flex-col md:flex-row-reverse items-center justify-center gap-5 grow-[0.6]
-            text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] dark:bg-[#131313] shadow-md"
+            text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] bg-[#fff] dark:bg-[#131313] shadow-md
+            border-1 text-center"
         >
           <div className="relative w-60 h-auto aspect-[3/4] rounded-3xl overflow-hidden">
             <Image
@@ -75,7 +76,7 @@ export default function AboutPage() {
         </p>
         <a
           href="mailto:stevenallenspencer@gmail.com"
-          className="bg-blue-400 hover:bg-blue-500 dark:bg-[#9379cc] dark:hover:bg-[#9379cc] text-white font-medium py-3 px-6 rounded-xl transition duration-300"
+          className="bg-blue-300 hover:bg-blue-400 dark:bg-[#9379cc] dark:hover:bg-[#9379cc] text-white font-medium py-3 px-6 rounded-xl transition duration-300"
         >
           Contact Me
         </a>
@@ -107,6 +108,92 @@ export default function AboutPage() {
         </div>
       </section>
 
+
+      {/* Education Section */}
+      <section className="p-10 dark:bg-[#131313]">
+        <h2 className="text-3xl font-bold mb-8 text-center text-black dark:text-white">
+          Education
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* MSU Card */}
+          <div className="bg-white dark:bg-[#1e1e1e] rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center mb-4">
+              <div className="relative w-16 h-16 mr-4">
+                <Image
+                  src="/pictures/msu_icon.png"
+                  alt="Michigan State University"
+                  fill
+                  className="object-contain rounded-lg"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-black dark:text-white">
+                  Michigan State University
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">2022 - 2026</p>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <p className="text-gray-800 dark:text-gray-200 font-semibold">
+                Bachelor's in Computer Science
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                • Graduating in December 2025
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                • Member and winner of AI clab and its competitions, studied Machine Learning and developed AI-Driven full-stack applications
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                • My favorite classes were Operating Systems, Parallel Programming, Web Development, and Game Development
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                • Worked as a Student Network Engineer where I learned the fundamentals of enterprise networking and got JNCIA certified
+              </p>
+            </div>
+          </div>
+
+          {/* Delta College Card */}
+          <div className="bg-white dark:bg-[#1e1e1e] rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+            <div className="flex items-center mb-4">
+              <div className="relative w-16 h-16 mr-4">
+                <Image
+                  src="/pictures/delta_icon.png"
+                  alt="Delta College"
+                  fill
+                  className="object-contain rounded-lg"
+                />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-black dark:text-white">
+                  Delta College
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">2020 - 2022</p>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <p className="text-gray-800 dark:text-gray-200 font-semibold">
+                Associate's in Computer Programming
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                • Graduated in 2022
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                • Developed full-stack applications using Java, SQL, and Node.js
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                • Learned object-oriented programming / data structures and algorithms
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                • Completed projects involving web development and database design
+              </p>
+              <p className="text-gray-700 dark:text-gray-300">
+                • This was from 2020-2022, COVID-19 took away a lot of the freedom I wished I had at this college
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Project Section */}
       <section className="p-10 w-full mx-auto text-center dark:bg-[#0F0F0F]">
         <h1 className="text-3xl font-bold mb-8 text-black dark:text-white">
@@ -114,8 +201,8 @@ export default function AboutPage() {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Project 1 */}
-          <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-semibold text-white mb-2">
+          <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
               🧙 Witchpaw
             </h3>
             <p className="text-gray-900 dark:text-gray-400 mb-4">
@@ -131,8 +218,8 @@ export default function AboutPage() {
           </div>
 
           {/* Project 2 */}
-          <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-semibold text-white mb-2">
+          <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
               📓 Blog & Portfolio
             </h3>
             <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
@@ -148,8 +235,8 @@ export default function AboutPage() {
           </div>
 
           {/* Project 3 */}
-          <div className="bg-gray-600 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-semibold text-white mb-2">
+          <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
               📈 AI Stock Prediction
             </h3>
             <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
@@ -204,93 +291,9 @@ export default function AboutPage() {
         </ul>
       </section>
 
-      {/* Education Section */}
-      <section className="p-10 dark:bg-[#131313]">
-        <h2 className="text-3xl font-bold mb-8 text-center text-black dark:text-white">
-          Education
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* MSU Card */}
-          <div className="bg-white dark:bg-[#1e1e1e] rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center mb-4">
-              <div className="relative w-16 h-16 mr-4">
-                <Image
-                  src="/pictures/msu_icon.png"
-                  alt="Michigan State University"
-                  fill
-                  className="object-contain rounded-lg"
-                />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-black dark:text-white">
-                  Michigan State University
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">2022 - 2026</p>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <p className="text-gray-800 dark:text-gray-200 font-semibold">
-                Bachelor's in Computer Science
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                • Member of AI Club
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                • Won club competition with AI stock prediction model
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                • Worked as a Network Engineer to install $5 million worth of
-                network upgrades for the residence halls.
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                • Expected graduation: 2026
-              </p>
-            </div>
-          </div>
 
-          {/* Delta College Card */}
-          <div className="bg-white dark:bg-[#1e1e1e] rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
-            <div className="flex items-center mb-4">
-              <div className="relative w-16 h-16 mr-4">
-                <Image
-                  src="/pictures/delta_icon.png"
-                  alt="Delta College"
-                  fill
-                  className="object-contain rounded-lg"
-                />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-black dark:text-white">
-                  Delta College
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400">2020 - 2022</p>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <p className="text-gray-800 dark:text-gray-200 font-semibold">
-                Associate's in Computer Programming
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                • Graduated in 2022
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                • Developed full-stack applications using Java, SQL, and Node.js
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                • Learned object-oriented programming, data structures, and
-                basic algorithms
-              </p>
-              <p className="text-gray-700 dark:text-gray-300">
-                • Completed projects involving web development and database
-                design
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="relative py-16 bg-[#ffffff] dark:bg-[#131313] text-white text-center">
-        <h1 className="text-3xl font-bold mb-8">Connect with Me</h1>
+      <section className="relative py-16 bg-gray-150 dark:bg-[#131313] text-white text-center shadow-2xl">
+        <h1 className="text-3xl text-black dark:text-white font-bold mb-8">Connect with Me!</h1>
 
         <div className="flex flex-wrap justify-center items-center gap-8 max-w-3xl mx-auto">
           {/* GitHub */}
