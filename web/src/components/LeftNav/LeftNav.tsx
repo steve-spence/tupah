@@ -9,7 +9,7 @@ import { MoonStar, SunMoon } from 'lucide-react';
 
 export function LeftNav({ data, className = "", onNavigate }: Props) {
     const { theme, setTheme } = useTheme();
-    const [mounted, setMounted] = React.useState(false);
+    const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
 
     const isDark = theme === 'dark';
@@ -27,13 +27,13 @@ export function LeftNav({ data, className = "", onNavigate }: Props) {
             <button
                 type="button"
                 className="mt-auto flex w-full h-[60px] items-center justify-center"
-                onClick={() => setTheme(isDark ? "light" : "dark")}
+                onClick={toggleTheme}
                 aria-label="Toggle theme"
                 aria-pressed={isDark}
-                title={`Switch to ${isDark ? 'light' : 'dark'} mode`}>
-                {mounted && theme == "dark" ?
-                    (< SunMoon className='w-[50%] h-15 text-black' />) :
-                    (<MoonStar className="w-[50%] h-15 text-white" />)}
+                title={mounted ? `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode` : 'Toggle theme'}>
+                {!mounted ? <span className="w-[50%] h-15" aria-hidden /> :
+                    theme === 'dark' ? <SunMoon className="w-[50%] h-15" /> :
+                        <MoonStar className="w-[50%] h-15" />}
             </button>
         </div >
     );
