@@ -139,9 +139,10 @@ export default function HomePage() {
         <Header
           data={{
             title: "Tupah",
-            subtext: "Unfiltered thoughts with occasional genius.",
+            subtext: "Explore | Create | Enjoy",
           }}
-          className="flex sm:justify-between justify-center bg-[#eff1f1] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 w-full relative z-10"
+          className="flex sm:justify-between justify-center bg-[#eff1f1] shadow-sm
+           dark:bg-[#1c1c1c] p-5 h-32 w-full relative z-10"
         />
       </section>
 
@@ -149,19 +150,19 @@ export default function HomePage() {
       <section className="relative">
         <div className="flex flex-col md:flex-row gap-10 py-20 px-10 md:px-20 drop-shadow-text-sm min-h-50 md:min-h-80">
           <div className="flex-1 p-1 md:pr-40">
-            <h2 className="text-[#1272CC] dark:text-white font-bold text-2xl mb-3 transition-colors">
+            <h2 className="text-white font-bold text-2xl mb-3 transition-colors">
               What you'll find here
             </h2>
-            <p className="text-gray-800 dark:text-white font-semibold">
-              Join a growing library of blogs, all anaomously. Follow creators you like and publish your first post in minutes.
+            <p className="text-white font-semibold">
+              Join a growing library of blogs, all anonymously. Follow creators you like and publish your first post in minutes.
             </p>
           </div>
 
           <div className="flex-1 md:text-right p-1 md:pl-40">
-            <h2 className="text-[#1272CC] dark:text-white font-bold text-2xl mb-3 transition-colors">
+            <h2 className="text-white font-bold text-2xl mb-3 transition-colors">
               Why Tupah?
             </h2>
-            <p className="text-gray-800 dark:text-white font-semibold">
+            <p className="text-white font-semibold">
               Just like the Tupah forest in Malaysia, this is a quiet space on a loud internet. Enjoy the content, create your own, and explore.
             </p>
           </div>
