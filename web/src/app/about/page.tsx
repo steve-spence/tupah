@@ -15,7 +15,7 @@ const Typewriter = dynamic(() => import("typewriter-effect"), { ssr: false });
 
 export default function AboutPage() {
   return (
-    <div className="bg-[#fff] dark:bg-[#A1A1A1]">
+    <div className="bg-white dark:bg-[#A1A1A1]">
       {/* Header */}
       <section className="relative">
         <Header
@@ -28,10 +28,10 @@ export default function AboutPage() {
       <div className="flex items-center justify-center bg-[#fffafa] dark:bg-[#1C1C1C]">
         <div
           className="flex flex-col md:flex-row-reverse items-center justify-center gap-5 grow-[0.6]
-            text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] bg-[#fff] dark:bg-[#131313] shadow-md
-            border-1 text-center"
+            text-[#000000] dark:text-[#ffffff] text-5xl font-sans h-[50vh] bg-white dark:bg-[#131313] shadow-md
+            border text-center"
         >
-          <div className="relative w-60 h-auto aspect-[3/4] rounded-3xl overflow-hidden">
+          <div className="relative w-60 h-auto aspect-3/4 rounded-3xl overflow-hidden">
             <Image
               className="object-cover"
               src="/pictures/good_pic.jpg"
@@ -252,6 +252,24 @@ export default function AboutPage() {
               View on GitHub →
             </Link>
           </div>
+          {/* Project 4 */}
+          <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
+              📈 Music AI Assistant
+            </h3>
+            <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
+              LSTM + sentiment model to predict stock movement using hourly
+              price windows and news article timestamps.
+            </p>
+            <Link
+              href="https://github.com/MSU-AI/investment-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#1272CC] dark:text-purple-400 hover:underline"
+            >
+              View on GitHub →
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -311,7 +329,7 @@ export default function AboutPage() {
                 alt="GitHub"
               />
             </div>
-            <span className="text-sm text-gray-900 dark:text-[#fff]">Github</span>
+            <span className="text-sm text-gray-900 dark:text-white">Github</span>
           </Link>
 
           {/* LinkedIn */}
@@ -329,7 +347,7 @@ export default function AboutPage() {
                 alt="LinkedIn"
               />
             </div>
-            <span className="text-sm text-gray-900 dark:text-[#fff]">Linkedin</span>
+            <span className="text-sm text-gray-900 dark:text-white">Linkedin</span>
           </Link>
 
           {/* Email */}
@@ -345,7 +363,7 @@ export default function AboutPage() {
                 alt="Email"
               />
             </div>
-            <span className="text-sm text-gray-900 dark:text-[#fff]">Email</span>
+            <span className="text-sm text-gray-900 dark:text-white">Email</span>
           </Link>
         </div>
       </section>

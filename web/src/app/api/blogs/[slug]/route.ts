@@ -7,8 +7,8 @@ interface RouteParams {
     }>;
 }
 
-export async function GET(_request: Request, { params }: RouteParams) {
-    const { slug } = await params;
+export async function GET(request: Request, { params }: RouteParams) {
+    const slug = (await params).slug;
 
     const supabase = await createClient();
     const { data, error } = await supabase

@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
 // pass in slug to get that slug's data
-export async function GET(req?: NextRequest) {
+export async function GET(req: NextRequest) {
     // todo global state managemnet get check if there is a supabase connection (cache it b)
     const supabase = await createClient();
     const slug = req?.nextUrl.searchParams.get("slug");
