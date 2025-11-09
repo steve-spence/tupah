@@ -6,8 +6,29 @@ import { NavIconProps } from "@/components/NavIcon/NavIcon";
 import { RotatingIcons } from "@/components/RotatingIcons/RotatingIcons";
 import { Header } from "@/components/Header/Header";
 import Image from "next/image";
+import Button from "@mui/material/Button";
+import { useRouter } from "next/navigation";
 
 export default function HomePage() {
+  const router = useRouter();
+  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+
+  // Background images to rotate through
+  const backgroundImages = [
+    { light: "/pictures/favorite_light.svg", dark: "/pictures/favorite_dark.svg" },
+    { light: "/pictures/bird-bg.svg", dark: "/pictures/bird-bg.svg" },
+    { light: "/pictures/girl-bg.svg", dark: "/pictures/girl-bg.svg" },
+    { light: "/blowing_girl.png", dark: "/blowing_girl.png" },
+  ];
+
+  // Rotate images every 5 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
+
   // Add canonical URL for home page
   useEffect(() => {
     const canonicalUrl = "https://tupah.me";
@@ -53,44 +74,65 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col">
-      <section>
-        <div
-          className="fixed top-0 w-full h-fit z-[-1] bg-[#F5F5F5] dark:bg-[#171717] 
-        transition-colors duration-300 ease-in-out
-        flex flex-col gap-10 items-center justify-center pb-30"
-        >
-          <div className=" relative w-[90vw] max-w-[640px] aspect-[1/1]">
-            <Image
-              src="/pictures/favorite_dark.svg"
-              className="
-            z-1 object-contain 
-            opacity-0 hidden 
-            dark:block dark:opacity-100 
-            transition-all duration-700 ease-in"
-              fill
-              alt="https://pixabay.com/users/andsproject-26081561/ I love their art."
-            />
-            <Image
-              src="/pictures/favorite_light.svg"
-              className="
-            z-1 object-contain 
-            dark:hidden dark:opacity-0 
-            opcaity-100 block 
-            transition-all duration-700 ease-in"
-              fill
-              alt="https://pixabay.com/users/andsproject-26081561/ I love their art."
-            />
+      {/* Fixed Background Images */}
+      <div className="fixed top-0 w-full h-fit -z-10 bg-[#F5F5F5] dark:bg-[#171717] transition-colors duration-300">
+        <div className="flex flex-col md:flex-row gap-10 items-center justify-center pb-30">
+          {/* First rotating background image with theme support */}
+          <div className="relative w-[90vw] max-w-[640px] aspect-square">
+            {backgroundImages.map((img, index) => (
+              <React.Fragment key={index}>
+                {/* Light mode image */}
+                <Image
+                  src={img.light}
+                  className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === currentImageIndex ? "opacity-100" : "opacity-0"
+                    }`}
+                  fill
+                  alt="Artwork by andsproject"
+                  priority={index === 0}
+                />
+                {/* Dark mode image */}
+                <Image
+                  src={img.dark}
+                  className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === currentImageIndex ? "dark:opacity-100" : "dark:opacity-0"
+                    }`}
+                  fill
+                  alt="Artwork by andsproject"
+                  priority={index === 0}
+                />
+              </React.Fragment>
+            ))}
           </div>
-          <div className="w-[90vw] max-w-[640px] aspect-[1/1] relative">
-            <Image
-              src="/blowing_girl.png"
-              className="z-1 object-contain block"
-              fill
-              alt="https://pixabay.com/users/andsproject-26081561/ I love their art."
-            />
+
+          {/* Second rotating background image (offset by 1) - hidden on mobile, shown on md+ */}
+          <div className="relative w-[90vw] max-w-[640px] aspect-square hidden md:block">
+            {backgroundImages.map((img, index) => {
+              const nextIndex = (currentImageIndex + 1) % backgroundImages.length;
+              return (
+                <React.Fragment key={index}>
+                  {/* Light mode image */}
+                  <Image
+                    src={img.light}
+                    className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === nextIndex ? "opacity-100" : "opacity-0"
+                      }`}
+                    fill
+                    alt="Artwork by andsproject"
+                    priority={index === 1}
+                  />
+                  {/* Dark mode image */}
+                  <Image
+                    src={img.dark}
+                    className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === nextIndex ? "dark:opacity-100" : "dark:opacity-0"
+                      }`}
+                    fill
+                    alt="Artwork by andsproject"
+                    priority={index === 1}
+                  />
+                </React.Fragment>
+              );
+            })}
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Home Page Header */}
       <section id="home">
@@ -99,38 +141,58 @@ export default function HomePage() {
             title: "Tupah",
             subtext: "Unfiltered thoughts with occasional genius.",
           }}
-          className="flex sm:justify-between justify-center bg-[#eff1f1] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 w-full z-2"
+          className="flex sm:justify-between justify-center bg-[#eff1f1] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 w-full relative z-10"
         />
       </section>
 
-      {/* The section in front of the background */}
-      <section>
-        <div className="flex flex-col md:flex-row content-between py-30 text-center">
-          <div className="flex flex-col flex-1 items-start justify-center px-20 py-10">
-            <div>
-              <h1 className="text-[#1272CC] dark:sm:text-[#9379cc] dark:text-[#ffffff] font-bold text-2xl text-shadow-2xs transition-colors">
-                What's here
-              </h1>
-              <p className=" text-gray-800 dark:text-white outline-black max-w-3xs overflow-hidden font-semibold">
-                A growing pile of thoughts. From tech rants to anime, whatever's
-                on my mind. It's controlled chaos.
-              </p>
-            </div>
+      {/* Info Section */}
+      <section className="relative">
+        <div className="flex flex-col md:flex-row gap-10 py-20 px-10 md:px-20 drop-shadow-text-sm">
+          <div className="flex-1">
+            <h2 className="text-[#1272CC] dark:text-white font-bold text-2xl mb-3 transition-colors">
+              What you'll find here
+            </h2>
+            <p className="text-gray-800 dark:text-white font-semibold">
+              A collection of blog posts and the ability to create your own. Feel free to try it out!
+            </p>
           </div>
-          <div className=""></div>
-          <div className="flex flex-col flex-1 items-end justify-end px-20 py-10 text-center">
-            <div>
-              <h1 className="text-[#1272CC] dark:sm:text-[#9379cc] dark:text-[#ffffff] font-bold text-2xl text-center text-shadow-2xs transition-colors">
-                Why it's here
-              </h1>
-              <p className="text-gray-800 dark:text-white outline-black max-w-3xs overflow-hidden font-semibold">
-                I built this blog to keep my brain from rotting. Writing clears
-                my head, and if someone finds value in it, that's a win.
-              </p>
-            </div>
+
+          <div className="flex-1 md:text-right">
+            <h2 className="text-[#1272CC] dark:text-[#fff] font-bold text-2xl mb-3 transition-colors">
+              Why it's here
+            </h2>
+            <p className="text-gray-800 dark:text-white font-semibold">
+              Because I can :|
+            </p>
           </div>
         </div>
+
+        {/* Artist Credit */}
+        <p className="absolute bottom-4 right-4 text-xl text-gray-600 dark:text-gray-400">
+          @ansproject
+        </p>
       </section>
+
+      <section>
+        <div className="flex grow flex-col items-center justify-center gap-8 py-20 bg-gradient-to-b from-[#f0f0f0] to-[#e5e5e5] dark:from-[#171717] dark:to-[#121212]
+        transition-all duration-300">
+          <div className="flex flex-col items-center gap-4">
+            <h1 className="text-6xl font-bold bg-gradient-to-r text-black dark:text-white bg-clip-text">
+              Create
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-md text-center">
+              Share your thoughts, stories, and ideas with the world
+            </p>
+          </div>
+          <Button
+            variant="contained"
+            className="px-12 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 bg-gradient-to-r from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#b49ddb]"
+            onClick={() => router.push('/create')}>
+            Start Writing
+          </Button>
+        </div>
+      </section>
+
 
       {/* What I post section */}
       <section id="posts">
@@ -139,7 +201,7 @@ export default function HomePage() {
         shadow-xl shodow-indigo-500/50 text-white text-center"
         >
           <h2 className="text-4xl font-bold text-gray-700 dark:text-white">
-            What do I post here?
+            What do People post post here?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             <div className="flex flex-col items-center">

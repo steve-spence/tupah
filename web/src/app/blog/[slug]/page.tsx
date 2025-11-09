@@ -1,21 +1,59 @@
 'use client'
-
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { notFound, useParams, useSearchParams } from "next/navigation";
+import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { serialize } from "next-mdx-remote/serialize";
+import { notFound, useParams } from "next/navigation";
 import { Header } from "@/components/Header/Header";
 import CommentEditor from "@/components/CommentEditor/CommentEditor";
 import BlogImage from "@/components/BlogImage/BlogImage";
+import { useEffect, useState } from "react";
 
+export default function BlogPost() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const [post, setPost] = useState<any>(null);
+  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
+  const [loading, setLoading] = useState(true);
 
-export default async function BlogPost() {
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await fetch(`/api/blogs/${slug}`);
+        if (!res.ok) {
+          setLoading(false);
+          return;
+        }
 
-  const sp = useSearchParams();
-  const slug = sp.get("slug");
+        const data = await res.json();
+        if (!data) {
+          setLoading(false);
+          return;
+        }
 
-  const res = await fetch(new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs?=${slug}`));
-  const post = await res.json();
+        // Serialize the MDX content
+        const serialized = await serialize(data.content || "");
 
-  if (!post) return notFound();
+        setPost(data);
+        setMdxSource(serialized);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching post:", error);
+        setLoading(false);
+      }
+    };
+
+    if (slug) {
+      fetchPost();
+    }
+  }, [slug]);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#171717] text-gray-800 dark:text-white">Loading...</div>;
+  }
+
+  if (!post || !mdxSource) {
+    return notFound();
+  }
+
   console.log(post);
   // Add components needed in mdx here NO DANGEROUS STUFF CHECK IT ALL FOR EVILLLLLLLL!!!!!!!!!!
   const components = {
@@ -39,7 +77,7 @@ export default async function BlogPost() {
       {/* Content */}
       <div className="w-full px-10 bg-white dark:bg-[#171717]">
         <div className="flex flex-col prose lg:prose-xl dark:prose-invert mx-auto h-fit py-5">
-          <MDXRemote source={post.content} components={components} />
+          <MDXRemote {...mdxSource} components={components} />
         </div>
       </div>
     </div>

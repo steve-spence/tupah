@@ -29,10 +29,10 @@ export function LeftNav({ data, className = "", onNavigate }: Props) {
                 className="mt-auto flex w-full h-[60px] items-center justify-center"
                 onClick={toggleTheme}
                 aria-label="Toggle theme"
-                aria-pressed={isDark}
+                aria-pressed={mounted ? isDark : undefined}
                 title={mounted ? `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode` : 'Toggle theme'}>
                 {!mounted ? <span className="w-[50%] h-15" aria-hidden /> :
-                    theme === 'dark' ? <SunMoon className="w-[50%] h-15" /> :
+                    theme === 'dark' ? <SunMoon className="w-[50%] h-15 text-black" /> :
                         <MoonStar className="w-[50%] h-15" />}
             </button>
         </div >

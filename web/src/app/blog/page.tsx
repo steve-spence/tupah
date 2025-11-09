@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
+import Button from '@mui/material/Button'
 import { Header } from "@/components/Header/Header";
 import ClientSearch from "@/components/ClientSearch/ClientSerach";
 import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
@@ -37,13 +38,11 @@ export default async function BlogPage() {
             <p className="md:text-lg leading-relaxed text-gray-700 dark:text-gray-300 max-w-prose">
               While you might not see blogging in a gallery or museum, it's still a form
               of self-expression. When others share a personal story, solve a
-              problem, or just document thier experiences, they create something
-              from nothing. Their voice. Their platform. Their take. The way an
-              author structures thier words, images, or even thier site’s layout. It
+              problem, or just document thier experiences, they create something.
+              The way an author structures thier words, images, or even thier site’s layout. It
               all adds up to a creative fingerprint. You don’t need to be a
               professional writer to make something meaningful. In the end,
-              blogging is less about being perfect and more about being real.
-              That’s what makes it art in its own way.
+              blogging is less about being perfect and more about being yourself.
             </p>
           </div>
           <div className="flex items-center justify-center w-[50vw] mx-5">

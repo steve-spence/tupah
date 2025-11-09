@@ -1,11 +1,29 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
-export async function GET() {
-    // nothing rn
-    const supabase = await createClient();
-    const { data, error } = await supabase.from("posts").select("*");
+interface RouteParams {
+    params: Promise<{
+        slug: string;
+    }>;
+}
 
-    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+export async function GET(_request: Request, { params }: RouteParams) {
+    const { slug } = await params;
+
+    const supabase = await createClient();
+    const { data, error } = await supabase
+        .from("posts")
+        .select("*")
+        .eq("slug", slug)
+        .maybeSingle();
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    if (!data) {
+        return NextResponse.json({ error: "Post not found" }, { status: 404 });
+    }
+
     return NextResponse.json(data);
 }
