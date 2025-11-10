@@ -73,12 +73,11 @@ export default function AboutPage() {
           Whether it’s an idea for a website, a new startup, or contract work
           I’m always open to new projects or jobs. I’ve been working with AI/ML
           and building full-stack applications for about a year now.
-          If you have an idea that can really be something, we can make it happen.
+          If you think we could build out your idea, let me know! We can make it happen.
         </p>
         <a
           href="mailto:stevenallenspencer@gmail.com"
-          className="bg-blue-300 hover:bg-blue-400 dark:bg-[#9379cc] dark:hover:bg-[#9379cc] text-white font-medium py-3 px-6 rounded-xl transition duration-300"
-        >
+          className="bg-blue-300 hover:bg-blue-400 dark:bg-[#9379cc] dark:hover:bg-[#9379cc] text-white font-medium py-3 px-6 rounded-xl transition duration-300">
           Contact Me
         </a>
       </section>
@@ -95,16 +94,17 @@ export default function AboutPage() {
             Who I Am
           </h2>
           <p className="text-gray-900 dark:text-gray-200 font-semibold">
-            I’m Steven Spencer. I'm working towards my Bachelor's Degree in
-            Computer Scinece at Michigan State University. I have a background
-            in web development, scripting, and game development. I’ve been
-            building apps, experimenting with animation, and automating
-            workflows since I've been in college.
+            I'm a Senior Computer Science student at Michigan State University.
+            I have a background in web development, scripting, game development
+            and I work as a student network engineer (I got the networking fundamentals down).
+            Since I've been in college, I've found I really enjoy working with either
+            web development or enterprise networking.
           </p>
           <p className="text-gray-900 dark:text-gray-200 font-semibold">
             Outside of code, I play guitar, mess around with game development,
-            and I like reading. I'm currently building my personal blog and
-            working on a game called <i>Witchpaw</i>.
+            and I like reading. In my free time, I am building this blogging website and
+            working on a game called <i>Witchpaw</i>. I'm always learning and trying to improve myself.
+            I am that werido that enjoys learning...
           </p>
         </div>
       </section>
