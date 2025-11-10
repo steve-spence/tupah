@@ -224,7 +224,7 @@ export default function HomePage() {
                 I've helped enough people fix their computers/code to know it’s
                 worth writing down. I want to create some basic tutorials on how
                 to create and find good code. I don't know how far I'll get, but I have a
-                love for the game so we'll' see.
+                love for the game so we'll see.
               </p>
             </div>
           </div>
