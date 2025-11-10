@@ -75,7 +75,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Fixed Background Images */}
-      <div className="fixed top-0 w-full h-fit -z-10 bg-[#F5F5F5] dark:bg-[#171717] transition-colors duration-300">
+      <div className="fixed top-0 w-full h-[100vh] -z-10 bg-[#c0b8b8] dark:bg-[#171717] transition-colors duration-300">
         <div className="flex flex-col md:flex-row gap-10 items-center justify-center pb-30">
           {/* First rotating background image with theme support */}
           <div className="relative w-[90vw] max-w-[640px] aspect-square">
@@ -169,13 +169,13 @@ export default function HomePage() {
         </div>
 
         {/* Artist Credit */}
-        <p className="absolute bottom-4 right-4 text-xl text-gray-600 dark:text-gray-400">
+        <p className="absolute bottom-4 right-4 text-xl text-[#e9e9e9] drop-shadow-text-sm">
           @ansproject
         </p>
       </section>
 
       <section>
-        <div className="flex grow flex-col items-center justify-center gap-8 py-20 bg-gradient-to-b from-[#f0f0f0] to-[#e5e5e5] dark:from-[#171717] dark:to-[#121212]
+        <div className="flex grow flex-col items-center justify-center gap-8 py-20 bg-linear-to-b from-[#f0f0f0] to-[#e5e5e5] dark:from-[#171717] dark:to-[#121212]
         transition-all duration-300">
           <div className="flex flex-col items-center gap-4">
             <h1 className="text-6xl font-bold bg-gradient-to-r text-black dark:text-white bg-clip-text">
@@ -195,56 +195,57 @@ export default function HomePage() {
       </section>
 
 
-      {/* What I post section */}
+      {/* What I hope people post */}
       <section id="posts">
         <div
-          className="flex flex-col p-10 gap-5 w-full justify-center items-center bg-[#f0f0f0] dark:bg-[#0e0e0e] 
+          className="flex flex-col p-10 gap-5 w-full justify-center items-center bg-linear-to-b from-[#e5e5e5] to-[#d6d6d6] dark:from-[#121212] dark:to-[#171717]
         shadow-xl shodow-indigo-500/50 text-white text-center"
         >
           <h2 className="text-4xl font-bold text-gray-700 dark:text-white">
-            What do People post post here?
+            What I hope people post
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             <div className="flex flex-col items-center">
-              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc] underline mb-4">
-                Gaming
+              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#b79bf3] mb-4">
+                Experiences
               </h3>
               <p className="text-gray-800 dark:text-white">
-                I've been gaming since I could move a mouse. From Halo 4 on
-                launch day to 7,000 hours in Overwatch and RuneScape, I've
-                grinded everything from shooters to survival sims, MMO's to
-                puzzle co-ops. If the game has a community, a meta, or a boss
-                fight, I've probably been there.
+                I think people have a lot to share. I want to give people another platform
+                to express their opinions and make others laugh. You can be the one to
+                create a new post that might take this site to the next level. Be that guy.
               </p>
             </div>
 
             <div className="flex flex-col items-center">
-              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc] underline text-center md:text-left mb-2">
+              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#b79bf3] text-center md:text-left mb-2">
                 Anime
               </h3>
               <p className="text-gray-800 dark:text-white">
-                I keep up with seasonal anime and always have something to say.
-                Whether it’s praise, slander, or a new favorite, expect honest
-                takes and unfiltered opinions.
+                I hope we get some good anime opinions. I love anime and I have been watching
+                for the last few (8) years. I might know a few... I hope some people
+                can come together and use this site to share their opinions in a nuanced way.
+                I am still working on how this site can stand out, so let's hope for more on that
+                in the future!
               </p>
             </div>
 
             <div className="flex flex-col items-center">
-              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc] underline text-center md:text-left mb-2">
-                Tech Support
+              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#b79bf3] text-center md:text-left mb-2">
+                Code
               </h3>
               <p className="text-gray-800 dark:text-white">
                 I'm a Computer Science major at Michigan State University, and
                 I've helped enough people fix their computers/code to know it’s
-                worth writing down. Tips, tools, rants, and tutorials, it's all
-                here.
+                worth writing down. I want to create some basic tutorials on how
+                to create and find good code. I don't know how far I'll get, but I have a
+                love for the game so we'll' see.
               </p>
             </div>
           </div>
         </div>
 
         {/* Rotating Blog Posts */}
-        <div className="flex flex-col items-center w-full h-fit bg-gray-200 dark:bg-[#121212] py-5">
+        <div className="flex flex-col items-center w-full h-fit bg-linear-to-b from-[#d6d6d6] to-[#e7e7e7] dark:from-[#171717] dark: dark:to-[#505050] bg-gray-200 dark:bg-[#121212] py-5">
           <h1 className="text-3xl text-black dark:text-white font-bold grow-1 text-left">
             Featured Posts
           </h1>
@@ -258,8 +259,8 @@ export default function HomePage() {
 
       {/* Brook Image */}
       <section id="brook">
-        <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-gray-400 dark:bg-amber-50 p-5">
-          <p className="italic text-2xl p-3">"Death leaves nothing behind."</p>
+        <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-linear-to-b from[#d6d6d6] to-[#d6d6d6] dark:bg-[#9e9e9e] p-5">
+          <p className="italic text-2xl p-3 text-white drop-shadow-text-sm">"Death leaves nothing behind."</p>
           {/* Responsive Image Container */}
           <div className="relative lg:w-32 lg:h-32 md:w-24 md:h-24 w-16 h-16">
             <Image
@@ -269,8 +270,8 @@ export default function HomePage() {
               className="rounded-4xl object-contain"
             />
           </div>
-          <p>Brook</p>
-          <p className="text-gray-500">Musician, New World</p>
+          <p className="text-white drop-shadow-text-sm font-bold ">Brook</p>
+          <p className="drop-shadow-text-sm text-[#ffffff] font-semibold">Musician, New World</p>
         </div>
       </section>
     </div>

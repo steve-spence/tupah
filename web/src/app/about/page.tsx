@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ProjectIcon } from "@/components/ProjectIcon/ProjectIcon";
+import { Music, ChartSpline, BookOpenText, WandSparkles } from 'lucide-react';
 
 //1272CC
 //
@@ -69,10 +70,10 @@ export default function AboutPage() {
           Let’s build together.
         </h2>
         <p className="max-w-2xl text-gray-900 dark:text-gray-300 mb-6">
-          Whether it’s a sleek website, an AI-powered app, or a creative
-          experiment, I’m always open to new projects. I’ve been exploring LLMs,
-          training models, and building full-stack applications for about a year
-          now. If you've got a real buildable idea, I’m in.
+          Whether it’s an idea for a new website, a new startup, or contract work
+          I’m always open to new projects or jobs. I’ve been working with AI/ML
+          and building full-stack applications for about a year now.
+          If you think the idea can really be something, we can make it happen.
         </p>
         <a
           href="mailto:stevenallenspencer@gmail.com"
@@ -200,27 +201,37 @@ export default function AboutPage() {
           Projects
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Project 1 */}
-          <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
-              🧙 Witchpaw
-            </h3>
-            <p className="text-gray-900 dark:text-gray-400 mb-4">
-              A magic-focused indie game where you play as a raccoon wizard.
-              Built in Unity, inspired by Soulslike aesthetics.
+
+          {/* Urban Science */}
+          <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow md:col-span-2">
+            <div className="flex items-center justify-center gap-4 mb-3">
+              <div className="flex-shrink-0">
+                <Image
+                  className="select-none bg-white rounded-sm p-2"
+                  width={300}
+                  height={60}
+                  src="/urbanscience.svg"
+                  alt="Urban Science"
+                />
+              </div>
+              <h3 className="text-xl font-semibold text-black dark:text-white">
+                Generating Mapping Insights Using AI
+              </h3>
+            </div>
+            <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
+              Created a software solution for Urban Science. They needed accurate
+              legal insights into where candidate Ford dealerships should be located. I worked
+              in a team of 6 to create a full-stack web application that analyized Ford KPI's
+              and visualized demographic information. I utilized OpenAI via a RAG system on Azure to
+              enforce accurate legal data. This enabled OEM planners to get work done faster and
+              achieve better insight into areas of opportunity within the Ford network.
             </p>
-            <Link
-              href="https://github.com/steve-spence/racoon_game"
-              className="text-[#1272CC] dark:text-purple-400 hover:underline"
-            >
-              Learn more →
-            </Link>
           </div>
 
-          {/* Project 2 */}
+          {/* Blog Portfolio */}
           <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
             <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
-              📓 Blog & Portfolio
+              <BookOpenText className="inline-block text-amber-400 mr-1" /> Blog & Portfolio
             </h3>
             <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
               My personal blog and site (this one!) built with Next.js, Tailwind
@@ -234,10 +245,10 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          {/* Project 3 */}
-          <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+          {/* FoxStocks */}
+          <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow align-middle">
             <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
-              📈 AI Stock Prediction
+              <ChartSpline className="inline-block text-red-300 mr-1" /> AI Stock Prediction
             </h3>
             <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
               LSTM + sentiment model to predict stock movement using hourly
@@ -252,14 +263,16 @@ export default function AboutPage() {
               View on GitHub →
             </Link>
           </div>
-          {/* Project 4 */}
+
+          {/* Music AI */}
           <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
-            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
-              📈 Music AI Assistant
+            <h3 className="text-xl font-semibold text-black dark:text-white mb-2 flex justify-center items-center gap-2">
+              <Music className="inline-block text-blue-400 mr-1" /> Music AI Assistant
             </h3>
             <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
-              LSTM + sentiment model to predict stock movement using hourly
-              price windows and news article timestamps.
+              Digital Audio Workstation (DAW) simplified! Ambitious project that aims to
+              take human humming and beatboxing and convert it into real notes you can
+              move around and play with.
             </p>
             <Link
               href="https://github.com/MSU-AI/investment-ai"
@@ -268,6 +281,23 @@ export default function AboutPage() {
               className="text-[#1272CC] dark:text-purple-400 hover:underline"
             >
               View on GitHub →
+            </Link>
+          </div>
+
+          {/* Witchpaw */}
+          <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow">
+            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
+              <WandSparkles className="inline-block text-green-600 mr-1" /> Witchpaw
+            </h3>
+            <p className="text-gray-900 dark:text-gray-400 mb-4 font-semibold">
+              A magic-focused indie game where you play as a raccoon wizard.
+              Built in Unity, inspired by Soulslike aesthetics.
+            </p>
+            <Link
+              href="https://github.com/steve-spence/racoon_game"
+              className="text-[#1272CC] dark:text-purple-400 hover:underline"
+            >
+              Learn more →
             </Link>
           </div>
         </div>
