@@ -7385,6 +7385,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"swiper@npm:^12.0.3":
+  version: 12.0.3
+  resolution: "swiper@npm:12.0.3"
+  checksum: 10c0/a854531791ba45cb0f6086904a99878fd207b42024820df68fbf64e01c20d542438c023ec4765b223f4dbffabf6858d311ec749bdca4ea4b4a7b74150a010162
+  languageName: node
+  linkType: hard
+
 "tailwindcss@npm:4.1.4":
   version: 4.1.4
   resolution: "tailwindcss@npm:4.1.4"
@@ -7544,6 +7551,7 @@ __metadata:
     react-bootstrap: "npm:^2.10.10"
     react-dom: "npm:^19.0.0"
     remark-gfm: "npm:^4.0.1"
+    swiper: "npm:^12.0.3"
     tailwindcss: "npm:^4.1.6"
     tsx: "npm:^4.20.6"
     typescript: "npm:^5"

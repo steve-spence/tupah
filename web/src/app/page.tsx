@@ -3,15 +3,21 @@
 
 import React, { useEffect } from "react";
 import { NavIconProps } from "@/components/NavIcon/NavIcon";
-import { RotatingIcons } from "@/components/RotatingIcons/RotatingIcons";
+import { NavIcon } from "@/components/NavIcon/NavIcon";
 import { Header } from "@/components/Header/Header";
 import Image from "next/image";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 export default function HomePage() {
   const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
+  const [featuredPosts, setFeaturedPosts] = React.useState<NavIconProps[]>([]);
 
   // Background images to rotate through
   const backgroundImages = [
@@ -20,6 +26,14 @@ export default function HomePage() {
     { light: "/pictures/girl-bg.svg", dark: "/pictures/girl-bg.svg" },
     { light: "/blowing_girl.png", dark: "/blowing_girl.png" },
   ];
+
+  // Fetch featured posts
+  useEffect(() => {
+    fetch('/api/featured')
+      .then(res => res.json())
+      .then(data => setFeaturedPosts(data))
+      .catch(err => console.error('Failed to fetch featured posts:', err));
+  }, []);
 
   // Rotate images every 5 seconds
   useEffect(() => {
@@ -43,39 +57,11 @@ export default function HomePage() {
     canonicalLink.href = canonicalUrl;
   }, []);
 
-  // Max 4 otherwise responsive is thrown off
-  // This is also just terrible code I need to fix this soon. When I feel like featuring other posts.
-  const rotating_icons: NavIconProps[] = [
-    {
-      id: "blog1",
-      title: "Dark vs Light Mode",
-      bg_path: "/pictures/blog/dark-vs-light.png",
-      link: "blog/dark-mode-vs-light-mode",
-    },
-    {
-      id: "blog2",
-      title: "What I wish I knew...",
-      bg_path: "/pictures/blog/tailwind-cheatsheet.png",
-      link: "blog/things-i-wish-i-knew-before-tailwind",
-    },
-    {
-      id: "blog3",
-      title: "AI Buzz",
-      bg_path: "/pictures/blog/ai-buzz.png",
-      link: "blog/why-ai-is-just-buzz",
-    },
-    {
-      id: "blog4",
-      title: "The Best First Mic",
-      bg_path: "/pictures/blog/mv7-1.jpg",
-      link: "blog/the-best-first-mic",
-    },
-  ];
 
   return (
     <div className="flex flex-col">
       {/* Fixed Background Images */}
-      <div className="fixed top-0 w-full h-[100vh] -z-10 bg-[#c0b8b8] dark:bg-[#171717] transition-colors duration-300">
+      <div className="fixed top-0 w-full h-screen -z-10 bg-[#c0b8b8] dark:bg-[#171717] transition-colors duration-300">
         <div className="flex flex-col md:flex-row gap-10 items-center justify-center pb-30">
           {/* First rotating background image with theme support */}
           <div className="relative w-[90vw] max-w-[640px] aspect-square">
@@ -178,7 +164,7 @@ export default function HomePage() {
         <div className="flex grow flex-col items-center justify-center gap-8 py-20 bg-linear-to-b from-[#f0f0f0] to-[#e5e5e5] dark:from-[#171717] dark:to-[#121212]
         transition-all duration-300">
           <div className="flex flex-col items-center gap-4">
-            <h1 className="text-6xl font-bold bg-gradient-to-r text-black dark:text-white bg-clip-text">
+            <h1 className="text-6xl font-bold bg-linear-to-r text-black dark:text-white bg-clip-text">
               Create
             </h1>
             <p className="text-gray-600 dark:text-gray-400 text-lg max-w-md text-center">
@@ -187,7 +173,7 @@ export default function HomePage() {
           </div>
           <Button
             variant="contained"
-            className="px-12 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 bg-gradient-to-r from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#b49ddb]"
+            className="px-12 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 bg-linear-to-r from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#b49ddb]"
             onClick={() => router.push('/create')}>
             Start Writing
           </Button>
@@ -245,21 +231,39 @@ export default function HomePage() {
         </div>
 
         {/* Rotating Blog Posts */}
-        <div className="flex flex-col items-center w-full h-fit bg-linear-to-b from-[#d6d6d6] to-[#e7e7e7] dark:from-[#171717] dark: dark:to-[#505050] bg-gray-200 dark:bg-[#121212] py-5">
-          <h1 className="text-3xl text-black dark:text-white font-bold grow-1 text-left">
+        <div className="flex flex-col items-center w-full h-fit bg-linear-to-b from-[#d6d6d6] to-[#e7e7e7] dark:from-[#171717] dark:to-[#242424] bg-gray-200 dark:bg-[#121212] py-10 pb-20">
+          <h1 className="text-3xl text-black dark:text-white font-bold mb-8">
             Featured Posts
           </h1>
-          <RotatingIcons
-            data={{ icons: rotating_icons }}
-            className="bg-gradient-to-br from-[#88c9ff] to-[#5994cc] dark:from-[#4a3577] dark:to-[#9379cc]
-      rounded-4xl m-5 dark:text-white text-black font-semibold"
-          />
+          <div className="w-full max-w-7xl px-5">
+            <Swiper
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={30}
+              slidesPerView={1}
+              navigation
+              pagination={{ clickable: true }}
+              autoplay={{ delay: 6000, disableOnInteraction: false }}
+              loop={true}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+                1280: { slidesPerView: 4 },
+              }}
+              className="featured-posts-swiper"
+            >
+              {featuredPosts.map((post) => (
+                <SwiperSlide key={post.id}>
+                  <NavIcon data={post} size="16" />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </section>
 
       {/* Brook Image */}
       <section id="brook">
-        <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-linear-to-b from[#d6d6d6] to-[#d6d6d6] dark:bg-[#9e9e9e] p-5">
+        <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-linear-to-b to-[#d6d6d6] dark:to-[#111111] p-5">
           <p className="italic text-2xl p-3 text-white drop-shadow-text-sm">"Death leaves nothing behind."</p>
           {/* Responsive Image Container */}
           <div className="relative lg:w-32 lg:h-32 md:w-24 md:h-24 w-16 h-16">

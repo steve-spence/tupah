@@ -69,11 +69,11 @@ export default function AboutPage() {
         <h2 className="text-3xl font-bold mb-4 text-black dark:text-white">
           Let’s build together.
         </h2>
-        <p className="max-w-2xl text-gray-900 dark:text-gray-300 mb-6">
-          Whether it’s an idea for a new website, a new startup, or contract work
+        <p className="max-w-2xl text-gray-900 dark:text-gray-300 mb-6 font-semibold">
+          Whether it’s an idea for a website, a new startup, or contract work
           I’m always open to new projects or jobs. I’ve been working with AI/ML
           and building full-stack applications for about a year now.
-          If you think the idea can really be something, we can make it happen.
+          If you have an idea can really be something, we can make it happen.
         </p>
         <a
           href="mailto:stevenallenspencer@gmail.com"
@@ -91,17 +91,17 @@ export default function AboutPage() {
       {/* Who I Am */}
       <section className="p-10 flex flex-col justyify-center items-center w-full mx-auto bg-white dark:bg-[#0f0f0f] text-white">
         <div className="w-full md:w-[70%] lg:w-[50%] text-center flex flex-col gap-5">
-          <h2 className="text-2xl font-bold text-black dark:text-white">
+          <h2 className="text-3xl font-bold text-black dark:text-white">
             Who I Am
           </h2>
-          <p className="text-gray-900 dark:text-gray-200">
+          <p className="text-gray-900 dark:text-gray-200 font-semibold">
             I’m Steven Spencer. I'm working towards my Bachelor's Degree in
             Computer Scinece at Michigan State University. I have a background
             in web development, scripting, and game development. I’ve been
             building apps, experimenting with animation, and automating
             workflows since I've been in college.
           </p>
-          <p className="text-gray-900 dark:text-gray-200">
+          <p className="text-gray-900 dark:text-gray-200 font-semibold">
             Outside of code, I play guitar, mess around with game development,
             and I like reading. I'm currently building my personal blog and
             working on a game called <i>Witchpaw</i>.
@@ -205,7 +205,7 @@ export default function AboutPage() {
           {/* Urban Science */}
           <div className="bg-gray-300 dark:bg-[#1e1e1e] rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow md:col-span-2">
             <div className="flex items-center justify-center gap-4 mb-3">
-              <div className="flex-shrink-0">
+              <div className="shrink-0">
                 <Image
                   className="select-none bg-white rounded-sm p-2"
                   width={300}
@@ -304,12 +304,12 @@ export default function AboutPage() {
       </section>
 
       {/* Skills Section */}
-      <section className="flex flex-col items-center gap-4 p-10 bg-gary-500 dark:bg-[#0f0f0f]">
+      <section className="flex flex-col items-center gap-4 bg-gary-500 dark:bg-[#0f0f0f]">
         <h2 className="text-2xl font-bold text-black dark:text-white">
           What can I work in?
         </h2>
         <p className="text-[#000000] dark:text-[#ffffff] text-center">
-          I am happy to start learning a new language or API if we need that.{" "}
+          I am happy to learn a new language or API, I actaully like what I do (shocker!).
           <br></br>These are some of the technoloiges I've learned to use on my
           own.
         </p>
@@ -325,7 +325,6 @@ export default function AboutPage() {
             { icon_path: "/icons/mysql.svg", subscript: "MySQL" },
             { icon_path: "/icons/python.svg", subscript: "Python" },
             { icon_path: "/icons/c_plus_plus.svg", subscript: "C++" },
-            { icon_path: "/icons/flask.svg", subscript: "Flask" },
             { icon_path: "/icons/unity.svg", subscript: "Unity (C#)" },
             { icon_path: "/icons/blender.svg", subscript: "Blender" },
           ].map((proj, i) => (
@@ -340,7 +339,7 @@ export default function AboutPage() {
       </section>
 
 
-      <section className="relative py-16 bg-gray-150 dark:bg-[#131313] text-white text-center shadow-2xl">
+      <section className="relative py-10 bg-gray-150 dark:bg-linear-to-b dark:from-[#0f0f0f] dark:to-[#131313] text-white text-center shadow-2xl">
         <h1 className="text-3xl text-black dark:text-white font-bold mb-8">Connect with Me!</h1>
 
         <div className="flex flex-wrap justify-center items-center gap-8 max-w-3xl mx-auto">

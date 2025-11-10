@@ -26,25 +26,15 @@ a {
   filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.8));
 }
 
-.drop-shadow-text-md {
-  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.8));
-}
-
-.drop-shadow-text-lg {
-  filter: drop-shadow(0 4px 8px rgb(0 0 0 / 0.8));
-}
-
-.drop-shadow-glow {
-  filter: drop-shadow(0 0 10px rgb(147 121 204 / 0.7));
-}
-
-.drop-shadow-glow-blue {
-  filter: drop-shadow(0 0 10px rgb(18 114 204 / 0.7));
-}
-
 /* !!! NOT WORKING !!! */
 .md\:flex-row-reverse {
     @media (width >= 60rem /* 768px */) {
         flex-direction: row-reverse;
     }
+}
+
+/* Swiper pagination customization */
+.featured-posts-swiper .swiper-pagination {
+  bottom: -5px !important;
+  position: relative !important;
 }

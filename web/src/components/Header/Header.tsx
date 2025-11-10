@@ -15,7 +15,7 @@ export function Header({ data, className }: Props) {
       </div>
 
       {/* Title */}
-      <div className="flex grow-1 flex-col items-center justify-center">
+      <div className="flex grow flex-col items-center justify-center">
         <h1 className="text-gray-900 dark:text-white font-extrabold mb-6 tracking-wide text-4xl sm:text-5xl text-center whitespace-nowrap">
           {title}
         </h1>
