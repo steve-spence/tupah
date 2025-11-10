@@ -73,7 +73,7 @@ export default function AboutPage() {
           Whether it’s an idea for a website, a new startup, or contract work
           I’m always open to new projects or jobs. I’ve been working with AI/ML
           and building full-stack applications for about a year now.
-          If you have an idea can really be something, we can make it happen.
+          If you have an idea that can really be something, we can make it happen.
         </p>
         <a
           href="mailto:stevenallenspencer@gmail.com"
