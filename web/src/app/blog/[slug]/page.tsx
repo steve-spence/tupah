@@ -30,7 +30,7 @@ export default function BlogPost() {
         }
 
         // Serialize the MDX content
-        const serialized = await serialize(data.content || "");
+        const serialized = await serialize(data.content_md || "");
 
         setPost(data);
         setMdxSource(serialized);
@@ -54,7 +54,6 @@ export default function BlogPost() {
     return notFound();
   }
 
-  console.log(post);
   // Add components needed in mdx here NO DANGEROUS STUFF CHECK IT ALL FOR EVILLLLLLLL!!!!!!!!!!
   const components = {
     BlogImage,
@@ -65,11 +64,7 @@ export default function BlogPost() {
       {/* Blog Post Header */}
       <section id="home">
         <Header
-          data={{
-            title: "Tupah",
-            subtext: "Unfiltered thoughts with occasional genius.",
-          }}
-          className="flex sm:justify-between justify-center bg-white dark:bg-[#272727] p-5 h-32 w-full z-2 fixed"
+          data={{ title: "Tupah", subtext: "Unfiltered thoughts with occasional genius." }}
         />
       </section>
       <div className="h-32"></div>

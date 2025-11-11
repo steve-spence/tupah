@@ -61,7 +61,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Fixed Background Images */}
-      <div className="fixed top-0 w-full h-screen -z-10 bg-[#c0b8b8] dark:bg-[#171717] transition-colors duration-300">
+      <div className="fixed top-0 w-full h-screen -z-10 bg-linear-to-r from-[#ebf5c7] to-[#fdfdd2]  dark:bg-[#171717] transition-colors duration-300">
         <div className="flex flex-col md:flex-row gap-10 items-center justify-center pb-30">
           {/* First rotating background image with theme support */}
           <div className="relative w-[90vw] max-w-[640px] aspect-square">
@@ -127,8 +127,8 @@ export default function HomePage() {
             title: "Tupah",
             subtext: "Explore | Create | Enjoy",
           }}
-          className="flex sm:justify-between justify-center bg-[#eff1f1] shadow-sm
-           dark:bg-[#1c1c1c] p-5 h-32 w-full relative z-10"
+        // className="flex sm:justify-between justify-center bg-[#eff1f1] shadow-sm
+        //  dark:bg-[#1c1c1c] p-5 h-32 w-full relative z-10"
         />
       </section>
 

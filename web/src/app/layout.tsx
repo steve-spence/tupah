@@ -23,11 +23,12 @@ export default function HomeLayout({ children, }: { children: React.ReactNode; }
           {/* bg-gradient-to-b from-[#9379cc] to-[#4B0A1B] */}
           {/* Place children where you want to render a page or nested layout */}
           <div
+            // Do not change this from !transiton-all for chrome | idk
             className={`!transition-all duration-300 overflow-hidden ${sidebarWidth}`}
           >
             <LeftNav
               className={`fixed top-0 left-0 !transition-all duration-300 ${sidebarWidth} h-full py-5 z-10
-     overflow-hidden text-white bg-gradient-to-b from-gray-100 to-gray-300`}
+     overflow-hidden bg-linear-to-b from-gray-100 to-gray-300`}
               onNavigate={() => setIsOpen(false)}
             ></LeftNav>
           </div>

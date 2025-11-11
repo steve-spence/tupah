@@ -16,7 +16,7 @@ export function NavIcon({ data, className = "", size = "16", onClick }: Props) {
         className={`w-${size} h-${size} rounded-2xl overflow-hidden bg-no-repeat bg-center bg-contain p-3`}
         style={{ backgroundImage: `url(${bg_path})` }}
       />
-      <p className="mt-3 text-1xl text-center text-black font-bold dark:text-white">{title}</p>
+      <p className="mt-3 text-1xl text-center text-black font-bold">{title}</p>
     </div>
   );
 

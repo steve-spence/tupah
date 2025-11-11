@@ -20,8 +20,8 @@ export default function AboutPage() {
       {/* Header */}
       <section className="relative">
         <Header
-          data={{ title: "Steven Spencer", subtext: "About me" }}
-          className="flex sm:justify-between justify-center bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 w-full z-2"
+          data={{ title: "Steven Spencer", subtext: "About me", showLinks: false }}
+        // className="flex sm:justify-between justify-center bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 w-full z-2"
         />
       </section>
 

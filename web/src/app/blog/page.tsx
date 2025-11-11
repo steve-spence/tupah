@@ -23,10 +23,7 @@ export default async function BlogPage() {
     <div className="bg-[#FAFAFA] dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100">
       {/* Header */}
       <section>
-        <Header
-          data={{ title: "Blogs", subtext: "I be bloggin'" }}
-          className="flex sm:justify-between justify-center bg-[#ffffff] dark:bg-[#272727] p-5 h-32 w-full z-10 shadow-md shadow-black"
-        />
+        <Header data={{ title: "Blogs", subtext: "We be bloggin'" }} />
       </section>
 
       <section>

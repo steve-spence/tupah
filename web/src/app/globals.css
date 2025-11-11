@@ -1,12 +1,11 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-/* @import "~bootstrap/scss/bootstrap"; */
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-body, div, section, header, footer, main, article {
+/* body, div, section, header, footer, main, article {
   @apply transition-colors duration-300 ease-in-out;
-}
+} */
 
 h1, h2, h3, h4, h5, h6, p {
   cursor: default;
@@ -26,15 +25,16 @@ a {
   filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.8));
 }
 
-/* !!! NOT WORKING !!! */
-.md\:flex-row-reverse {
-    @media (width >= 60rem /* 768px */) {
-        flex-direction: row-reverse;
-    }
-}
-
 /* Swiper pagination customization */
 .featured-posts-swiper .swiper-pagination {
   bottom: -5px !important;
   position: relative !important;
+}
+
+/* Scrollbar Styling */
+
+/* Firefox */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #29282b #e5e5e5;
 }
