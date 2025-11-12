@@ -1,10 +1,14 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { boolean } from "drizzle-orm/gel-core";
+import { useAuth } from "@/contexts/AuthContext";
 
 export function Header({ data }: { data: { title: string, subtext: string, showLinks?: boolean } }) {
   const { title, subtext, showLinks = true } = data;
+  const { user } = useAuth();
 
   return (
     <div className="flex items-center justify-between w-full px-10 bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 z-10">
@@ -34,6 +38,15 @@ export function Header({ data }: { data: { title: string, subtext: string, showL
           <Link href="/blog" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
             Blogs
           </Link>
+          {user ? (
+            <Link href="/dashboard" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
+              Account
+            </Link>
+          ) : (
+            <Link href="/login" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
+              Login
+            </Link>
+          )}
         </div>
       ) : (
         <div className="hidden sm:flex w-24" />

@@ -7,6 +7,7 @@ import { LeftNav } from "@/components/LeftNav/LeftNav";
 import "@/app/globals.css";
 import Image from "next/image";
 import Footer from "@/components/Footer/Footer";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 
 
@@ -18,6 +19,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode; }
   return (
     <html lang="en">
       <body className="flex flex-col">
+        <AuthProvider>
         {/* Layout UI */}
         <div className="flex flex-1">
           {/* bg-gradient-to-b from-[#9379cc] to-[#4B0A1B] */}
@@ -60,6 +62,7 @@ export default function HomeLayout({ children, }: { children: React.ReactNode; }
         </div>
 
         <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

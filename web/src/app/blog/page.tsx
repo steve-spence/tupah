@@ -1,8 +1,10 @@
 // Blog Page
 // Add some display page for the home page for blogs like these are all my blogs!
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from '@mui/material/Button'
 import { Header } from "@/components/Header/Header";
 import ClientSearch from "@/components/ClientSearch/ClientSerach";
@@ -11,13 +13,48 @@ import { Post } from "@/utils/types";
 
 const AMOUNT_OF_POSTS = 10;
 
-export default async function BlogPage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`, { cache: "no-store" });
-  if (!res.ok) throw new Error("Faild to load posts.");
-  const posts: Post[] = await res.json();
+export default function BlogPage() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [randomPosts, setRandomPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const shuffledPosts = [...posts].sort(() => Math.random() - 0.5);
-  const randomPosts = shuffledPosts.slice(0, AMOUNT_OF_POSTS);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`, { cache: "no-store" });
+        if (!res.ok) throw new Error("Failed to load posts.");
+        const data: Post[] = await res.json();
+
+        setPosts(data);
+
+        const shuffledPosts = [...data].sort(() => Math.random() - 0.5);
+        setRandomPosts(shuffledPosts.slice(0, AMOUNT_OF_POSTS));
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "An error occurred");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#1a1a1a] flex items-center justify-center">
+        <div className="text-gray-600 dark:text-gray-400">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#1a1a1a] flex items-center justify-center">
+        <div className="text-red-600 dark:text-red-400">Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#FAFAFA] dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100">
@@ -63,7 +100,7 @@ export default async function BlogPage() {
       <div className="flex justify-center items-center my-5 w-full">
         <ClientSearch
           className="bg-[#2a8ae4] dark:bg-radial from-[#9379cc] to-[#c0abe6] rounded-4xl"
-          posts={await posts}
+          posts={posts}
         />
       </div>
 
