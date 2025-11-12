@@ -7,7 +7,7 @@ export function Header({ data }: { data: { title: string, subtext: string, showL
   const { title, subtext, showLinks = true } = data;
 
   return (
-    <div className="sticky top-0 flex items-center justify-between w-full px-10 bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 z-10">
+    <div className="flex items-center justify-between w-full px-10 bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 z-10">
       {/* Logo - Left side */}
       <div className="hidden sm:flex items-center">
         <Link className="relative w-24 h-24" href="/">

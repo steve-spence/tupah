@@ -48,10 +48,10 @@ export default function PrivacyPage() {
                         stated. You may not directly copy, reproduce, or distribute content without permission. You may modify
                         the content to a resonable extent and redistrubute. If you are interested please reach out to me at{' '}
                         <a
-                            href="mailto:stevenallenspencer@gmail.com"
+                            href={`mailto:${process.env.PERSONAL_EMAIL}`}
                             className="text-[#1272CC] dark:text-purple-400 hover:underline"
                         >
-                            stevenallenspencer@gmail.com
+                            tupahhelp@gmail.com
                         </a>
 
                     </p>

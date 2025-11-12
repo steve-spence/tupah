@@ -7,6 +7,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import { ProjectIcon } from "@/components/ProjectIcon/ProjectIcon";
 import { Music, ChartSpline, BookOpenText, WandSparkles } from 'lucide-react';
+import { environment } from "@/environments/environment";
 
 //1272CC
 //
@@ -19,10 +20,7 @@ export default function AboutPage() {
     <div className="bg-white dark:bg-[#A1A1A1]">
       {/* Header */}
       <section className="relative">
-        <Header
-          data={{ title: "Steven Spencer", subtext: "About me", showLinks: false }}
-        // className="flex sm:justify-between justify-center bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] p-5 h-32 w-full z-2"
-        />
+        <Header data={{ title: "Steven Spencer", subtext: "About me", showLinks: false }} />
       </section>
 
       {/* Hero Section */}
@@ -76,7 +74,7 @@ export default function AboutPage() {
           If you think we could build out your idea, let me know! We can make it happen.
         </p>
         <a
-          href="mailto:stevenallenspencer@gmail.com"
+          href={`mailto:${environment.person_email}`}
           className="bg-blue-300 hover:bg-blue-400 dark:bg-[#9379cc] dark:hover:bg-[#9379cc] text-white font-medium py-3 px-6 rounded-xl transition duration-300">
           Contact Me
         </a>

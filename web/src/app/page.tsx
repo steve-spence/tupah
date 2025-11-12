@@ -122,14 +122,7 @@ export default function HomePage() {
 
       {/* Home Page Header */}
       <section id="home">
-        <Header
-          data={{
-            title: "Tupah",
-            subtext: "Explore | Create | Enjoy",
-          }}
-        // className="flex sm:justify-between justify-center bg-[#eff1f1] shadow-sm
-        //  dark:bg-[#1c1c1c] p-5 h-32 w-full relative z-10"
-        />
+        <Header data={{ title: "Tupah", subtext: "Explore | Create | Enjoy", }} />
       </section>
 
       {/* Info Section */}

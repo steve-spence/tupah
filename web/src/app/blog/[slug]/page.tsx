@@ -63,9 +63,7 @@ export default function BlogPost() {
     <div className="flex flex-col">
       {/* Blog Post Header */}
       <section id="home">
-        <Header
-          data={{ title: "Tupah", subtext: "Unfiltered thoughts with occasional genius." }}
-        />
+        <Header data={{ title: "Tupah", subtext: "Unfiltered thoughts with occasional genius." }} />
       </section>
       <div className="h-32"></div>
 
