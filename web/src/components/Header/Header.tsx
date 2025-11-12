@@ -3,7 +3,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { boolean } from "drizzle-orm/gel-core";
 import { useAuth } from "@/contexts/AuthContext";
 
 export function Header({ data }: { data: { title: string, subtext: string, showLinks?: boolean } }) {

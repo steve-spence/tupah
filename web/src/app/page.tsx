@@ -61,7 +61,8 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Fixed Background Images */}
-      <div className="fixed top-0 w-full h-screen -z-10 bg-linear-to-r from-[#ebf5c7] to-[#fdfdd2]  dark:bg-[#171717] transition-colors duration-300">
+      <div className="fixed top-0 w-full h-screen -z-10 bg-linear-to-br from-white to-[#dbdbdb]
+       dark:from-[#4e4e4e] dark:to-[#2c2c2c] transition-colors duration-300">
         <div className="flex flex-col md:flex-row gap-10 items-center justify-center pb-30">
           {/* First rotating background image with theme support */}
           <div className="relative w-[90vw] max-w-[640px] aspect-square">
@@ -246,7 +247,7 @@ export default function HomePage() {
             >
               {featuredPosts.map((post) => (
                 <SwiperSlide key={post.id}>
-                  <NavIcon data={post} size="16" />
+                  <NavIcon data={post} className="text-black dark:text-white" size="16" />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -256,7 +257,7 @@ export default function HomePage() {
 
       {/* Brook Image */}
       <section id="brook">
-        <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-linear-to-b to-[#d6d6d6] dark:to-[#111111] p-5">
+        <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-linear-to-b to-gray-100 dark:to-[#111111] p-5">
           <p className="italic text-2xl p-3 text-white drop-shadow-text-sm">"Death leaves nothing behind."</p>
           {/* Responsive Image Container */}
           <div className="relative lg:w-32 lg:h-32 md:w-24 md:h-24 w-16 h-16">
