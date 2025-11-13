@@ -59,9 +59,13 @@ export function useServerRateLimit(action: 'login' | 'signup') {
 
     useEffect(() => {
         checkRateLimit();
-        const interval = setInterval(checkRateLimit, 1000);
-        return () => clearInterval(interval);
-    }, [checkRateLimit]);
+
+        // Only poll if user is rate limited
+        if (state.isLimited && state.remainingTime > 0) {
+            const interval = setInterval(checkRateLimit, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [checkRateLimit, state.isLimited, state.remainingTime]);
 
     const formatRemainingTime = useCallback((seconds: number): string => {
         const minutes = Math.floor(seconds / 60);

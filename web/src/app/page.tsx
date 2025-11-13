@@ -182,7 +182,7 @@ export default function HomePage() {
         shadow-xl shodow-indigo-500/50 text-white text-center"
         >
           <h2 className="text-4xl font-bold text-gray-700 dark:text-white">
-            What I hope people post
+            What gets Posted
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             <div className="flex flex-col items-center">
