@@ -18,7 +18,6 @@ export default function Footer() {
                     <h1 className="py-5 font-bold text-xl">Tupah</h1>
                     <p className="font-medium text-center text-gray-600 dark:text-gray-400">
                         A website for people
-                        A website for people
                     </p>
                 </div>
                 <div className="flex flex-col flex-1 justify-center items-center">
