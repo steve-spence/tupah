@@ -3,13 +3,21 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "@mui/material/Button";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function CreatePage() {
+  const { user } = useAuth();
   const router = useRouter();
+
+  if (!user) {
+    router.push("/login")
+  }
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
+
     e.preventDefault();
     // Handle post creation here
     console.log({ title, content });

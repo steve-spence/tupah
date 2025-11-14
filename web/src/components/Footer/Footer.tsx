@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export default function Footer() {
     return (
-        <footer className="w-full bg-gray-100 dark:bg-gradient-to-b dark:from-[#111111] dark:to-[#080808] text-black dark:text-white">
-            <div className="flex flex-row w-full h-fit gap-5 py-8 px-4">
+        <footer className="w-full text-black dark:text-white shadow-2xl shadow-gray-600">
+            <div className="flex flex-row w-full h-fit gap-5 py-8 px-4 bg-gray-100 bg-linear-to-b dark:from-[#212121] dark:to-[#161616]">
                 <div className="hidden sm:flex flex-col items-center">
                     <div className="relative lg:w-48 lg:h-48 w-32 h-32">
                         <Image
@@ -17,7 +17,7 @@ export default function Footer() {
                     </div>
                     <h1 className="py-5 font-bold text-xl">Tupah</h1>
                     <p className="font-medium text-center text-gray-600 dark:text-gray-400">
-                        A website that's cool
+                        A website for people
                     </p>
                 </div>
                 <div className="flex flex-col flex-1 justify-center items-center">
@@ -77,7 +77,7 @@ export default function Footer() {
                     </ul>
                 </div>
             </div>
-            <div className="w-full border-t border-gray-300 dark:border-gray-700 py-4">
+            <div className="w-full border-t border-gray-300 dark:border-gray-700 py-4 dark:bg-[#161616]">
                 <p className="text-center text-sm text-gray-600 dark:text-gray-400">
                     © {new Date().getFullYear()} Tupah. All rights reserved.
                 </p>
