@@ -18,7 +18,7 @@ export default function BlogPost() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(`/api/blogs/${slug}`);
+        const res = await fetch(`/api/posts/${slug}`);
         if (!res.ok) {
           setLoading(false);
           return;

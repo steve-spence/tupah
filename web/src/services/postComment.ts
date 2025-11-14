@@ -14,7 +14,7 @@ async function postComment({ body, headers, slug }: CommentPostProps) {
             data: { comment: { body } },
             headers,
             method: "POST",
-            url: `api/blog/${slug}/comments`,
+            url: `api/posts/${slug}/comments`,
         });
 
         return data.comment;
