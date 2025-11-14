@@ -10,6 +10,8 @@ import { Header } from "@/components/Header/Header";
 import ClientSearch from "@/components/ClientSearch/ClientSerach";
 import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
 import { Post } from "@/utils/types";
+import { PacmanLoader } from 'react-spinners'
+import Loading from "@/components/Loading/Loading";
 
 const AMOUNT_OF_POSTS = 10;
 
@@ -41,11 +43,7 @@ export default function BlogPage() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-[#FAFAFA] dark:bg-[#1a1a1a] flex items-center justify-center">
-        <div className="text-gray-600 dark:text-gray-400">Loading...</div>
-      </div>
-    );
+    return <Loading />;
   }
 
   if (error) {
@@ -64,7 +62,7 @@ export default function BlogPage() {
       </section>
 
       <section>
-        <div className="flex flex-col-reverse items-center sm:flex-row h-fit bg-[#ffffff] dark:bg-[#171717] p-5">
+        <div className="flex flex-col-reverse items-center sm:flex-row h-fit bg-linear-to-b from- white to-[#d1d1d1] dark:from-[#171717] dark:to-[#212121] p-5">
           <div className="flex flex-col flex-1 p-10 text-center items-center justify-center">
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-gray-100 mb-6">
               Is Blogging Art?
@@ -97,35 +95,33 @@ export default function BlogPage() {
       </section>
 
       {/* Search Bar */}
-      <div className="flex justify-center items-center my-5 w-full">
+      <div className="flex justify-center items-center py-5 w-full bg-linear-to-b from-[#d1d1d1] to-gray-200 dark:from-[#212121] dark:to-[#3a3a3a]">
         <ClientSearch
           className="bg-[#2a8ae4] dark:bg-radial from-[#9379cc] to-[#c0abe6] rounded-4xl"
           posts={posts}
         />
       </div>
 
-      <section className="bg-gray-400 dark:bg-[#1a1a1a] p-10 text-white w-full mx-auto flex flex-col items-center justify-center text-center">
+      <section className="bg-linear-to-b from-gray-200 to-gray-300 dark:from-[#3a3a3a] dark:to-[#3f3f3f] p-10 text-white w-full mx-auto flex flex-col items-center justify-center text-center">
         <h2 className="text-2xl font-bold mb-4 text-black dark:text-white">
           Why I Started Blogging
         </h2>
-        <p className="text-gray-800 dark:text-gray-300 leading-relaxed max-w-4xl">
-          I started blogging as a way to document what I'm working on — whether
-          it's coding projects, game design thoughts, or just cool stuff I’ve
-          been learning. Writing helps me think more clearly and gives me a
-          place to look back at my progress. If someone else finds it helpful or
-          interesting, that is the whole reason.
+        <p className="text-gray-800 dark:text-gray-300 leading-relaxed max-w-4xl font-semibold">
+          I started blogging as a way to document what I'm working on. It could be
+          coding projects (likely), dev logs, or just cool stuff/rambles I might have.
+          Writing helps me think more clearly and gives me a place to look back at my progress.
         </p>
       </section>
 
       {/* Random Posts Cards */}
-      <div className="p-10 flex flex-wrap gap-6 justify-center bg-gray-400 dark:bg-[#1a1a1a]">
+      <div className="p-10 flex flex-wrap gap-6 justify-center bg-linear-to-b from-gray-300 to-gray-100 dark:from-[#3f3f3f] dark:to-[#3f3f3f]">
         {randomPosts.map((post) => {
           //console.log(post);
           return (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="max-w-sm bg-gray-600 dark:bg-[#272727] rounded-xl overflow-hidden hover:shadow-lg transition-all group"
+              className="max-w-sm bg-gray-600 dark:bg-[#272727] rounded-xl overflow-hidden hover:shadow-lg group"
             >
               <div className="relative h-40 w-full">
                 <Image
@@ -133,7 +129,7 @@ export default function BlogPage() {
                   alt={post.title ?? "Blog cover"}
                   fill
                   sizes="(max-width: 640px) 100vw, 384px"
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="object-cover group-hover:scale-105"
                 />
               </div>
               <div className="p-4 text-white">

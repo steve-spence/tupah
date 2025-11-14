@@ -94,7 +94,7 @@ export default function AboutPage() {
           <p className="text-gray-900 dark:text-gray-200 font-semibold">
             I'm a Senior Computer Science student at Michigan State University.
             I have a background in web development, scripting, game development
-            and I work as a student network engineer (I got the networking fundamentals down).
+            and I work as a student network engineer(I love it).
             Since I've been in college, I've found I really enjoy working with either
             web development or enterprise networking.
           </p>

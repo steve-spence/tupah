@@ -57,7 +57,6 @@ export default function HomePage() {
     canonicalLink.href = canonicalUrl;
   }, []);
 
-
   return (
     <div className="flex flex-col">
       {/* Fixed Background Images */}
@@ -80,8 +79,7 @@ export default function HomePage() {
                 {/* Dark mode image */}
                 <Image
                   src={img.dark}
-                  className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === currentImageIndex ? "dark:opacity-100" : "dark:opacity-0"
-                    }`}
+                  className={`rounded-2xl object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === currentImageIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
                   fill
                   alt="Artwork by andsproject"
                   priority={index === 0}
@@ -99,7 +97,7 @@ export default function HomePage() {
                   {/* Light mode image */}
                   <Image
                     src={img.light}
-                    className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === nextIndex ? "opacity-100" : "opacity-0"
+                    className={`rounded-2xl object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === nextIndex ? "opacity-100" : "opacity-0"
                       }`}
                     fill
                     alt="Artwork by andsproject"
@@ -108,7 +106,7 @@ export default function HomePage() {
                   {/* Dark mode image */}
                   <Image
                     src={img.dark}
-                    className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === nextIndex ? "dark:opacity-100" : "dark:opacity-0"
+                    className={`rounded-2xl object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === nextIndex ? "dark:opacity-100" : "dark:opacity-0"
                       }`}
                     fill
                     alt="Artwork by andsproject"
@@ -182,7 +180,7 @@ export default function HomePage() {
         shadow-xl shodow-indigo-500/50 text-white text-center"
         >
           <h2 className="text-4xl font-bold text-gray-700 dark:text-white">
-            What gets Posted
+            What to Post
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
             <div className="flex flex-col items-center">
@@ -232,7 +230,7 @@ export default function HomePage() {
           <div className="w-full max-w-7xl px-5">
             <Swiper
               modules={[Navigation, Pagination, Autoplay]}
-              spaceBetween={30}
+              spaceBetween={0}
               slidesPerView={1}
               navigation
               pagination={{ clickable: true }}
@@ -243,7 +241,8 @@ export default function HomePage() {
                 1024: { slidesPerView: 3 },
                 1280: { slidesPerView: 4 },
               }}
-              className="featured-posts-swiper"
+
+              className="right-1 left-1 relative bottom-1"
             >
               {featuredPosts.map((post) => (
                 <SwiperSlide key={post.id}>

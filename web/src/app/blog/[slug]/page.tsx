@@ -6,6 +6,7 @@ import { Header } from "@/components/Header/Header";
 import CommentEditor from "@/components/CommentEditor/CommentEditor";
 import BlogImage from "@/components/BlogImage/BlogImage";
 import { useEffect, useState } from "react";
+import Loading from "@/components/Loading/Loading";
 
 export default function BlogPost() {
   const params = useParams();
@@ -47,7 +48,7 @@ export default function BlogPost() {
   }, [slug]);
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#171717] text-gray-800 dark:text-white">Loading...</div>;
+    return <Loading />
   }
 
   if (!post || !mdxSource) {
