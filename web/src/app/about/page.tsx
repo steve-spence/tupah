@@ -289,9 +289,9 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold text-black dark:text-white">
           What can I work in?
         </h2>
-        <p className="text-[#000000] dark:text-[#ffffff] text-center">
+        <p className="text-[#000000] dark:text-[#ffffff] text-center px-10 pb-5 lg:px-30">
           I am happy to learn a new language or API, I actaully like what I do (shocker!).
-          <br></br>These are some of the technoloiges I've learned to use on my
+          These are some of the technoloiges I've learned to use on my
           own.
         </p>
         <ul className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 text-black dark:text-gray-200">
