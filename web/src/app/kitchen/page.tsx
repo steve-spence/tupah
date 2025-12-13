@@ -9,6 +9,7 @@ import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { WitchTable } from "@/lib/models/WitchTable";
 import { CookBlog } from "./CookBlog";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 type View = "home" | "cook";
 
@@ -60,40 +61,10 @@ export default function KitchenPage() {
             />
 
 
-            {/* 3D Background */}
-            <div className="absolute inset-0 z-0 ">
-                <Canvas camera={{ position: [0, 12, 5], fov: 50 }}>
-                    <ambientLight />
-                    <WitchTable position={[0, 3, 1]} rotation={[-3.14 / 4, 0, 0]} />
-                    <OrbitControls target={[0, 0, 0]} enableZoom={false} enablePan={false} enableRotate={false} />
-                </Canvas>
+            <div className="flex flex-col items-center justify-center gap-5">
+                <h1 className="dark:text-white text-black text-3xl">I'm working on this page still :\</h1>
+                <PacmanLoader color="#9379cc" />
             </div>
-
-            {/* UI Overlay */}
-            {view === "home" && (
-                <div className="relative z-10 flex flex-col items-center justify-center h-screen gap-6 pointer-events-none">
-                    <h2 className="text-4xl font-bold text-white mb-8 drop-shadow-lg">
-                        What&apos;s cooking?
-                    </h2>
-                    <div className="flex gap-4 pointer-events-auto">
-                        <button
-                            onClick={() => setView("cook")}
-                            className="px-6 py-3 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded-lg shadow-lg transition-colors"
-                        >
-                            Cook Blog
-                        </button>
-                        <button className="px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-semibold rounded-lg shadow-lg transition-colors">
-                            New Recipe
-                        </button>
-                        <button className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg shadow-lg transition-colors">
-                            Browse Dishes
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            {view === "cook" && <CookBlog onBack={() => setView("home")} />}
-
         </div>
     );
 }
