@@ -13,5 +13,5 @@ export async function GET(request: NextRequest) {
   }
 
   // Redirect to dashboard after successful authentication
-  return NextResponse.redirect(`${origin}/kitchen`)
+  return NextResponse.redirect(`${origin}/dashboard`)
 }

@@ -56,7 +56,7 @@ export default function SignupPage() {
                     setError("An account with this email already exists");
                 } else {
                     await clearAttempts();
-                    router.push('/kitchen');
+                    router.push('/dashboard');
                 }
             }
         } catch (err) {
