@@ -3,7 +3,7 @@ import createMDX from '@next/mdx'
 
 const nextConfig: NextConfig = {
   /* config options here */
-  transpilePackages: ['next-mdx-remote'],
+  transpilePackages: ['next-mdx-remote', 'three'],
 
   async redirects() {
     return [

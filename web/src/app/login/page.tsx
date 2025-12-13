@@ -39,7 +39,7 @@ export default function LoginPage() {
                 setError("Invalid credentials");
             } else {
                 await clearAttempts();
-                router.push('/dashboard');
+                router.push('/kitchen');
             }
         } catch (err) {
             await recordAttempt();

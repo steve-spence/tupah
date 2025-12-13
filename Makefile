@@ -12,7 +12,7 @@ clean:
 
 # deving
 dev:
-	${COMPOSE} ${DEV_FILES} up -d dev-next db
+	${COMPOSE} ${DEV_FILES} up -d dev-next db 
 
 up:
 	${COMPOSE} up -d front-back-end db
