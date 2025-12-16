@@ -20,6 +20,8 @@ export default function KitchenPage() {
     const [loading, setLoading] = useState(true);
     const [view, setView] = useState<View>("home");
 
+    const cameraConfig = { position: [0, 12, 0] as [number, number, number], fov: 50 };
+
     useEffect(() => {
         const checkUser = async () => {
             const supabase = createClient();
@@ -63,17 +65,17 @@ export default function KitchenPage() {
 
 
             {/* 3D Background */}
-            <div className="absolute inset-0 z-0 ">
-                <Canvas camera={{ position: [0, 12, 0], fov: 50 }}>
+            <div className="absolute top-15 inset-0 z-0 ">
+                <Canvas camera={cameraConfig}>
                     <ambientLight />
                     <WitchTable position={[0, 5, 0]} rotation={[0, 0, 0]} />
                     <CameraController
                         targetPosition={
-                            view === "cook" ? [-3, 8.5, 2.5] :
+                            view === "cook" ? [-3.5, 8.5, 2.5] :
                                 view === "recipe" ? [0, 8.5, 2.5] : [0, 12, 0]
                         }
                         targetLookAt={
-                            view === "cook" ? [-5, -20, -4] :
+                            view === "cook" ? [0, -60, -20] :
                                 view === "recipe" ? [-1, -1, -15] : [0, 0, 0]
                         }
                     />
