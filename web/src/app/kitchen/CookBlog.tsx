@@ -1,12 +1,26 @@
 "use client";
 
-import React from "react";
+import { useRouter } from "next/navigation"
+import { useState } from "react";
 
 interface CookBlogProps {
     onBack: () => void;
 }
 
 export function CookBlog({ onBack }: CookBlogProps) {
+    const router = useRouter();
+    const [title, setTitle] = useState("");
+    const [style, setStyle] = useState("");
+    const [ingredients, setIngredients] = useState("");
+
+    const handleStartCooking = () => {
+        const params = new URLSearchParams();
+        if (title) params.set("title", title);
+        if (style) params.set("style", style);
+        if (ingredients) params.set("ingredients", ingredients);
+        router.push(`/create?${params.toString()}`);
+    };
+
     return (
         <div className="relative z-10 flex flex-col items-center justify-center h-screen gap-6">
             <div className="bg-gray-900/80 backdrop-blur-sm rounded-xl p-8 max-w-2xl w-full mx-4 shadow-2xl border border-gray-700">
@@ -29,6 +43,8 @@ export function CookBlog({ onBack }: CookBlogProps) {
                         </label>
                         <input
                             type="text"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
                             placeholder="What should your blog be about?"
                             className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                         />
@@ -38,7 +54,11 @@ export function CookBlog({ onBack }: CookBlogProps) {
                         <label className="block text-sm font-medium text-gray-300 mb-2">
                             Cooking Style
                         </label>
-                        <select className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        <select
+                            value={style}
+                            onChange={(e) => setStyle(e.target.value)}
+                            className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        >
                             <option value="">Select a style...</option>
                             <option value="casual">Casual & Conversational</option>
                             <option value="professional">Professional & Formal</option>
@@ -52,6 +72,8 @@ export function CookBlog({ onBack }: CookBlogProps) {
                             Special Ingredients (optional)
                         </label>
                         <textarea
+                            value={ingredients}
+                            onChange={(e) => setIngredients(e.target.value)}
                             placeholder="Any specific points, keywords, or ideas to include..."
                             rows={3}
                             className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
@@ -66,7 +88,7 @@ export function CookBlog({ onBack }: CookBlogProps) {
                     >
                         Cancel
                     </button>
-                    <button className="flex-1 px-6 py-3 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded-lg transition-colors">
+                    <button onClick={handleStartCooking} className="flex-1 px-6 py-3 bg-orange-600 hover:bg-orange-500 text-white font-semibold rounded-lg transition-colors">
                         Start Cooking
                     </button>
                 </div>

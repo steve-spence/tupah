@@ -1,17 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import Button from "@mui/material/Button";
 import { useAuth } from "@/contexts/AuthContext";
+import { Header } from "@/components/Header/Header";
 
 export default function CreatePage() {
   const { user } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  if (!user) {
-    router.push("/login")
-  }
+  const p_title = searchParams.get("title");
+  const style = searchParams.get("style");
+  const ingredients = searchParams.get("ingredients");
+
+  useEffect(() => {
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user, router]);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -24,22 +32,15 @@ export default function CreatePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f0f0f0] dark:bg-[#0e0e0e] py-10 px-5">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-white">
-            Create New Post
-          </h1>
-          <Button
-            variant="outlined"
-            onClick={() => router.push("/")}
-            className="border-[#1272CC] text-[#1272CC] dark:border-[#9379cc] dark:text-[#9379cc]"
-          >
-            Back to Home
-          </Button>
-        </div>
-
+    <div className="min-h-screen bg-[#f0f0f0] dark:bg-[#0e0e0e]">
+      <Header
+        data={{
+          title: "Tupah",
+          subtext: "Welcome back",
+          showLinks: true,
+        }}
+      />
+      <div className="max-w-4xl mx-auto p-5">
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Title Input */}
@@ -53,7 +54,7 @@ export default function CreatePage() {
             <input
               type="text"
               id="title"
-              value={title}
+              value={p_title ? p_title : title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter your post title..."
               className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600

@@ -12,11 +12,13 @@ export function Header({ data }: { data: { title: string, subtext: string, showL
   return (
     <div className={`flex items-center justify-between w-full px-10 bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] h-fit p-3 z-10`}>
       {/* Logo - Left side */}
-      <div className="absolute hidden sm:flex items-center">
-        <Link className={`relative w-${skinny ? 12 : 24} h-${skinny ? 12 : 24}`} href="/">
+      <div className="absolute left-10 hidden sm:flex items-center">
+        <Link className={`relative ${skinny ? 'w-12 h-12' : 'w-20 h-20'}`} href="/">
           <Image src="/pictures/owl_logo.png" fill alt="Logo" />
         </Link>
       </div>
+      {/* Left spacer to balance the layout */}
+      <div className="hidden sm:flex w-24" />
 
       {/* Title*/}
       <div className="flex flex-col items-center justify-center flex-1">
@@ -32,7 +34,7 @@ export function Header({ data }: { data: { title: string, subtext: string, showL
       </div>
 
       {/* Links - Right side */}
-      {showLinks ? (
+      {showLinks && (
         <div className="absolute flex right-10 text-gray-800 dark:text-white gap-5 items-center font-semibold">
           <Link href="/about" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
             About
@@ -50,9 +52,9 @@ export function Header({ data }: { data: { title: string, subtext: string, showL
             </Link>
           )}
         </div>
-      ) : (
-        <div className="hidden sm:flex w-24" />
       )}
+      {/* Right spacer to balance the layout */}
+      <div className="hidden sm:flex w-24" />
     </div>
   );
 }
