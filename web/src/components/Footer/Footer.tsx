@@ -54,7 +54,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="py-2 text-center text-xs text-gray-900 dark:text-gray-300 bg-gray-100 dark:bg-[#212121]">
+            <div className="py-2 text-center text-xs text-gray-900 dark:text-gray-300 bg-gray-100 dark:bg-[#161616]">
                 © {new Date().getFullYear()} Tupah
             </div>
         </footer>
