@@ -3,42 +3,29 @@ import { relations, sql } from "drizzle-orm";
 
 export const postStatus = pgEnum("post_status", ["draft", "published", "archived"]);
 
-export const usersTable = pgTable("users", {
-    id: integer().primaryKey().generatedAlwaysAsIdentity(),
-    name: varchar({ length: 255 }).notNull(),
-    age: integer().notNull(),
-    email: varchar({ length: 255 }).notNull().unique(),
-});
-
-// --- Authors (minimal)
-export const authors = pgTable("authors", {
+// Profile
+export const profile = pgTable("profile", {
     id: uuid("id").defaultRandom().primaryKey(),
-    name: varchar("name", { length: 120 }).notNull(),
-    email: varchar("email", { length: 255 }),
+    username: varchar("username", { length: 120 }).notNull(),
     avatarUrl: varchar("avatar_url", { length: 512 }),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export const posts = pgTable("posts", {
     id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id").references(() => profile.id, { onDelete: "set null" }),
 
     // URL-safe unique identifier
     slug: varchar("slug", { length: 180 }).notNull().unique(),
     title: varchar("title", { length: 200 }).notNull(),
 
-    // optional short summary for cards/SEO
-    excerpt: varchar("excerpt", { length: 300 }),
-
-    // Markdown source (store raw MD here)
     contentMd: text("content_md").notNull(),
 
     // optional rendered HTML (pre-render/cache)
-    contentHtml: text("content_html"),
-
-    // ISO date the post is meant to be “live”
-    publishedAt: timestamp("published_at", { withTimezone: true }),
+    // contentHtml: text("content_html"),
 
     // bookkeeping
+    publishedAt: timestamp("published_at", { withTimezone: true }),
     createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 
@@ -48,20 +35,42 @@ export const posts = pgTable("posts", {
     // cover image relative path or URL
     coverImagePath: varchar("cover_image_path", { length: 512 }),
 
-    // tags: use string array via JSONB for flexibility
-    tags: jsonb("tags").$type<string[]>().default(sql`'[]'::jsonb`).notNull(),
+    // Analytics
+    views: integer().default(1),
+    likes: integer().default(0),
 
-    // optional metrics
-    wordCount: integer("word_count"),
-    readingTimeMin: integer("reading_time_min"),
-
-    // author
-    authorId: uuid("author_id").references(() => authors.id, { onDelete: "set null" }),
 });
 
-export const postsRelations = relations(posts, ({ one }) => ({
-    author: one(authors, {
-        fields: [posts.authorId],
-        references: [authors.id],
+export const comments = pgTable("comments", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    postId: uuid("post_id").references(() => posts.id, { onDelete: "cascade" }).notNull(),
+    userId: uuid("user_id").references(() => profile.id, { onDelete: "set null" }),
+    content: text("content").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+    // Optional: for nested/threaded replies
+    parentId: uuid("parent_id").references((): any => comments.id, { onDelete: "cascade" }),
+});
+
+export const postsRelations = relations(posts, ({ one, many }) => ({
+    profile: one(profile, {
+        fields: [posts.userId],
+        references: [profile.id],
+    }),
+    comments: many(comments),
+}));
+
+export const commentsRelations = relations(comments, ({ one }) => ({
+    post: one(posts, {
+        fields: [comments.postId],
+        references: [posts.id],
+    }),
+    author: one(profile, {
+        fields: [comments.userId],
+        references: [profile.id],
+    }),
+    parent: one(comments, {
+        fields: [comments.parentId],
+        references: [comments.id],
     }),
 }));

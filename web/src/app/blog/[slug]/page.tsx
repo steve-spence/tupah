@@ -18,7 +18,10 @@ export default function BlogPost() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(`/api/posts/${slug}`);
+        const res = await fetch(`/api/posts/${slug}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        });
         if (!res.ok) {
           setLoading(false);
           return;

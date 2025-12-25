@@ -1,0 +1,32 @@
+import { environment } from "@/environments/environment";
+
+export async function createPost(title: string, content: string) {
+    const res = await fetch('/api/posts', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, content })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.error || "Could not post to api posts.");
+    }
+
+    return data;
+}
+
+export async function getUserPosts() {
+    const res = await fetch('api/posts', {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.error || "Could not get from /api/posts");
+    }
+
+    return data;
+}

@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Button from "@mui/material/Button";
 import { useAuth } from "@/contexts/AuthContext";
 import { Header } from "@/components/Header/Header";
+import { createPost } from "@/services/post";
 
 export default function CreatePage() {
   const { user } = useAuth();
@@ -24,11 +25,15 @@ export default function CreatePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle post creation here
-    console.log({ title, content });
+
+    try {
+      await createPost(title, content);
+      console.log({ title, content });
+    } catch (error) {
+      console.error("Failed to create post:", error);
+    }
   };
 
   return (
@@ -106,8 +111,7 @@ export default function CreatePage() {
                 setContent("");
               }}
               className="px-8 py-3 text-lg font-semibold rounded-lg border-2 border-gray-400
-                text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
+                text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
               Clear
             </Button>
           </div>

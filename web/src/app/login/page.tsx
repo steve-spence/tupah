@@ -6,11 +6,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { useServerRateLimit } from "@/hooks/useServerRateLimit";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
     const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -98,9 +100,8 @@ export default function LoginPage() {
                             <div>
                                 <label
                                     htmlFor="email"
-                                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-                                >
-                                    Username or Email
+                                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                                    Email
                                 </label>
                                 <input
                                     id="email"
@@ -109,9 +110,9 @@ export default function LoginPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600
-                    bg-white dark:bg-[#2a2a2a] text-black dark:text-white
-                    focus:ring-2 focus:ring-blue-500 dark:focus:ring-purple-500 focus:border-transparent
-                    transition-colors"
+                                        bg-white dark:bg-[#2a2a2a] text-black dark:text-white
+                                        focus:ring-2 focus:ring-blue-500 dark:focus:ring-purple-500 focus:border-transparent
+                                        transition-colors"
                                     placeholder="you@example.com"
                                 />
                             </div>
@@ -119,22 +120,29 @@ export default function LoginPage() {
                             <div>
                                 <label
                                     htmlFor="password"
-                                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-                                >
+                                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                                     Password
                                 </label>
-                                <input
-                                    id="password"
-                                    type="password"
-                                    required
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600
-                    bg-white dark:bg-[#2a2a2a] text-black dark:text-white
-                    focus:ring-2 focus:ring-blue-500 dark:focus:ring-purple-500 focus:border-transparent
-                    transition-colors"
-                                    placeholder="••••••••"
-                                />
+                                <div className="relative">
+                                    <input
+                                        id="password"
+                                        type={showPassword ? "text" : "password"}
+                                        required
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="w-full px-4 py-3 pr-12 rounded-lg border border-gray-300 dark:border-gray-600
+                                            bg-white dark:bg-[#2a2a2a] text-black dark:text-white
+                                            focus:ring-2 focus:ring-blue-500 dark:focus:ring-purple-500 focus:border-transparent
+                                            transition-colors"
+                                        placeholder="••••••••"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200">
+                                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                    </button>
+                                </div>
                             </div>
 
                             <div className="flex items-center justify-between">
@@ -142,8 +150,7 @@ export default function LoginPage() {
                                     <input
                                         type="checkbox"
                                         className="rounded border-gray-300 dark:border-gray-600 text-blue-500 dark:text-purple-500
-                      focus:ring-blue-500 dark:focus:ring-purple-500"
-                                    />
+                                                focus:ring-blue-500 dark:focus:ring-purple-500" />
                                     <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
                                         Remember me
                                     </span>
@@ -151,8 +158,7 @@ export default function LoginPage() {
 
                                 <Link
                                     href="/forgot-password"
-                                    className="text-sm text-blue-500 dark:text-purple-400 hover:underline"
-                                >
+                                    className="text-sm text-blue-500 dark:text-purple-400 hover:underline">
                                     Forgot password?
                                 </Link>
                             </div>
@@ -161,9 +167,8 @@ export default function LoginPage() {
                                 type="submit"
                                 disabled={loading || isLimited}
                                 className="w-full py-3 px-4 bg-blue-500 dark:bg-purple-600 hover:bg-blue-600
-                  dark:hover:bg-purple-700 text-white font-semibold rounded-lg
-                  transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
+                                        dark:hover:bg-purple-700 text-white font-semibold rounded-lg
+                                        transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
                                 {loading ? "Signing in..." : isLimited ? `Locked (${formatRemainingTime(remainingTime)})` : "Sign In"}
                             </button>
                         </form>

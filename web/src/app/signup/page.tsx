@@ -10,6 +10,7 @@ import { useServerRateLimit } from "@/hooks/useServerRateLimit";
 export default function SignupPage() {
     const router = useRouter();
     const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
@@ -37,10 +38,36 @@ export default function SignupPage() {
             return;
         }
 
+        // Validate username
+        const usernameRegex = /^[a-zA-Z0-9_-]+$/;
+        if (!usernameRegex.test(username)) {
+            setError("Username can only contain letters, numbers, underscores, and hyphens");
+            return;
+        }
+
+        if (username.length < 3 || username.length > 30) {
+            setError("Username must be between 3 and 30 characters");
+            return;
+        }
+
         setLoading(true);
 
         try {
             const supabase = createClient();
+
+            // Check if username is already taken
+            const { data: existingUser } = await supabase
+                .from("profile")
+                .select("id")
+                .eq("username", username.toLowerCase())
+                .maybeSingle();
+
+            if (existingUser) {
+                setError("Username is already taken");
+                setLoading(false);
+                return;
+            }
+
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password,
@@ -55,6 +82,20 @@ export default function SignupPage() {
                     await recordAttempt();
                     setError("An account with this email already exists");
                 } else {
+                    // Create profile with username
+                    const { error: profileError } = await supabase
+                        .from("profile")
+                        .insert({
+                            id: data.user?.id,
+                            username: username.toLowerCase(),
+                        });
+
+                    if (profileError) {
+                        console.error("Failed to create profile:", profileError);
+                        setError("Failed to create profile. Please try again.");
+                        return;
+                    }
+
                     await clearAttempts();
                     router.push('/kitchen');
                 }
@@ -128,6 +169,24 @@ export default function SignupPage() {
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2a] text-black dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-purple-500 focus:border-transparent transition-colors"
                                     placeholder="you@example.com"
+                                />
+                            </div>
+
+                            <div>
+                                <label
+                                    htmlFor="username"
+                                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                                >
+                                    Username
+                                </label>
+                                <input
+                                    id="username"
+                                    type="text"
+                                    required
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2a] text-black dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-purple-500 focus:border-transparent transition-colors"
+                                    placeholder="friedliver321"
                                 />
                             </div>
 

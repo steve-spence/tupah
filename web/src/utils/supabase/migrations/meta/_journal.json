@@ -15,6 +15,20 @@
       "when": 1761871989572,
       "tag": "0001_boring_valeria_richards",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1766627850794,
+      "tag": "0002_chunky_zzzax",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1766628155126,
+      "tag": "0003_fresh_steel_serpent",
+      "breakpoints": true
     }
   ]
 }

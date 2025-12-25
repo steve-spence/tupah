@@ -43,7 +43,7 @@ export function Header({ data }: { data: { title: string, subtext: string, showL
             Blogs
           </Link>
           {user ? (
-            <Link href="/kitchen" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
+            <Link href="/dashboard" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
               Account
             </Link>
           ) : (

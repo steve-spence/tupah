@@ -24,7 +24,11 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch('/api/posts', { cache: "no-store" });
+        const res = await fetch('/api/posts/random', {
+          method: "GET",
+          cache: "no-store",
+          headers: { "Content-Type": "application/json" },
+        });
         if (!res.ok) throw new Error("Failed to load posts.");
         const data: Post[] = await res.json();
 
