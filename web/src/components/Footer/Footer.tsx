@@ -1,86 +1,61 @@
 import Link from "next/link";
 import Image from "next/image";
 
+const Section = ({ title, links }: { title: string; links: { label: string; href: string }[] }) => (
+    <div className="flex flex-col items-center py-1">
+        <ul className="text-sm text-center">
+            {links.map((l) => (
+                <li key={l.label}>
+                    <Link
+                        href={l.href}
+                        className="hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors"
+                    >
+                        {l.label}
+                    </Link>
+                </li>
+            ))}
+        </ul>
+    </div>
+);
+
 export default function Footer() {
     return (
-        <footer className="w-full text-black dark:text-white shadow-2xl shadow-gray-600">
-            <div className="flex flex-row w-full h-fit gap-5 py-8 px-4 bg-gray-100 bg-linear-to-b dark:from-[#212121] dark:to-[#161616]">
-                <div className="hidden sm:flex flex-col items-center">
-                    <div className="relative lg:w-48 lg:h-48 w-32 h-32">
+        <footer className="relative w-full text-black dark:text-white">
+            <div className="flex flex-wrap px-4 bg-gray-100 dark:bg-[#161616] md:flex-col">
+
+                <div className="flex flex-wrap flex-row-reverse gap-6 items-center justify-center">
+
+                    {/* Floating logo */}
+                    <div className="absolute left-1/8 -top-[60px] -translate-x-1/2 w-24 h-24">
                         <Image
                             src="/pictures/owl_logo.png"
-                            className="object-contain p-5"
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             alt="Owl Logo"
+                            fill
+                            className="object-contain"
                         />
                     </div>
-                    <h1 className="py-5 font-bold text-xl">Tupah</h1>
-                    <p className="font-medium text-center text-gray-600 dark:text-gray-400">
-                        A website for people
-                    </p>
-                </div>
-                <div className="flex flex-col flex-1 justify-center items-center">
-                    <h5 className="p-5 text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc]">
-                        About
-                    </h5>
-                    <ul className="text-center space-y-2">
-                        <li>
-                            <Link href="/about" className="hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors">
-                                Me
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/blog" className="hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors">
-                                Blogs
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-                <div className="flex flex-col flex-1 justify-center items-center">
-                    <h5 className="p-5 text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc]">
-                        Privacy
-                    </h5>
-                    <ul className="text-center space-y-2">
-                        <li>
-                            <Link href="/privacy#policy" className="hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors">
-                                Privacy Policy
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/privacy#terms" className="hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors">
-                                Terms and Conditions
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-                <div className="flex flex-col flex-1 justify-center items-center">
-                    <h5 className="p-5 text-2xl font-semibold text-[#1272CC] dark:text-[#9379cc]">
-                        Social
-                    </h5>
-                    <ul className="text-center space-y-2">
-                        <li>
-                            <Link href="#" className="hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors">
-                                Discord
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#" className="hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors">
-                                Instagram
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="#" className="hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors">
-                                X
-                            </Link>
-                        </li>
-                    </ul>
+
+                    <Section
+                        title="About"
+                        links={[
+                            { label: "Me", href: "/about" },
+                            { label: "Blogs", href: "/blog" },
+                        ]}
+                    />
+
+                    <Section
+                        title="Privacy"
+                        links={[
+                            { label: "Privacy Policy", href: "/privacy#policy" },
+                            { label: "Terms", href: "/privacy#terms" },
+                        ]}
+                    />
+
                 </div>
             </div>
-            <div className="w-full border-t border-gray-300 dark:border-gray-700 py-4 dark:bg-[#161616]">
-                <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-                    © {new Date().getFullYear()} Tupah. All rights reserved.
-                </p>
+
+            <div className="py-2 text-center text-xs text-gray-900 dark:text-gray-300 bg-gray-100 dark:bg-[#212121]">
+                © {new Date().getFullYear()} Tupah
             </div>
         </footer>
     );

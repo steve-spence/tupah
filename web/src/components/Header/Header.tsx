@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 
-export function Header({ data }: { data: { title: string, subtext: string, showLinks?: boolean, skinny?: boolean } }) {
+export function Header({ data }: { data: { title?: string, subtext: string, showLinks?: boolean, skinny?: boolean } }) {
   const { title, subtext, showLinks = true, skinny = false } = data;
   const { user } = useAuth();
 

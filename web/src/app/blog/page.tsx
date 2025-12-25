@@ -12,6 +12,8 @@ import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
 import { Post } from "@/utils/types";
 import { PacmanLoader } from 'react-spinners'
 import Loading from "@/components/Loading/Loading";
+import { getRandomPosts } from "@/services/post";
+import { ConsoleLogWriter } from "drizzle-orm";
 
 const AMOUNT_OF_POSTS = 10;
 
@@ -21,29 +23,12 @@ export default function BlogPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Getting the random posts from the post service
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch('/api/posts/random', {
-          method: "GET",
-          cache: "no-store",
-          headers: { "Content-Type": "application/json" },
-        });
-        if (!res.ok) throw new Error("Failed to load posts.");
-        const data: Post[] = await res.json();
-
-        setPosts(data);
-
-        const shuffledPosts = [...data].sort(() => Math.random() - 0.5);
-        setRandomPosts(shuffledPosts.slice(0, AMOUNT_OF_POSTS));
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
+    getRandomPosts()
+      .then((data) => setRandomPosts(data))
+      .catch((err) => console.log(err))
+      .finally(() => setLoading(false))
   }, []);
 
   if (loading) {

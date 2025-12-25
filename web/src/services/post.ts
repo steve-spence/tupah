@@ -30,3 +30,18 @@ export async function getUserPosts() {
 
     return data;
 }
+
+export async function getRandomPosts() {
+    const res = await fetch('api/posts/random', {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.error || "Could not get from /api/posts");
+    }
+    console.log("data: ", data);
+    return data;
+}
