@@ -13,17 +13,39 @@ function isUUID(str: string) {
     return uuidRegex.test(str);
 }
 
-export async function GET(_request: Request, { params }: RouteParams) {
+export async function GET(request: Request, { params }: RouteParams) {
     const slugOrId = (await params).slug;
+    const { searchParams } = new URL(request.url);
+    const username = searchParams.get("username");
 
     const supabase = await createClient();
 
     // Check if it's a UUID (id) or a slug
     const column = isUUID(slugOrId) ? "id" : "slug";
 
+    // If username provided, join profile table to verify ownership
+    if (username) {
+        const { data, error } = await supabase
+            .from("posts")
+            .select("*, profiles:user_id(username)")
+            .eq(column, slugOrId)
+            .maybeSingle();
+
+        if (error) {
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+
+        if (!data || data.profiles?.username !== username.toLowerCase()) {
+            return NextResponse.json({ error: "Post not found" }, { status: 404 });
+        }
+
+        return NextResponse.json({ ...data, username: data.profiles?.username, profiles: undefined });
+    }
+
+    // No username provided, still include username in response
     const { data, error } = await supabase
         .from("posts")
-        .select("*")
+        .select("*, profiles:user_id(username)")
         .eq(column, slugOrId)
         .maybeSingle();
 
@@ -35,7 +57,7 @@ export async function GET(_request: Request, { params }: RouteParams) {
         return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    return NextResponse.json(data);
+    return NextResponse.json({ ...data, username: data.profiles?.username, profiles: undefined });
 }
 
 export async function PUT(request: Request, { params }: RouteParams) {

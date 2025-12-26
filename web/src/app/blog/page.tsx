@@ -109,7 +109,7 @@ export default function BlogPage() {
           return (
             <Link
               key={post.slug}
-              href={`/blog/${post.slug}`}
+              href={`/blog/${post.username}/${post.slug}`}
               className="max-w-sm bg-gray-600 dark:bg-[#272727] rounded-xl overflow-hidden hover:shadow-lg group"
             >
               <div className="relative h-40 w-full">
@@ -124,7 +124,7 @@ export default function BlogPage() {
               <div className="p-4 text-white">
                 <h3 className="text-xl font-bold">{post.title}</h3>
                 <p className="text-sm text-gray-300 mt-2">
-                  {getPreview(post.contentMd ?? "", 200)}
+                  {getPreview(post.content_md ?? "", 200)}
                 </p>
               </div>
             </Link>

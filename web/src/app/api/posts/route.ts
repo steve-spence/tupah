@@ -1,6 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { uuid } from "drizzle-orm/gel-core";
 
 // Get all posts by the authenticated user
 export async function GET() {
@@ -13,11 +12,19 @@ export async function GET() {
 
     const { data, error } = await supabase
         .from("posts")
-        .select("*")
+        .select("*, profiles:user_id(username)")
         .eq("user_id", user.id);
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json(data);
+
+    // Flatten the username into each post
+    const postsWithUsername = data?.map(post => ({
+        ...post,
+        username: post.profiles?.username,
+        profiles: undefined
+    })) ?? [];
+
+    return NextResponse.json(postsWithUsername);
 }
 
 // each post needs a 

@@ -4,7 +4,7 @@ import { relations, sql } from "drizzle-orm";
 export const postStatus = pgEnum("post_status", ["draft", "published", "archived"]);
 
 // Profile
-export const profile = pgTable("profile", {
+export const profile = pgTable("profiles", {
     id: uuid("id").defaultRandom().primaryKey(),
     username: varchar("username", { length: 120 }).notNull(),
     avatarUrl: varchar("avatar_url", { length: 512 }),

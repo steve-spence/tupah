@@ -6,6 +6,7 @@ import { getUserPosts } from "@/services/post";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Eye, Heart, MessageCircle, Pencil } from "lucide-react";
+import Button from "@mui/material/Button";
 
 interface Post {
     id: string;
@@ -16,6 +17,7 @@ interface Post {
     views: number;
     likes: number;
     comments: number;
+    username: string;
 }
 
 export default function DashboardPage() {
@@ -33,17 +35,23 @@ export default function DashboardPage() {
     return (
         <div className="min-h-screen flex flex-col">
             <Header data={{ title: "nothing", subtext: "Dashboard", skinny: true }} />
-            <main className="flex-1">
-                <button onClick={() => { router.push('/kitchen') }}>
-                    Go to Kitchen
-                </button>
+            <div className="flex-1 dark:bg-[#212121]">
+                <div className="flex flex-row gap-5 items-end justify-baseline px-5 p-1 dark:text-gray-100 text-black">
+                    <Button variant="outlined" onClick={() => { router.push('/') }}>
+                        Home
+                    </Button>
+                    <Button variant="outlined" onClick={() => { router.push('/kitchen') }}>
+                        Go to Kitchen
+                    </Button>
+                </div>
+
                 <div id="user-posts" className="p-4 space-y-4">
                     {loading && <p>Loading...</p>}
                     {!loading && posts.length === 0 && <p>No posts yet.</p>}
                     {posts.map((post) => (
                         <div
                             key={post.id}
-                            onClick={() => router.push(`/blog/${post.slug}`)}
+                            onClick={() => router.push(`/blog/${post.username}/${post.slug}`)}
                             className="p-4 bg-white dark:bg-[#1a1a1a] rounded-lg shadow cursor-pointer hover:shadow-md transition-shadow flex justify-between items-center">
                             <div>
                                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
@@ -75,7 +83,7 @@ export default function DashboardPage() {
                         </div>
                     ))}
                 </div>
-            </main>
+            </div>
         </div>
     );
 }
