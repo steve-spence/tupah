@@ -38,6 +38,7 @@ export const posts = pgTable("posts", {
     // Analytics
     views: integer().default(1),
     likes: integer().default(0),
+    comments: integer().default(0),
 
 });
 

@@ -34,6 +34,7 @@ export default function CreatePage() {
     } catch (error) {
       console.error("Failed to create post:", error);
     }
+    router.push('/dashboard')
   };
 
   return (
