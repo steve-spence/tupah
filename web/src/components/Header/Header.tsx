@@ -1,13 +1,42 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
+import { User, LayoutDashboard } from "lucide-react";
 
 export function Header({ data }: { data: { title?: string, subtext: string, showLinks?: boolean, skinny?: boolean } }) {
   const { title, subtext, showLinks = true, skinny = false } = data;
   const { user } = useAuth();
+  const [avatar, setAvatar] = useState<string>("/avatars/avatar1.png");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (user) {
+      fetch("/api/profile")
+        .then(res => res.json())
+        .then(data => {
+          if (data.avatar_url) {
+            setAvatar(data.avatar_url);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [user]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <div className={`flex items-center justify-between w-full px-10 bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] h-fit p-3 z-10`}>
@@ -43,9 +72,40 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
             Blogs
           </Link>
           {user ? (
-            <Link href="/dashboard" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
-              Account
-            </Link>
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-purple-400 transition-colors"
+              >
+                <Image
+                  src={avatar}
+                  alt="Profile"
+                  fill
+                  className="object-cover"
+                />
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-[#2a2a2a] rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50">
+                  <Link
+                    href="/profile"
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <User size={18} />
+                    Profile
+                  </Link>
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setDropdownOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <LayoutDashboard size={18} />
+                    Creator Dashboard
+                  </Link>
+                </div>
+              )}
+            </div>
           ) : (
             <Link href="/login" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
               Login
