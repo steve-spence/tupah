@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { useState } from "react";
+import TagSelector from "@/components/TagSelector/TagSelector";
 
 interface CookBlogProps {
     onBack: () => void;
@@ -12,12 +13,14 @@ export function CookBlog({ onBack }: CookBlogProps) {
     const [title, setTitle] = useState("");
     const [style, setStyle] = useState("");
     const [ingredients, setIngredients] = useState("");
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     const handleStartCooking = () => {
         const params = new URLSearchParams();
         if (title) params.set("title", title);
         if (style) params.set("style", style);
         if (ingredients) params.set("ingredients", ingredients);
+        if (selectedTags.length > 0) params.set("tags", selectedTags.join(","));
         router.push(`/create?${params.toString()}`);
     };
 
@@ -39,7 +42,7 @@ export function CookBlog({ onBack }: CookBlogProps) {
                 <div className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-300 mb-2">
-                            Blog Topic
+                            Blog Title
                         </label>
                         <input
                             type="text"
@@ -50,7 +53,7 @@ export function CookBlog({ onBack }: CookBlogProps) {
                         />
                     </div>
 
-                    <div>
+                    {/* <div>
                         <label className="block text-sm font-medium text-gray-300 mb-2">
                             Cooking Style
                         </label>
@@ -65,18 +68,16 @@ export function CookBlog({ onBack }: CookBlogProps) {
                             <option value="technical">Technical & Detailed</option>
                             <option value="storytelling">Storytelling</option>
                         </select>
-                    </div>
+                    </div> */}
 
                     <div>
                         <label className="block text-sm font-medium text-gray-300 mb-2">
-                            Special Ingredients (optional)
+                            Tags
                         </label>
-                        <textarea
-                            value={ingredients}
-                            onChange={(e) => setIngredients(e.target.value)}
-                            placeholder="Any specific points, keywords, or ideas to include..."
-                            rows={3}
-                            className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent resize-none"
+                        <TagSelector
+                            selectedTags={selectedTags}
+                            onTagsChange={setSelectedTags}
+                            className="mt-3"
                         />
                     </div>
                 </div>

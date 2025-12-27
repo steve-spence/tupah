@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import { useAuth } from "@/contexts/AuthContext";
 import { Header } from "@/components/Header/Header";
 import { createPost } from "@/services/post";
+import TagSelector from "@/components/TagSelector/TagSelector";
 
 export default function CreatePage() {
   const { user } = useAuth();
@@ -15,6 +16,7 @@ export default function CreatePage() {
   const p_title = searchParams.get("title");
   const style = searchParams.get("style");
   const ingredients = searchParams.get("ingredients");
+  const p_tags = searchParams.get("tags");
 
   useEffect(() => {
     if (!user) {
@@ -24,6 +26,9 @@ export default function CreatePage() {
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [selectedTags, setSelectedTags] = useState<string[]>(
+    p_tags ? p_tags.split(",") : []
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,6 +95,17 @@ export default function CreatePage() {
                 focus:outline-none focus:border-[#1272CC] dark:focus:border-[#9379cc]
                 transition-colors resize-none"
               required
+            />
+          </div>
+
+          {/* Tags */}
+          <div>
+            <label className="block text-lg font-semibold text-gray-700 dark:text-white mb-2">
+              Tags
+            </label>
+            <TagSelector
+              selectedTags={selectedTags}
+              onTagsChange={setSelectedTags}
             />
           </div>
 
