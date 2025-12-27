@@ -1,5 +1,12 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { createClient as createAdminClient } from "@supabase/supabase-js";
+
+// Admin client to bypass RLS for deleting likes
+const supabaseAdmin = createAdminClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 interface RouteParams {
     params: Promise<{
@@ -98,4 +105,55 @@ export async function PUT(request: Request, { params }: RouteParams) {
     }
 
     return NextResponse.json(data[0]);
+}
+
+export async function DELETE(_request: Request, { params }: RouteParams) {
+    const id = (await params).slug;
+
+    if (!isUUID(id)) {
+        return NextResponse.json({ error: "Invalid post ID" }, { status: 400 });
+    }
+
+    const supabase = await createClient();
+
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    // Verify user owns this post
+    const { data: post, error: fetchError } = await supabase
+        .from("posts")
+        .select("id")
+        .eq("id", id)
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+    if (fetchError) {
+        return NextResponse.json({ error: fetchError.message }, { status: 500 });
+    }
+
+    if (!post) {
+        return NextResponse.json({ error: "Post not found or unauthorized" }, { status: 404 });
+    }
+
+    // Delete likes for this post (uses admin client to bypass RLS)
+    await supabaseAdmin
+        .from("likes")
+        .delete()
+        .eq("target_type", "post")
+        .eq("target_id", id);
+
+    // Delete the post (comments cascade automatically)
+    const { error: deleteError } = await supabase
+        .from("posts")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", user.id);
+
+    if (deleteError) {
+        return NextResponse.json({ error: deleteError.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
 }

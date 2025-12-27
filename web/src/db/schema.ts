@@ -53,6 +53,15 @@ export const comments = pgTable("comments", {
     parentId: uuid("parent_id").references((): any => comments.id, { onDelete: "cascade" }),
 });
 
+// Generic likes table - works for posts, comments, or any entity
+export const likes = pgTable("likes", {
+    id: uuid("id").defaultRandom().primaryKey(),
+    userId: uuid("user_id").references(() => profile.id, { onDelete: "cascade" }).notNull(),
+    targetType: varchar("target_type", { length: 50 }).notNull(), // "post" | "comment"
+    targetId: uuid("target_id").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
 export const postsRelations = relations(posts, ({ one, many }) => ({
     profile: one(profile, {
         fields: [posts.userId],

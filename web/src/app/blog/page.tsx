@@ -5,20 +5,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import Button from '@mui/material/Button'
 import { Header } from "@/components/Header/Header";
 import ClientSearch from "@/components/ClientSearch/ClientSerach";
 import ImageCarousel from "@/components/ImageCarousel/ImageCarousel";
 import { Post } from "@/utils/types";
-import { PacmanLoader } from 'react-spinners'
 import Loading from "@/components/Loading/Loading";
 import { getRandomPosts } from "@/services/post";
-import { ConsoleLogWriter } from "drizzle-orm";
-
-const AMOUNT_OF_POSTS = 10;
 
 export default function BlogPage() {
-  const [posts, setPosts] = useState<Post[]>([]);
   const [randomPosts, setRandomPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -85,10 +79,7 @@ export default function BlogPage() {
 
       {/* Search Bar */}
       <div className="flex justify-center items-center py-5 w-full bg-linear-to-b from-[#d1d1d1] to-gray-200 dark:from-[#212121] dark:to-[#3a3a3a]">
-        <ClientSearch
-          className="bg-[#2a8ae4] dark:bg-radial from-[#9379cc] to-[#c0abe6] rounded-4xl"
-          posts={posts}
-        />
+        <ClientSearch />
       </div>
 
       <section className="bg-linear-to-b from-gray-200 to-gray-300 dark:from-[#3a3a3a] dark:to-[#3f3f3f] p-10 text-white w-full mx-auto flex flex-col items-center justify-center text-center">

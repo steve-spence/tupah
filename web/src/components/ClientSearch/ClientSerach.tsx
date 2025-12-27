@@ -1,103 +1,170 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import CircularProgress from "@mui/material/CircularProgress";
+import InputAdornment from "@mui/material/InputAdornment";
+import { Search } from "lucide-react";
 import { Post } from "@/utils/types";
 
-export default function ClientSearch({ posts, className, }: { posts: Post[]; className?: string; }) {
-
+export default function ClientSearch({ className }: { className?: string }) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
-  const [focus, setFocus] = useState(false);
-  const [hint, setHint] = useState("Search Blogs");
+  const [options, setOptions] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
-  const filtered: Post[] = (posts ?? []).filter((post) =>
-    post.title.toLowerCase().includes(query.toLowerCase())
-  );
+  // Debounced search
+  useEffect(() => {
+    if (query.length < 2) {
+      setOptions([]);
+      return;
+    }
 
-  // MAKE THIS CENTERED and make it smaller an come out to like 50%
+    const timer = setTimeout(async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/posts/search?q=${encodeURIComponent(query)}`);
+        if (res.ok) {
+          const data = await res.json();
+          setOptions(data);
+        }
+      } catch (err) {
+        console.error("Search error:", err);
+      } finally {
+        setLoading(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [query]);
+
   return (
-    <div
-      className={`!transition-all duration-300 ease-in-out overflow-hidden ${className
-        } ${focus ? "w-[70%]" : "w-[70%] sm:w-[60%] md:w-[50%]"}`}
-    >
-      <div className="mx-5">
-        {/* Actual Search Bar */}
-        <TextField
-          className="w-full dark:text-white text-black"
-          label={hint}
-          value={query}
-          onFocus={() => { setFocus(true); setHint("") }}
-          onBlur={() => {
-            if (!query) {
-              setHint("Search Blogs");
-            }
-            setFocus(false)
-          }}
-          onChange={(e) => setQuery(e.target.value)}
-          slotProps={{
-            input: {
-              style: {
-                border: "none",
-                boxShadow: "none",
-                textAlign: "center",
-                color: "black",
-                fontWeight: "bold",
+    <div className={`w-[70%] sm:w-[60%] md:w-[50%] ${className}`}>
+      <Autocomplete
+        freeSolo
+        open={open && query.length >= 2}
+        onOpen={() => setOpen(true)}
+        onClose={() => setOpen(false)}
+        options={options}
+        getOptionLabel={(option) => typeof option === "string" ? option : option.title}
+        loading={loading}
+        inputValue={query}
+        onInputChange={(_, value) => setQuery(value)}
+        onChange={(_, value) => {
+          if (value && typeof value !== "string") {
+            router.push(`/blog/${value.username}/${value.slug}`);
+          }
+        }}
+        noOptionsText="No posts found"
+        renderOption={(props, option) => {
+          const { key, ...rest } = props;
+          return (
+            <li
+              key={option.id}
+              {...rest}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "12px 16px",
+                cursor: "pointer",
+              }}
+            >
+              <span style={{ fontWeight: 600 }}>{option.title}</span>
+              <span style={{ fontSize: "0.875rem", opacity: 0.7 }}>
+                {option.username}
+              </span>
+            </li>
+          );
+        }}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder="Search blogs..."
+            variant="outlined"
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                  </InputAdornment>
+                ),
+                endAdornment: (
+                  <>
+                    {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                    {params.InputProps.endAdornment}
+                  </>
+                ),
+              },
+            }}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "white",
+                borderRadius: "9999px",
+                "& fieldset": { borderColor: "transparent" },
+                "&:hover fieldset": { borderColor: "transparent" },
+                "&.Mui-focused fieldset": { borderColor: "#1272CC" },
+                "@media (prefers-color-scheme: dark)": {
+                  backgroundColor: "#2a2a2a",
+                  "&.Mui-focused fieldset": { borderColor: "#9379cc" },
+                },
+              },
+              "& .MuiInputBase-input": {
+                color: "#333",
+                "@media (prefers-color-scheme: dark)": {
+                  color: "#fff",
+                },
+                "&::placeholder": {
+                  color: "#888",
+                  opacity: 1,
+                },
+              },
+            }}
+          />
+        )}
+        slotProps={{
+          paper: {
+            sx: {
+              backgroundColor: "#fff",
+              color: "#333",
+              borderRadius: "12px",
+              marginTop: "8px",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+              "@media (prefers-color-scheme: dark)": {
+                backgroundColor: "#2a2a2a",
+                color: "#fff",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
+              },
+              "& .MuiAutocomplete-option": {
+                "&:hover": {
+                  backgroundColor: "#f0f0f0",
+                },
+                "&.Mui-focused": {
+                  backgroundColor: "#e8e8e8",
+                },
+                "@media (prefers-color-scheme: dark)": {
+                  "&:hover": {
+                    backgroundColor: "#3a3a3a",
+                  },
+                  "&.Mui-focused": {
+                    backgroundColor: "#444",
+                  },
+                },
+              },
+              "& .MuiAutocomplete-noOptions": {
+                color: "#666",
+                "@media (prefers-color-scheme: dark)": {
+                  color: "#aaa",
+                },
               },
             },
-          }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": { border: "none" },
-              "&:hover fieldset": { border: "none" },
-              "&.Mui-focused fieldset": { border: "none" },
-            },
-          }}
-        />
-
-        <div
-          className={`z-10 !transition-all duration-300 ease-in-out overflow-hidden 
-                ${focus && query != ""
-              ? "max-h-[1000px] opacity-100"
-              : "max-h-0 opacity-0"
-            }`}
-        >
-          <div className="flex flex-col gap-2 p-2 text-white">
-            {filtered.length === 0 && query !== "" ? (
-              <p>No posts found.</p>
-            ) : (
-              filtered.map((post) => (
-                // Each item on the serach bar
-                <Link key={post.slug} href={`/blog/${post.slug}`}>
-                  <div className="bg-[#333] p-4 rounded-4xl hover:bg-[#444] transition flex flex-row items-center justify-between">
-                    <div className="flex gap-5 items-center justify-between">
-                      <h3 className="text-lg font-bold whitespace-nowrap">{post.title}</h3>
-                    </div>
-                    {/* Date */}
-                    <p className="text-sm text-gray-300">
-                      {post.publishedAt ? new Date(post.publishedAt).toDateString() : ""}
-                    </p>
-
-                  </div>
-                </Link>
-              ))
-            )}
-          </div>
-        </div>
-      </div>
-    </div >
+          },
+        }}
+      />
+    </div>
   );
-}
-
-// Reformat the date
-function formatDate(date: string) {
-  // Date in form 2025-08-05
-  const m = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!m) return date;
-
-  const year = m[1].slice(-2);
-  const month = String(parseInt(m[2], 10));
-  const day = String(parseInt(m[3], 10));
-  return `${month}/${day}/${year}`;
 }

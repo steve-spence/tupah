@@ -76,3 +76,18 @@ export async function updatePost(id: string, title: string, content: string) {
 
     return data;
 }
+
+export async function deletePost(id: string) {
+    const res = await fetch(`/api/posts/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+        throw new Error(data.error || "Could not delete post");
+    }
+
+    return data;
+}

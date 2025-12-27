@@ -222,7 +222,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Rotating Blog Posts */}
+        {/* Featured Posts */}
         <div className="flex flex-col items-center w-full h-fit bg-linear-to-b from-[#d6d6d6] to-[#e7e7e7] dark:from-[#171717] dark:to-[#242424] bg-gray-200 dark:bg-[#121212] py-10 pb-20">
           <h1 className="text-3xl text-black dark:text-white font-bold mb-8">
             Featured Posts
