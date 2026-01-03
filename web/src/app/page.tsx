@@ -61,7 +61,8 @@ export default function HomePage() {
     <div className="flex flex-col">
       {/* Fixed Background Images */}
       <div className="fixed top-0 w-full h-screen -z-10 bg-linear-to-br from-white to-[#dbdbdb]
-       dark:from-[#4e4e4e] dark:to-[#2c2c2c] transition-colors duration-300">
+       dark:from-[#1f1a24] dark:to-[#121212]
+c] transition-colors duration-300">
         <div className="flex flex-col md:flex-row gap-10 items-center justify-center pb-30">
           {/* First rotating background image with theme support */}
           <div className="relative w-[90vw] max-w-[640px] aspect-square">
@@ -79,7 +80,9 @@ export default function HomePage() {
                 {/* Dark mode image */}
                 <Image
                   src={img.dark}
-                  className={`rounded-2xl object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === currentImageIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
+                  className={`rounded-2xl object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block
+                    mask-image: radial-gradient(ellipse 80% 80% at center, black 40%, transparent 100%)
+                     ${index === currentImageIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
                   fill
                   alt="Artwork by andsproject"
                   priority={index === 0}
@@ -147,7 +150,7 @@ export default function HomePage() {
         </div>
 
         {/* Artist Credit */}
-        <p className="absolute bottom-4 right-4 text-xl text-[#e9e9e9] drop-shadow-text-sm">
+        <p className="absolute bottom-4 right-4 text-xl text-gray-300 opacity-50 drop-shadow-text-sm">
           @ansproject
         </p>
       </section>

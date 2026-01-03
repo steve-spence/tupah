@@ -4,11 +4,13 @@ import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
-import { User, LayoutDashboard } from "lucide-react";
+import { User, LayoutDashboard, LogOut } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function Header({ data }: { data: { title?: string, subtext: string, showLinks?: boolean, skinny?: boolean } }) {
   const { title, subtext, showLinks = true, skinny = false } = data;
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
+  const router = useRouter();
   const [avatar, setAvatar] = useState<string>("/avatars/avatar1.png");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -103,6 +105,17 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
                     <LayoutDashboard size={18} />
                     Creator Dashboard
                   </Link>
+                  <button
+                    onClick={async () => {
+                      setDropdownOpen(false);
+                      await signOut();
+                      router.push('/');
+                    }}
+                    className="flex items-center gap-3 px-4 py-2 w-full text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <LogOut size={18} />
+                    Log Out
+                  </button>
                 </div>
               )}
             </div>

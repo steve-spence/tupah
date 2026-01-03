@@ -1,5 +1,16 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { db } from "@/db";
+import { images } from "@/db/schema";
+
+function generateShortId(length: number = 8): string {
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
 
 export async function POST(request: Request) {
     const supabase = await createClient();
@@ -29,20 +40,27 @@ export async function POST(request: Request) {
 
     // Generate unique filename
     const ext = file.name.split(".").pop();
-    const filename = `private/${user.id}/${Date.now()}.${ext}`;
+    const storagePath = `${user.id}/${Date.now()}.${ext}`;
 
     const { data, error } = await supabase.storage
         .from("post-images")
-        .upload(filename, file);
+        .upload(storagePath, file);
 
     if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Get public URL
-    const { data: { publicUrl } } = supabase.storage
-        .from("post-images")
-        .getPublicUrl(filename);
+    // Generate short ID and save to database
+    const shortId = generateShortId();
+    await db.insert(images).values({
+        id: shortId,
+        userId: user.id,
+        filename: file.name,
+        storagePath: data.path,
+    });
 
-    return NextResponse.json({ url: publicUrl, path: data.path });
+    // Return short URL
+    const shortUrl = `/api/media/${shortId}`;
+
+    return NextResponse.json({ url: shortUrl, id: shortId, path: data.path });
 }

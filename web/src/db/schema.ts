@@ -49,6 +49,15 @@ export const comments = pgTable("comments", {
     parentId: uuid("parent_id").references((): any => comments.id, { onDelete: "cascade" }),
 });
 
+// User uploaded images with short IDs
+export const images = pgTable("images", {
+    id: varchar("id", { length: 12 }).primaryKey(), // Short ID like "abc123"
+    userId: uuid("user_id").references(() => profile.id, { onDelete: "cascade" }).notNull(),
+    filename: varchar("filename", { length: 255 }).notNull(),
+    storagePath: varchar("storage_path", { length: 512 }).notNull(), // Full path in Supabase storage
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+});
+
 // Generic likes table - works for posts, comments, or any entity
 export const likes = pgTable("likes", {
     id: uuid("id").defaultRandom().primaryKey(),
@@ -78,5 +87,12 @@ export const commentsRelations = relations(comments, ({ one }) => ({
     parent: one(comments, {
         fields: [comments.parentId],
         references: [comments.id],
+    }),
+}));
+
+export const imagesRelations = relations(images, ({ one }) => ({
+    user: one(profile, {
+        fields: [images.userId],
+        references: [profile.id],
     }),
 }));
