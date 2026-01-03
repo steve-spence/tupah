@@ -4,13 +4,12 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getPostById, updatePost } from "@/services/post";
 import Button from "@mui/material/Button";
+import TagSelector from "@/components/TagSelector/TagSelector";
+import Autocomplete from "@mui/material/Autocomplete";
+import { Post, PostStatus } from "@/utils/types";
+import TextField from "@mui/material/TextField";
 
-interface Post {
-    id: string;
-    title: string;
-    content_md: string;
-    slug: string;
-}
+const statusOptions: PostStatus[] = ["draft", "published", "archived"]
 
 export default function EditPage() {
     const searchParams = useSearchParams();
@@ -19,10 +18,12 @@ export default function EditPage() {
 
     const [post, setPost] = useState<Post | null>(null);
     const [title, setTitle] = useState("");
+    const [status, setStatus] = useState<PostStatus>("draft");
     const [content, setContent] = useState("");
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     useEffect(() => {
         if (!postId) {
@@ -36,6 +37,9 @@ export default function EditPage() {
                 setPost(data);
                 setTitle(data.title);
                 setContent(data.content_md);
+                setStatus(data.status);
+                console.log("tags", data.tags);
+                setSelectedTags(data.tags);
             })
             .catch((err) => setError(err.message))
             .finally(() => setLoading(false));
@@ -126,6 +130,47 @@ export default function EditPage() {
                                 focus:outline-none focus:border-[#1272CC] dark:focus:border-[#9379cc]
                                 transition-colors resize-none"
                             required />
+                    </div>
+
+                    {/* Tags */}
+                    <div>
+                        <label className="block text-lg font-semibold text-gray-700 dark:text-white mb-2">
+                            Tags
+                        </label>
+                        <TagSelector
+                            selectedTags={selectedTags}
+                            onTagsChange={setSelectedTags}
+                        />
+                    </div>
+
+                    {/* Status */}
+                    <div>
+                        <Autocomplete
+                            options={statusOptions}
+                            value={status}
+                            onChange={(_, newValue) => newValue && setStatus(newValue)}
+                            sx={{
+                                '& .MuiOutlinedInput-root': {
+                                    color: 'white',
+                                    '& fieldset': {
+                                        borderColor: '#9379cc',
+                                    },
+                                    '&:hover fieldset': {
+                                        borderColor: '#b49ddb',
+                                    },
+                                    '&.Mui-focused fieldset': {
+                                        borderColor: '#9379cc',
+                                    },
+                                },
+                                '& .MuiInputLabel-root': {
+                                    color: '#9ca3af',
+                                },
+                                '& .MuiSvgIcon-root': {
+                                    color: '#9379cc',
+                                },
+                            }}
+                            renderInput={(params) => <TextField {...params} label="Status" />}
+                        />
                     </div>
 
                     <div className="flex gap-4">

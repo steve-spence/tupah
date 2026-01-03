@@ -1,5 +1,7 @@
 import { pgTable, varchar, text, timestamp, uuid, integer, boolean, pgEnum, jsonb } from "drizzle-orm/pg-core";
 import { relations, sql } from "drizzle-orm";
+import { bookKeeping } from "./schema.helper";
+
 
 export const postStatus = pgEnum("post_status", ["draft", "published", "archived"]);
 
@@ -8,7 +10,7 @@ export const profile = pgTable("profiles", {
     id: uuid("id").defaultRandom().primaryKey(),
     username: varchar("username", { length: 120 }).notNull(),
     avatarUrl: varchar("avatar_url", { length: 512 }),
-    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
+    ...bookKeeping,
 });
 
 export const posts = pgTable("posts", {
@@ -21,16 +23,12 @@ export const posts = pgTable("posts", {
 
     contentMd: text("content_md").notNull(),
 
-    // optional rendered HTML (pre-render/cache)
-    // contentHtml: text("content_html"),
-
     // bookkeeping
-    publishedAt: timestamp("published_at", { withTimezone: true }),
-    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+    ...bookKeeping,
 
     // status for drafts/published flow
     status: postStatus("status").default("draft").notNull(),
+    tags: jsonb("tags").$type<string[]>().default([]),
 
     // cover image relative path or URL
     coverImagePath: varchar("cover_image_path", { length: 512 }),
@@ -47,9 +45,7 @@ export const comments = pgTable("comments", {
     postId: uuid("post_id").references(() => posts.id, { onDelete: "cascade" }).notNull(),
     userId: uuid("user_id").references(() => profile.id, { onDelete: "set null" }),
     content: text("content").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
-    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
-    // Optional: for nested/threaded replies
+    ...bookKeeping,
     parentId: uuid("parent_id").references((): any => comments.id, { onDelete: "cascade" }),
 });
 

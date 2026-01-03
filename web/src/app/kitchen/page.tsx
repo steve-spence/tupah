@@ -11,6 +11,7 @@ import { CookBlog } from "./CookBlog";
 import { NewRecipe } from "./NewRecipe";
 import { CameraController } from "./CameraController";
 import { BookOpen, Flame, Globe } from "lucide-react";
+import Loading from "@/components/Loading/Loading";
 
 type View = "home" | "cook" | "recipe";
 
@@ -38,17 +39,9 @@ export default function KitchenPage() {
         checkUser();
     }, [router]);
 
-    const handleSignOut = async () => {
-        const supabase = createClient();
-        await supabase.auth.signOut();
-        router.push('/');
-    };
-
     if (loading || !user) {
         return (
-            <div className="min-h-screen bg-gray-50 dark:bg-[#0f0f0f] flex items-center justify-center">
-                <div className="text-gray-600 dark:text-gray-400">Loading...</div>
-            </div>
+            <Loading />
         );
     }
 

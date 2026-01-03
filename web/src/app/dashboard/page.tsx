@@ -7,24 +7,23 @@ import { useState, useEffect, useMemo } from "react";
 import { Eye, Heart, MessageCircle, Pencil, Trash2 } from "lucide-react";
 import Button from "@mui/material/Button";
 import SortSelect, { SortOption } from "./SortSelect";
-
-interface Post {
-    id: string;
-    slug: string;
-    title: string;
-    content_md: string;
-    created_at: string;
-    views: number;
-    likes: number;
-    comments: number;
-    username: string;
-}
+import { Post } from "@/utils/types";
+import ConfirmDialog from "@/components/ConfirmDialog/ConfirmDialog";
 
 export default function DashboardPage() {
     const router = useRouter();
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState<SortOption>("newest");
+    const [deletePostId, setDeletePostId] = useState<string | null>(null);
+
+    const handleDeleteConfirm = () => {
+        if (!deletePostId) return;
+        deletePost(deletePostId)
+            .then(() => setPosts(prev => prev.filter(p => p.id !== deletePostId)))
+            .catch(err => alert(err.message))
+            .finally(() => setDeletePostId(null));
+    };
 
     useEffect(() => {
         getUserPosts()
@@ -99,6 +98,9 @@ export default function DashboardPage() {
                             </div>
                             <div className="flex gap-4 text-sm text-gray-500 dark:text-gray-400">
                                 <span className="flex items-center gap-1">
+                                    {post.status}
+                                </span>
+                                <span className="flex items-center gap-1">
                                     <Eye size={16} /> {post.views ?? 0}
                                 </span>
                                 <span className="flex items-center gap-1">
@@ -111,11 +113,7 @@ export default function DashboardPage() {
                                     className="flex items-center gap-1 hover:text-red-500 transition-colors"
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        if (confirm("Are you sure you want to delete this post? It cannot be recovered.")) {
-                                            deletePost(post.id)
-                                                .then(() => setPosts(prev => prev.filter(p => p.id !== post.id)))
-                                                .catch(err => alert(err.message));
-                                        }
+                                        setDeletePostId(post.id);
                                     }}>
                                     <Trash2 size={16} />
                                 </button>
@@ -124,6 +122,13 @@ export default function DashboardPage() {
                     ))}
                 </div>
             </div>
+
+            <ConfirmDialog
+                isOpen={deletePostId !== null}
+                text="Once deleted, you will not be able to recover this blog. Are you sure you want to delete this post?"
+                onConfirm={handleDeleteConfirm}
+                onCancel={() => setDeletePostId(null)}
+            />
         </div>
     );
 }

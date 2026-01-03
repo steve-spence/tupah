@@ -8,15 +8,15 @@ export type Post = {
     user_id: UUID;
     slug: string;
     title: string;
-    excerpt?: string | null;
     content_md: string;
-    publishedAt?: Date | null;
-    createdAt: Date;
-    updatedAt: Date;
+    published_at?: Date | null;
+    created_at: Date;
+    updated_at: Date;
     status: PostStatus;
     cover_image_path: string | null;
     views: number;
     likes: number;
     comments: number;
+    tags: string[];
     username?: string;
 }

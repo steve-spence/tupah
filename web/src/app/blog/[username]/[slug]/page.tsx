@@ -25,6 +25,7 @@ export default function BlogPost() {
           method: "GET",
           headers: { "Content-Type": "application/json" }
         });
+
         if (!res.ok) {
           setLoading(false);
           return;

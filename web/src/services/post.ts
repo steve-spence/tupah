@@ -1,10 +1,17 @@
 import { environment } from "@/environments/environment";
+import { Post } from "@/utils/types";
 
-export async function createPost(title: string, content: string) {
+
+export async function createPost(post: { title: string; content: string; status: string; selectedTags: string[] }) {
     const res = await fetch('/api/posts', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, content })
+        body: JSON.stringify({
+            title: post.title,
+            content: post.content,
+            status: post.status,
+            tags: post.selectedTags,
+        })
     });
 
     const data = await res.json();
