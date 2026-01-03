@@ -82,7 +82,7 @@ export async function PUT(request: Request, { params }: RouteParams) {
     }
 
     const body = await request.json();
-    const { title, content } = body;
+    const { title, content, tags, status } = body;
 
     if (!title || !content) {
         return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
@@ -91,7 +91,7 @@ export async function PUT(request: Request, { params }: RouteParams) {
     // Update post (only if user owns it)
     const { data, error } = await supabase
         .from("posts")
-        .update({ title, content_md: content, updated_at: new Date().toISOString() })
+        .update({ title, content_md: content, updated_at: new Date().toISOString(), tags: tags, status: status })
         .eq("id", id)
         .eq("user_id", user.id)
         .select();

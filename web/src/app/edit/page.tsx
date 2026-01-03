@@ -8,6 +8,7 @@ import TagSelector from "@/components/TagSelector/TagSelector";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Post, PostStatus } from "@/utils/types";
 import TextField from "@mui/material/TextField";
+import { Tags } from "lucide-react";
 
 const statusOptions: PostStatus[] = ["draft", "published", "archived"]
 
@@ -53,7 +54,7 @@ export default function EditPage() {
         setError("");
 
         try {
-            await updatePost(postId, title, content);
+            await updatePost(postId, title, content, selectedTags, status);
             router.push("/dashboard");
         } catch (err: any) {
             setError(err.message);

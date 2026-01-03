@@ -1,5 +1,5 @@
 import { environment } from "@/environments/environment";
-import { Post } from "@/utils/types";
+import { Post, PostStatus } from "@/utils/types";
 
 
 export async function createPost(post: { title: string; content: string; status: string; selectedTags: string[] }) {
@@ -68,11 +68,11 @@ export async function getPostById(id: string) {
     return data;
 }
 
-export async function updatePost(id: string, title: string, content: string) {
+export async function updatePost(id: string, title: string, content: string, tags: string[], status: PostStatus) {
     const res = await fetch(`/api/posts/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, content })
+        body: JSON.stringify({ title, content, tags, status })
     });
 
     const data = await res.json();
