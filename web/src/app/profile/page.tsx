@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
 import Button from "@mui/material/Button";
 import { Check } from "lucide-react";
+import Loading from "@/components/Loading/Loading";
 
 const AVATAR_OPTIONS = [
     "/avatars/avatar1.png",
@@ -74,7 +75,7 @@ export default function ProfilePage() {
     };
 
     if (authLoading) {
-        return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+        return <Loading />
     }
 
     return (
@@ -99,11 +100,10 @@ export default function ProfilePage() {
                                 <button
                                     key={avatar}
                                     onClick={() => setSelectedAvatar(avatar)}
-                                    className={`relative aspect-square rounded-xl overflow-hidden border-4 transition-all ${
-                                        selectedAvatar === avatar
-                                            ? "border-[#9379cc] scale-105"
-                                            : "border-transparent hover:border-gray-300 dark:hover:border-gray-600"
-                                    }`}
+                                    className={`relative aspect-square rounded-xl overflow-hidden border-4 transition-all ${selectedAvatar === avatar
+                                        ? "border-[#9379cc] scale-105"
+                                        : "border-transparent hover:border-gray-300 dark:hover:border-gray-600"
+                                        }`}
                                 >
                                     <Image
                                         src={avatar}

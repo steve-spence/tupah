@@ -67,9 +67,7 @@ function EditForm() {
 
     if (loading) {
         return (
-            <div className="flex items-center justify-center h-64">
-                <p className="text-gray-600 dark:text-gray-400">Loading...</p>
-            </div>
+            <Loading />
         );
     }
 
@@ -83,128 +81,128 @@ function EditForm() {
 
     return (
         <div className="max-w-4xl mx-auto p-5">
-                {error && (
-                    <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-400 text-red-700 dark:text-red-400 rounded-lg">
-                        {error}
-                    </div>
-                )}
+            {error && (
+                <div className="mb-4 p-3 bg-red-100 dark:bg-red-900/30 border border-red-400 text-red-700 dark:text-red-400 rounded-lg">
+                    {error}
+                </div>
+            )}
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label
-                            htmlFor="title"
-                            className="block text-lg font-semibold text-gray-700 dark:text-white mb-2">
-                            Title
-                        </label>
-                        <input
-                            type="text"
-                            id="title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600
+            <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                    <label
+                        htmlFor="title"
+                        className="block text-lg font-semibold text-gray-700 dark:text-white mb-2">
+                        Title
+                    </label>
+                    <input
+                        type="text"
+                        id="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600
                                 bg-white dark:bg-[#1a1a1a] text-gray-800 dark:text-white
                                 focus:outline-none focus:border-[#1272CC] dark:focus:border-[#9379cc]
                                 transition-colors"
-                            required />
-                    </div>
+                        required />
+                </div>
 
-                    <div>
-                        <label
-                            htmlFor="content"
-                            className="block text-lg font-semibold text-gray-700 dark:text-white mb-2"
-                        >
-                            Content
-                        </label>
-                        <MarkdownEditor
-                            value={content}
-                            onChange={setContent}
-                            placeholder="Write your post content..."
-                            rows={15}
-                        />
-                    </div>
+                <div>
+                    <label
+                        htmlFor="content"
+                        className="block text-lg font-semibold text-gray-700 dark:text-white mb-2"
+                    >
+                        Content
+                    </label>
+                    <MarkdownEditor
+                        value={content}
+                        onChange={setContent}
+                        placeholder="Write your post content..."
+                        rows={15}
+                    />
+                </div>
 
-                    {/* Tags */}
-                    <div>
-                        <label className="block text-lg font-semibold text-gray-700 dark:text-white mb-2">
-                            Tags
-                        </label>
-                        <TagSelector
-                            selectedTags={selectedTags}
-                            onTagsChange={setSelectedTags}
-                        />
-                    </div>
+                {/* Tags */}
+                <div>
+                    <label className="block text-lg font-semibold text-gray-700 dark:text-white mb-2">
+                        Tags
+                    </label>
+                    <TagSelector
+                        selectedTags={selectedTags}
+                        onTagsChange={setSelectedTags}
+                    />
+                </div>
 
-                    {/* Status */}
-                    <div>
-                        <Autocomplete
-                            options={statusOptions}
-                            value={status}
-                            onChange={(_, newValue) => newValue && setStatus(newValue)}
-                            sx={{
-                                '& .MuiOutlinedInput-root': {
-                                    color: 'white',
-                                    '& fieldset': {
-                                        borderColor: '#9379cc',
-                                    },
-                                    '&:hover fieldset': {
-                                        borderColor: '#b49ddb',
-                                    },
-                                    '&.Mui-focused fieldset': {
-                                        borderColor: '#9379cc',
-                                    },
+                {/* Status */}
+                <div>
+                    <Autocomplete
+                        options={statusOptions}
+                        value={status}
+                        onChange={(_, newValue) => newValue && setStatus(newValue)}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                color: 'white',
+                                '& fieldset': {
+                                    borderColor: '#9379cc',
                                 },
-                                '& .MuiInputLabel-root': {
-                                    color: '#9ca3af',
+                                '&:hover fieldset': {
+                                    borderColor: '#b49ddb',
                                 },
-                                '& .MuiSvgIcon-root': {
-                                    color: '#9379cc',
+                                '&.Mui-focused fieldset': {
+                                    borderColor: '#9379cc',
                                 },
-                            }}
-                            renderInput={(params) => <TextField {...params} label="Status" />}
-                        />
-                    </div>
+                            },
+                            '& .MuiInputLabel-root': {
+                                color: '#9ca3af',
+                            },
+                            '& .MuiSvgIcon-root': {
+                                color: '#9379cc',
+                            },
+                        }}
+                        renderInput={(params) => <TextField {...params} label="Status" />}
+                    />
+                </div>
 
-                    <div className="flex gap-4">
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            disabled={saving}
-                            className="px-8 py-3 text-lg font-semibold rounded-lg shadow-lg
+                <div className="flex gap-4">
+                    <Button
+                        type="submit"
+                        variant="contained"
+                        disabled={saving}
+                        className="px-8 py-3 text-lg font-semibold rounded-lg shadow-lg
                                 bg-gradient-to-r from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#b49ddb]">
-                            {saving ? "Saving..." : "Save Changes"}
-                        </Button>
-                        <Button
-                            type="button"
-                            variant="outlined"
-                            onClick={() => router.push("/dashboard")}
-                            className="px-8 py-3 text-lg font-semibold rounded-lg border-2 border-gray-400
+                        {saving ? "Saving..." : "Save Changes"}
+                    </Button>
+                    <Button
+                        type="button"
+                        variant="outlined"
+                        onClick={() => router.push("/dashboard")}
+                        className="px-8 py-3 text-lg font-semibold rounded-lg border-2 border-gray-400
                                 text-gray-700 dark:text-gray-300">
-                            Cancel
-                        </Button>
-                    </div>
-                </form>
+                        Cancel
+                    </Button>
+                </div>
+            </form>
 
-                {/* Preview Section */}
-                {(title || content) && (
-                    <div className="mt-10 p-6 rounded-lg bg-white dark:bg-[#1a1a1a] shadow-lg">
-                        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-                            Preview
-                        </h2>
-                        <div className="border-t-2 border-gray-300 dark:border-gray-600 pt-4">
-                            {title && (
-                                <h3 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
-                                    {title}
-                                </h3>
-                            )}
-                            {content && (
-                                <div className="prose dark:prose-invert prose-gray max-w-none">
-                                    <Markdown>{content}</Markdown>
-                                </div>
-                            )}
-                        </div>
+            {/* Preview Section */}
+            {(title || content) && (
+                <div className="mt-10 p-6 rounded-lg bg-white dark:bg-[#1a1a1a] shadow-lg">
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
+                        Preview
+                    </h2>
+                    <div className="border-t-2 border-gray-300 dark:border-gray-600 pt-4">
+                        {title && (
+                            <h3 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
+                                {title}
+                            </h3>
+                        )}
+                        {content && (
+                            <div className="prose dark:prose-invert prose-gray max-w-none">
+                                <Markdown>{content}</Markdown>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
+                </div>
+            )}
+        </div>
     );
 }
 

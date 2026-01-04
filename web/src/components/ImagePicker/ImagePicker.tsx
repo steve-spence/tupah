@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X, Upload, Images, CloudUpload } from "lucide-react";
+import Loading from "../Loading/Loading";
 
 interface ImagePickerProps {
     isOpen: boolean;
@@ -153,9 +154,7 @@ export default function ImagePicker({ isOpen, onClose, onSelect }: ImagePickerPr
                         {activeTab === "library" && (
                             <>
                                 {loading ? (
-                                    <div className="flex items-center justify-center h-full text-gray-500">
-                                        Loading...
-                                    </div>
+                                    <Loading />
                                 ) : images.length === 0 ? (
                                     <div className="flex flex-col items-center justify-center h-full text-gray-500 dark:text-gray-400">
                                         <Images size={48} className="mb-2 opacity-50" />

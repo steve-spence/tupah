@@ -13,6 +13,7 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Link from "next/link";
 
 export default function HomePage() {
   const router = useRouter();
@@ -183,9 +184,9 @@ export default function HomePage() {
         </div>
 
         {/* Artist Credit */}
-        <p className="absolute bottom-4 right-4 text-xl text-gray-300 opacity-50 drop-shadow-text-sm">
-          @ansproject
-        </p>
+        <Link className="absolute bottom-4 right-4 text-xl text-gray-300 opacity-50 drop-shadow-text-sm" target="_blank" href="https://pixabay.com/users/andsproject-26081561/">
+          @andsproject
+        </Link>
       </section>
 
       <section>

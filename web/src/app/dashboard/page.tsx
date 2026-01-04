@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import SortSelect, { SortOption } from "./SortSelect";
 import { Post } from "@/utils/types";
 import ConfirmDialog from "@/components/ConfirmDialog/ConfirmDialog";
+import Loading from "@/components/Loading/Loading";
 
 export default function DashboardPage() {
     const router = useRouter();
@@ -71,7 +72,7 @@ export default function DashboardPage() {
                 </div>
 
                 <div id="user-posts" className="p-4 space-y-4">
-                    {loading && <p>Loading...</p>}
+                    {loading && <Loading />}
                     {!loading && sortedPosts.length === 0 && <p>No posts yet.</p>}
                     {sortedPosts.map((post) => (
                         <div
