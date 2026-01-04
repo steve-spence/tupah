@@ -3,6 +3,8 @@ import { db } from '@/db'
 import { posts, profile } from '@/db/schema'
 import { eq } from 'drizzle-orm'
 
+export const dynamic = 'force-dynamic'
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.tupah.me'
 
