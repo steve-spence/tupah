@@ -1,11 +1,13 @@
 import { MetadataRoute } from 'next'
-import { unstable_noStore as noStore } from 'next/cache'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.tupah.me'
+    const apiUrl = process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : process.env.NEXT_PUBLIC_SITE_URL || baseUrl
 
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
@@ -65,39 +67,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ]
 
-    // Fetch published blog posts with their authors
+    // Fetch published blog posts from API
     let blogPages: MetadataRoute.Sitemap = []
     try {
-        // Opt out of static rendering
-        noStore()
+        const res = await fetch(`${apiUrl}/api/sitemap/posts`, {
+            cache: 'no-store',
+        })
 
-        // Dynamic imports to avoid module-level DATABASE_URL evaluation at build time
-        const { db } = await import('@/db')
-        const { posts, profile } = await import('@/db/schema')
-        const { eq } = await import('drizzle-orm')
+        if (res.ok) {
+            const publishedPosts: { slug: string; username: string; updatedAt: string }[] = await res.json()
 
-        const publishedPosts = await db
-            .select({
-                slug: posts.slug,
-                username: profile.username,
-                updatedAt: posts.updatedAt,
-            })
-            .from(posts)
-            .innerJoin(profile, eq(posts.userId, profile.id))
-            .where(eq(posts.status, 'published'))
-
-        blogPages = publishedPosts.map((post) => ({
-            url: `${baseUrl}/blog/${post.username}/${post.slug}`,
-            lastModified: post.updatedAt || new Date(),
-            changeFrequency: 'weekly' as const,
-            priority: 0.6,
-        }))
-        console.log('[sitemap] DB returned %d published posts', publishedPosts.length);
-
+            blogPages = publishedPosts.map((post) => ({
+                url: `${baseUrl}/blog/${post.username}/${post.slug}`,
+                lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(),
+                changeFrequency: 'weekly' as const,
+                priority: 0.6,
+            }))
+            console.log('[sitemap] API returned %d published posts', publishedPosts.length)
+        }
     } catch (error) {
         console.error('Failed to fetch posts for sitemap:', error)
     }
-    console.log('[sitemap] about to return %d static + %d blog entries',
-        staticPages.length, blogPages.length);
+
     return [...staticPages, ...blogPages]
 }
