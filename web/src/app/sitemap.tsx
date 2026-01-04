@@ -83,9 +83,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'weekly' as const,
             priority: 0.6,
         }))
+        // …inside the try block, right after the query
+        console.log('[sitemap] DB returned %d published posts', publishedPosts.length);
+        console.log('[sitemap] first row sample:', publishedPosts[0]);
+        console.log('[sitemap] Checking Date Format:', new Date());
+
+
     } catch (error) {
         console.error('Failed to fetch posts for sitemap:', error)
     }
-
+    console.log('[sitemap] about to return %d static + %d blog entries',
+        staticPages.length, blogPages.length);
     return [...staticPages, ...blogPages]
 }
