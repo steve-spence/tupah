@@ -73,17 +73,16 @@ export default function AboutPage() {
             Who I Am
           </h2>
           <p className="text-gray-900 dark:text-gray-200 font-semibold">
-            I'm a Senior Computer Science student at Michigan State University.
-            I have a background in web development, scripting, game development
-            and I work as a student network engineer(I love it).
-            Since I've been in college, I've found I really enjoy working with either
-            web development or enterprise networking.
+            I'm a new Computer Science graduate from Michigan State University.
+            I have a background in web development, networking, game development and video editing.
+            I was working as a student network engineer at MSU where I learned core networking concepts.
+            After graduating University, I've found my passions lie in web development and entrepreneurship.
           </p>
           <p className="text-gray-900 dark:text-gray-200 font-semibold">
             Outside of code, I play guitar, mess around with game development,
-            and I like reading. In my free time, I am building this blogging website and
-            working on a game called <i>Witchpaw</i>. I'm always learning and trying to improve myself.
-            I am that werido that enjoys learning...
+            and I like reading. I've been building this blogging website,
+            working on a game called <i>Witchpaw</i>, and editing videos.
+            I'm always learning and staying curious because I want to improve myself and my skills.
           </p>
         </div>
       </section>
@@ -115,10 +114,10 @@ export default function AboutPage() {
             </div>
             <div className="space-y-2">
               <p className="text-gray-800 dark:text-gray-200 font-semibold">
-                Bachelor's in Computer Science
+                B.A. in Computer Science
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                • Graduating in December 2025
+                • Graduated in December 2025
               </p>
               <p className="text-gray-700 dark:text-gray-300">
                 • Member and winner of AI clab and its competitions, studied Machine Learning and developed AI-Driven full-stack applications
@@ -127,7 +126,7 @@ export default function AboutPage() {
                 • My favorite classes were Operating Systems, Parallel Programming, Web Development, and Game Development
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                • Worked as a Student Network Engineer where I learned the fundamentals of enterprise networking and got JNCIA certified
+                • Worked as a Student Network Engineer where I learned the fundamentals of enterprise networking
               </p>
             </div>
           </div>
@@ -155,7 +154,7 @@ export default function AboutPage() {
                 Associate's in Computer Programming
               </p>
               <p className="text-gray-700 dark:text-gray-300">
-                • Graduated in 2022
+                • Graduated in May 2022
               </p>
               <p className="text-gray-700 dark:text-gray-300">
                 • Developed full-stack applications using Java, SQL, and Node.js
@@ -200,10 +199,11 @@ export default function AboutPage() {
             <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
               Developed an AI that reduced the need for OEM planners to reference legal documents when
               planning new locations to open dealerships. I worked in a team of 6 to create a full-stack
-              web application that analyized Ford KPI's, zip code based demographics, and made accurate predictions
-              where new dealerships could open legally. I created a RAG sytem and embedded the documents in Azure Blobs.
-              This allowed us semantically search these embedded legal documents to retrieve accurate legal information relevant to user queries.
-              This app enabled OEM planners to get work done faster and achieve better insight into areas of opportunity within the Ford network.
+              web application that analyzed Ford's Key Performance Indicators and made accurate predictions
+              where new dealerships could open legally. I created a Retrieval Augmented Generation (RAG)
+              system that embeded documents enabling us to semantically search these legal documents to retrieve accurate
+              legal information relevant to user queries. This app enabled OEM planners to get work done faster and
+              achieve a better understanding of areas of opportunity within the Ford network.
             </p>
           </div>
 
@@ -214,7 +214,10 @@ export default function AboutPage() {
             </h3>
             <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
               My personal blog and site (this one!) built with Next.js, Tailwind
-              and Typescript. Fully responsive and searchable. (This is my favorite project so far)
+              and Typescript. Enables users to write free form blogs, comment, like, and view their
+              analytics of all posts associated with thier user id. I am using Supabase as a relational database
+              to store realtions and information about each user, as well as their buckets to store user uploads.
+              I used Google Cloud Console to
             </p>
             <Link
               href="/blog"

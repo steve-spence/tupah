@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect } from "react";
-import { Heart } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { HeartIcon, HeartIconHandle } from "@/components/ui/heart";
 import Button from "@mui/material/Button";
 
 interface LikeButtonProps {
@@ -13,6 +13,7 @@ export default function LikeButton({ slug, initialLikes }: LikeButtonProps) {
     const [likes, setLikes] = useState(initialLikes);
     const [liked, setLiked] = useState(false);
     const [loading, setLoading] = useState(true);
+    const heartRef = useRef<HeartIconHandle>(null);
 
     // Check if user has liked on mount
     useEffect(() => {
@@ -24,7 +25,7 @@ export default function LikeButton({ slug, initialLikes }: LikeButtonProps) {
                     setLikes(data.likes);
                 }
             })
-            .catch(() => {})
+            .catch(() => { })
             .finally(() => setLoading(false));
     }, [slug]);
 
@@ -38,6 +39,10 @@ export default function LikeButton({ slug, initialLikes }: LikeButtonProps) {
                 const data = await res.json();
                 setLikes(data.likes);
                 setLiked(data.liked);
+                // Trigger heart animation on like
+                if (data.liked) {
+                    heartRef.current?.startAnimation();
+                }
             } else if (res.status === 401) {
                 // User not logged in - could redirect to login
                 alert("Please log in to like posts");
@@ -55,9 +60,10 @@ export default function LikeButton({ slug, initialLikes }: LikeButtonProps) {
             onClick={handleLike}
             disabled={loading}
             startIcon={
-                <Heart
+                <HeartIcon
+                    ref={heartRef}
                     size={20}
-                    fill={liked ? "#ef4444" : "none"}
+                    filled={liked}
                     className={liked ? "text-red-500" : ""}
                 />
             }

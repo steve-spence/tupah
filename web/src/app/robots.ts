@@ -5,8 +5,16 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: '*',
             allow: '/',
-            disallow: ['/private/', '/admin/'],
+            disallow: [
+                '/profile',
+                '/dashboard',
+                '/create',
+                '/edit',
+                '/login',
+                '/signup',
+                '/api/',
+            ],
         },
-        sitemap: 'https://tupah.me/sitemap.xml',
+        sitemap: 'https://www.tupah.me/sitemap.xml',
     }
 }
