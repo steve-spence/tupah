@@ -76,13 +76,13 @@ export default function AboutPage() {
             I'm a new Computer Science graduate from Michigan State University.
             I have a background in web development, networking, game development and video editing.
             I was working as a student network engineer at MSU where I learned core networking concepts.
-            After graduating University, I've found my passions lie in web development and entrepreneurship.
+            After graduating University, I've found my passion lies in web development and entrepreneurship.
           </p>
           <p className="text-gray-900 dark:text-gray-200 font-semibold">
-            Outside of code, I play guitar, mess around with game development,
+            Outside of code, I play guitar, dabble in game development,
             and I like reading. I've been building this blogging website,
             working on a game called <i>Witchpaw</i>, and editing videos.
-            I'm always learning and staying curious because I want to improve myself and my skills.
+            I'm always learning and staying curious to improve myself and my skills.
           </p>
         </div>
       </section>
@@ -114,7 +114,7 @@ export default function AboutPage() {
             </div>
             <div className="space-y-2">
               <p className="text-gray-800 dark:text-gray-200 font-semibold">
-                B.A. in Computer Science
+                Baccalaureate in Computer Science
               </p>
               <p className="text-gray-700 dark:text-gray-300">
                 • Graduated in December 2025
