@@ -1,9 +1,8 @@
 import { MetadataRoute } from 'next'
-import { db } from '@/db'
-import { posts, profile } from '@/db/schema'
-import { eq } from 'drizzle-orm'
+import { unstable_noStore as noStore } from 'next/cache'
 
 export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.tupah.me'
@@ -69,6 +68,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch published blog posts with their authors
     let blogPages: MetadataRoute.Sitemap = []
     try {
+        // Opt out of static rendering
+        noStore()
+
+        // Dynamic imports to avoid module-level DATABASE_URL evaluation at build time
+        const { db } = await import('@/db')
+        const { posts, profile } = await import('@/db/schema')
+        const { eq } = await import('drizzle-orm')
+
         const publishedPosts = await db
             .select({
                 slug: posts.slug,
@@ -85,11 +92,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'weekly' as const,
             priority: 0.6,
         }))
-        // …inside the try block, right after the query
         console.log('[sitemap] DB returned %d published posts', publishedPosts.length);
-        console.log('[sitemap] first row sample:', publishedPosts[0]);
-        console.log('[sitemap] Checking Date Format:', new Date());
-
 
     } catch (error) {
         console.error('Failed to fetch posts for sitemap:', error)
