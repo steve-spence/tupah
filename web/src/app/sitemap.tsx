@@ -5,9 +5,6 @@ export const revalidate = 0
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = 'https://www.tupah.me'
-    const apiUrl = process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : process.env.NEXT_PUBLIC_SITE_URL || baseUrl
 
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
@@ -70,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Fetch published blog posts from API
     let blogPages: MetadataRoute.Sitemap = []
     try {
-        const res = await fetch(`${apiUrl}/api/sitemap/posts`, {
+        const res = await fetch(`${baseUrl}/api/sitemap/posts`, {
             cache: 'no-store',
         })
 
