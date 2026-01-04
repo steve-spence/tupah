@@ -65,6 +65,7 @@ export default function BlogPost() {
     return notFound();
   }
 
+  // not really needed anymore
   const components = {
     BlogImage,
   };
@@ -72,14 +73,13 @@ export default function BlogPost() {
   return (
     <div className="flex flex-col">
       <section id="home">
-        <Header data={{ title: "Tupah", subtext: "Unfiltered thoughts with occasional genius." }} />
+        <Header data={{
+          title: post.title,
+          subtext: "Author: " + username.charAt(0).toUpperCase() + username.substring(1, username.length)
+        }} />
       </section>
-      <div className="h-32"></div>
 
       <div className="w-full px-10 bg-white dark:bg-[#171717] pb-10">
-        <p className="text-center text-gray-500 dark:text-gray-400 mb-4">
-          By @{username}
-        </p>
         <div className="flex flex-col prose lg:prose-xl dark:prose-invert mx-auto h-fit py-5">
           <MDXRemote {...mdxSource} components={components} />
         </div>

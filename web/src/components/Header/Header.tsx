@@ -4,8 +4,11 @@ import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
-import { User, LayoutDashboard, LogOut } from "lucide-react";
+import { User, LayoutDashboard, LogOut, Moon, Sun } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useTheme } from '@/hooks/useTheme';
+import { motion, AnimatePresence } from 'motion/react';
+
 
 export function Header({ data }: { data: { title?: string, subtext: string, showLinks?: boolean, skinny?: boolean } }) {
   const { title, subtext, showLinks = true, skinny = false } = data;
@@ -14,6 +17,12 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
   const [avatar, setAvatar] = useState<string>("/avatars/avatar1.png");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
+  const isDark = theme === 'dark';
+  const toggleTheme = () => setTheme(isDark ? 'light' : 'dark');
 
   useEffect(() => {
     if (user) {
@@ -24,7 +33,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
             setAvatar(data.avatar_url);
           }
         })
-        .catch(() => {});
+        .catch(() => { });
     }
   }, [user]);
 
@@ -67,9 +76,44 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
       {/* Links - Right side */}
       {showLinks && (
         <div className="absolute flex right-10 text-gray-800 dark:text-white gap-5 items-center font-semibold">
-          <Link href="/about" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
+          {/* <Link href="/about" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
             About
-          </Link>
+          </Link> */}
+
+          <button
+            type="button"
+            className="flex items-center justify-center w-10 h-10"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            aria-pressed={mounted ? isDark : undefined}
+            title={mounted ? `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode` : 'Toggle theme'}>
+            <AnimatePresence mode="wait" initial={false}>
+              {!mounted ? (
+                <span className="w-5 h-5" aria-hidden />
+              ) : theme === 'dark' ? (
+                <motion.div
+                  key="sun"
+                  initial={{ rotate: -90, scale: 0, opacity: 0 }}
+                  animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                  exit={{ rotate: 90, scale: 0, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                >
+                  <Sun className="w-5 h-5" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="moon"
+                  initial={{ rotate: 90, scale: 0, opacity: 0 }}
+                  animate={{ rotate: 0, scale: 1, opacity: 1 }}
+                  exit={{ rotate: -90, scale: 0, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: "easeInOut" }}
+                >
+                  <Moon className="w-5 h-5" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+
           <Link href="/blog" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
             Blogs
           </Link>
@@ -136,8 +180,3 @@ interface HeaderProps {
   title: string;
   subtext: string;
 }
-
-type Props = {
-  data: HeaderProps;
-  className?: string;
-};
