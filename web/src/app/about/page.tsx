@@ -213,11 +213,11 @@ export default function AboutPage() {
               <BookOpenText className="inline-block text-amber-400 mr-1" /> Blog & Portfolio
             </h3>
             <p className="text-gray-900 dark:text-gray-400 font-semibold mb-4">
-              My personal blog and site (this one!) built with Next.js, Tailwind
-              and Typescript. Enables users to write free form blogs, comment, like, and view their
-              analytics of all posts associated with thier user id. I am using Supabase as a relational database
-              to store realtions and information about each user, as well as their buckets to store user uploads.
-              I used Google Cloud Console to
+              My personal blog and site, which I built with Next.js, Tailwind,
+              and Typescript. Enables users to write free-form blogs, comment, like, and view their
+              analytics of all posts associated with their user id. I am using Supabase as a relational database
+              to store relations and information about each user, as well as their buckets to store user uploads.
+              I used Google Cloud Console to expose the site so the pages would appear on Google search results.
             </p>
             <Link
               href="/blog"
