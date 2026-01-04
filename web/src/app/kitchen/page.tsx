@@ -85,7 +85,7 @@ export default function KitchenPage() {
                         Your AI-powered kitchen for crafting delicious blog content
                     </p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+                    <div className="flex">
                         {/* Cook Blog */}
                         <button
                             onClick={() => setView("cook")}
@@ -94,11 +94,11 @@ export default function KitchenPage() {
                                 <Flame />
                             </div>
                             <h3 className="text-xl font-bold text-white mb-2">Cook Blog</h3>
-                            <p className="text-gray-400 text-sm">Fire up a fresh blog post with AI assistance</p>
+                            <p className="text-gray-400 text-sm">Create a new blog post to your Account</p>
                         </button>
 
                         {/* New Recipe */}
-                        <button
+                        {/* <button
                             onClick={() => setView("recipe")}
                             className="group bg-gray-900/70 backdrop-blur-sm border border-gray-700 hover:border-purple-500 rounded-2xl p-8 text-left transition-all hover:scale-105 hover:bg-gray-900/90">
                             <div className="w-14 h-14 bg-purple-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -106,10 +106,10 @@ export default function KitchenPage() {
                             </div>
                             <h3 className="text-xl font-bold text-white mb-2">New Recipe</h3>
                             <p className="text-gray-400 text-sm">Create a reusable template for future posts</p>
-                        </button>
+                        </button> */}
 
                         {/* Browse Dishes */}
-                        <button
+                        {/* <button
                             onClick={() => { router.push('/browse') }}
                             className="group bg-gray-900/70 backdrop-blur-sm border border-gray-700 hover:border-emerald-500 rounded-2xl p-8 text-left transition-all hover:scale-105 hover:bg-gray-900/90">
                             <div className="w-14 h-14 bg-emerald-600 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -117,7 +117,7 @@ export default function KitchenPage() {
                             </div>
                             <h3 className="text-xl font-bold text-white mb-2">Browse Dishes</h3>
                             <p className="text-gray-400 text-sm">View and manage your published content</p>
-                        </button>
+                        </button> */}
                     </div>
                 </div>
             )}
