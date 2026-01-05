@@ -4,6 +4,8 @@ import { db } from "@/db";
 import { images } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 
+export const runtime = 'nodejs'
+
 export async function GET(
     request: Request,
     { params }: { params: Promise<{ id: string }> }
