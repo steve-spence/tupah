@@ -137,7 +137,7 @@ export default function DashboardPage() {
                             </div>
                             <div className="flex gap-2 md:gap-4 text-sm text-gray-500 dark:text-gray-400">
                                 <Tooltip title="Post Status (only published posts are public)" arrow>
-                                    <span className="flex items-center gap-1 font-bold text-white">
+                                    <span className="flex items-center gap-1 font-semibold text-gray-800 dark:text-white">
                                         <span className="sm:hidden">
                                             {post.status.charAt(0).toUpperCase()}
                                         </span>
@@ -148,7 +148,7 @@ export default function DashboardPage() {
                                 </Tooltip>
                                 <Tooltip title="Page Visits" arrow>
                                     <span className="flex items-center gap-1">
-                                        <Eye size={16} color="#ffffff" /> {post.views ?? 0}
+                                        <Eye size={16} className="text-black dark:text-white" /> {post.views ?? 0}
                                     </span>
                                 </Tooltip>
                                 <Tooltip title="Likes" arrow>
@@ -158,7 +158,7 @@ export default function DashboardPage() {
                                 </Tooltip>
                                 <Tooltip title="Comments" arrow>
                                     <span className="flex items-center gap-1">
-                                        <MessageCircle size={16} color="white" /> {post.comments ?? 0}
+                                        <MessageCircle size={16} className="text-black dark:text-white" /> {post.comments ?? 0}
                                     </span>
                                 </Tooltip>
                                 <Tooltip title="Delete Post">

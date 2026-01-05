@@ -1,110 +1,116 @@
-'use client'
-import { MDXRemote, MDXRemoteSerializeResult } from "next-mdx-remote";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { serialize } from "next-mdx-remote/serialize";
-import { notFound, useParams } from "next/navigation";
-import { Header } from "@/components/Header/Header";
-import BlogImage from "@/components/BlogImage/BlogImage";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import Loading from "@/components/Loading/Loading";
-import LikeButton from "./LikeButton";
-import CommentSection from "./CommentSection";
+import { createClient } from "@/utils/supabase/server";
+import BlogPostContent from "./BlogPostContent";
 
-export default function BlogPost() {
-  const params = useParams();
-  const username = params.username as string;
-  const slug = params.slug as string;
-  const [post, setPost] = useState<any>(null);
-  const [mdxSource, setMdxSource] = useState<MDXRemoteSerializeResult | null>(null);
-  const [loading, setLoading] = useState(true);
+const BASE_URL = 'https://tupah.me';
 
+interface PageProps {
+    params: Promise<{
+        username: string;
+        slug: string;
+    }>;
+}
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const res = await fetch(`/api/posts/${slug}?username=${username}`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" }
-        });
+// Helper to construct Supabase public URL
+function getPublicImageUrl(storagePath: string | null): string | null {
+    if (!storagePath) return null;
+    return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/post-images/${storagePath}`;
+}
 
-        if (!res.ok) {
-          setLoading(false);
-          return;
-        }
+// Fetch post data (reused by both metadata and page)
+async function getPost(username: string, slug: string) {
+    const supabase = await createClient();
 
-        const data = await res.json();
-        if (!data) {
-          setLoading(false);
-          return;
-        }
+    const { data, error } = await supabase
+        .from("posts")
+        .select("*, profiles!user_id(username), images!cover_image_id(storage_path)")
+        .eq("slug", slug)
+        .maybeSingle();
 
-        // Serialize the MDX content
-        const serialized = await serialize(data.content_md || "");
+    if (error || !data) return null;
 
-        setPost(data);
-        setMdxSource(serialized);
-        setLoading(false);
-
-        // Track view (fire and forget)
-        fetch(`/api/posts/${slug}/view`, { method: "POST" }).catch(() => { });
-      } catch (error) {
-        console.error("Error fetching post:", error);
-        setLoading(false);
-      }
-    };
-
-    if (username && slug) {
-      fetchPost();
+    // Case-insensitive username check
+    if (data.profiles?.username?.toLowerCase() !== username.toLowerCase()) {
+        return null;
     }
-  }, [username, slug]);
 
-  if (loading) {
-    return <Loading />
-  }
+    return {
+        ...data,
+        username: data.profiles?.username,
+        cover_image_url: getPublicImageUrl(data.images?.storage_path),
+    };
+}
 
-  if (!post || !mdxSource) {
-    return notFound();
-  }
+// Generate dynamic metadata for SEO
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const { username, slug } = await params;
+    const post = await getPost(username, slug);
 
-  // not really needed anymore
-  const components = {
-    BlogImage,
-  };
+    if (!post) {
+        return {
+            title: "Post Not Found",
+            description: "The requested blog post could not be found.",
+        };
+    }
 
-  return (
-    <div className="flex flex-col">
-      <section id="home">
-        <Header data={{
-          title: post.title,
-          subtext: "Author: " + username.charAt(0).toUpperCase() + username.substring(1, username.length)
-        }} />
-      </section>
+    // Get first 160 chars of content for description (strip markdown)
+    const description = post.content_md
+        ?.replace(/[#*`\[\]()>-]/g, '')
+        ?.substring(0, 160)
+        ?.trim() + '...' || `A blog post by ${username}`;
 
-      <div className="w-full px-10 bg-white dark:bg-[#171717] pb-10">
-        {post.cover_image_url && (
-          <div className="max-w-prose mx-auto pt-8">
-            <Image
-              src={post.cover_image_url}
-              alt={post.title}
-              width={800}
-              height={400}
-              className="w-full h-auto rounded-lg object-cover"
-              priority
-            />
-          </div>
-        )}
-        <div className="flex flex-col prose lg:prose-xl dark:prose-invert mx-auto h-fit py-5">
-          <MDXRemote {...mdxSource} components={components} />
-        </div>
+    const canonicalUrl = `${BASE_URL}/blog/${username}/${slug}`;
 
-        {/* Like & Comments Section */}
-        <div className="max-w-prose mx-auto mt-8">
-          <div className="flex items-center gap-4 mb-6">
-            <LikeButton slug={slug} initialLikes={post.likes || 0} />
-          </div>
-          <CommentSection slug={slug} />
-        </div>
-      </div>
-    </div>
-  );
+    return {
+        title: `${post.title} | ${username}'s Blog`,
+        description,
+        authors: [{ name: username }],
+        alternates: { canonical: canonicalUrl },
+        robots: { index: true, follow: true },
+        openGraph: {
+            title: post.title,
+            description,
+            url: canonicalUrl,
+            siteName: 'Tupah',
+            type: 'article',
+            authors: [username],
+            ...(post.cover_image_url && {
+                images: [{
+                    url: post.cover_image_url,
+                    width: 1200,
+                    height: 630,
+                    alt: post.title,
+                }],
+            }),
+        },
+        twitter: {
+            card: post.cover_image_url ? 'summary_large_image' : 'summary',
+            title: post.title,
+            description,
+            ...(post.cover_image_url && { images: [post.cover_image_url] }),
+        },
+    };
+}
+
+export default async function BlogPostPage({ params }: PageProps) {
+    const { username, slug } = await params;
+    const post = await getPost(username, slug);
+
+    if (!post) {
+        return notFound();
+    }
+
+    // Serialize MDX content on the server
+    const mdxSource = await serialize(post.content_md || "");
+
+    return (
+        <BlogPostContent
+            post={post}
+            username={username}
+            slug={slug}
+            mdxSource={mdxSource}
+        />
+    );
 }

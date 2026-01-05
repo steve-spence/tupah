@@ -78,11 +78,11 @@ export default function KitchenPage() {
             {/* UI Overlay */}
             {view === "home" && (
                 <div className="relative z-10 flex flex-col items-center justify-baseline min-h-screen p-5">
-                    <h2 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-4 drop-shadow-lg text-center">
-                        What&apos;s cooking?
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg text-center">
+                        What's cooking?
                     </h2>
-                    <p className="text-gray-600 mb-12 text-center max-w-md">
-                        Your AI-powered kitchen for crafting delicious blog content
+                    <p className="text-gray-100 mb-12 text-center max-w-md font-semibold">
+                        Let's make a blog 😋
                     </p>
 
                     <div className="flex">

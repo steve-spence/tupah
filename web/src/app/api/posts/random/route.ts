@@ -11,10 +11,11 @@ function getPublicImageUrl(storagePath: string | null): string | null {
 export async function GET() {
     const supabase = await createClient();
 
-    // Fetch posts with username, image storage path, and shuffle on server
+    // Fetch published posts with username, image storage path, and shuffle on server
     const { data, error } = await supabase
         .from("posts")
         .select("*, profiles!user_id(username), images!cover_image_id(storage_path)")
+        .eq("status", "published")
         .limit(50);
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
