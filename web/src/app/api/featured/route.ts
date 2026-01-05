@@ -11,7 +11,7 @@ export async function GET() {
       id,
       title,
       slug,
-      cover_image_path,
+      cover_image_id,
       views,
       profiles:user_id (username)
     `)
@@ -28,7 +28,7 @@ export async function GET() {
   const featuredPosts = posts.map((post: any) => ({
     id: post.id,
     title: post.title,
-    bg_path: post.cover_image_path || "/pictures/blog/default.png",
+    cover_image_id: post.cover_image_id || "/pictures/blog/default.png",
     link: `/blog/${post.profiles?.username || "unknown"}/${post.slug}`,
   }));
 

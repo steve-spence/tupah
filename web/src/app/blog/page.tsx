@@ -96,7 +96,7 @@ export default function BlogPage() {
       {/* Random Posts Cards */}
       <div className="p-10 flex flex-wrap gap-6 justify-center bg-linear-to-b from-gray-300 to-gray-100 dark:from-[#3f3f3f] dark:to-[#3f3f3f]">
         {randomPosts.map((post) => {
-          //console.log(post);
+          console.log("id:", post.cover_image_id);
           return (
             <Link
               key={post.slug}
@@ -105,8 +105,9 @@ export default function BlogPage() {
             >
               <div className="relative h-40 w-full">
                 <Image
-                  src={post.cover_image_path ?? "/pictures/blog/default.png"}
+                  src={post.cover_image_id ? `/api/media/${post.cover_image_id}` : "/pictures/blog/default.png"}
                   alt={post.title ?? "Blog cover"}
+                  unoptimized // fix is to use a cdn and webp format for iamges so we can get them fast
                   fill
                   sizes="(max-width: 640px) 100vw, 384px"
                   className="object-cover group-hover:scale-105"

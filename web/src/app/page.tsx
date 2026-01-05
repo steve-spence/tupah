@@ -197,12 +197,12 @@ export default function HomePage() {
               Create
             </h1>
             <p className="text-gray-600 dark:text-gray-400 text-lg max-w-md text-center">
-              Share your thoughts, stories, and ideas with the world
+              Share your thoughts, stories, and ideas with the world!
             </p>
           </div>
           <Button
             variant="contained"
-            className="px-12 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 bg-linear-to-r from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#b49ddb]"
+            className="scale-115 px-12 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-120 transition-all! duration-300 bg-linear-to-r from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#562e9b]"
             onClick={() => router.push('/kitchen')}>
             Start Writing
           </Button>
@@ -237,10 +237,9 @@ export default function HomePage() {
               </h3>
               <p className="text-gray-800 dark:text-white">
                 I hope we get some good anime opinions. I love anime and I have been watching
-                for the last few (8) years. I might know a few... I hope some people
-                can come together and use this site to share their opinions in a nuanced way.
-                I am still working on how this site can stand out, so let's hope for more on that
-                in the future!
+                for a long time. I hope some people can come together and use this site to share
+                their opinions in a nuanced way. I am still working on how this site can stand out,
+                so let's hope for more on that in the future!
               </p>
             </div>
 
@@ -253,7 +252,7 @@ export default function HomePage() {
                 I've helped enough people fix their computers/code to know it’s
                 worth writing down. I want to create some basic tutorials on how
                 to create and find good code. I don't know how far I'll get, but I have a
-                love for the game so we'll see.
+                love for the game, so we'll see.
               </p>
             </div>
           </div>
@@ -283,7 +282,7 @@ export default function HomePage() {
             >
               {featuredPosts.map((post) => (
                 <SwiperSlide key={post.id}>
-                  <NavIcon data={post} className="text-black dark:text-white" size="16" />
+                  <NavIcon data={post} size="16" />
                 </SwiperSlide>
               ))}
             </Swiper>

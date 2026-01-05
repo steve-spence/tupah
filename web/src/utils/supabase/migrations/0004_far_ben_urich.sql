@@ -1,0 +1,2 @@
+ALTER TABLE "posts" RENAME COLUMN "cover_image_path" TO "cover_image_id";--> statement-breakpoint
+ALTER TABLE "posts" ADD CONSTRAINT "posts_cover_image_id_images_id_fk" FOREIGN KEY ("cover_image_id") REFERENCES "public"."images"("id") ON DELETE set null ON UPDATE no action;

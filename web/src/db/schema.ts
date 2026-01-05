@@ -31,7 +31,7 @@ export const posts = pgTable("posts", {
     tags: jsonb("tags").$type<string[]>().default([]),
 
     // cover image relative path or URL
-    coverImagePath: varchar("cover_image_path", { length: 512 }),
+    coverImageId: varchar("cover_image_id", { length: 12 }).references(() => images.id, { onDelete: "set null" }),
 
     // Analytics
     views: integer().default(1),
@@ -73,6 +73,10 @@ export const postsRelations = relations(posts, ({ one, many }) => ({
         references: [profile.id],
     }),
     comments: many(comments),
+    coverImage: one(images, {
+        fields: [posts.coverImageId],
+        references: [images.id]
+    }),
 }));
 
 export const commentsRelations = relations(comments, ({ one }) => ({

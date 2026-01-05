@@ -17,12 +17,12 @@ export function LeftNav({ data, className = "", onNavigate }: Props) {
 
     return (
         <div className={`${className} flex flex-col justify-between items-center`}>
-            <NavIcon data={{ id: "nav_home", title: "Home", bg_path: "/icons/home.svg", link: "/" }}
+            {/* <NavIcon data={{ id: "nav_home", title: "Home", bg_path: "/icons/home.svg", link: "/" }}
                 className="text-[#000000] font-bold flex shrink-0" onClick={onNavigate} />
             <NavIcon data={{ id: "nav_about", title: "About me", bg_path: "/icons/about_me.svg", link: "/about" }}
                 onClick={onNavigate} className="text-black font-bold whitespace-nowrap flex shrink-0" />
             <NavIcon data={{ id: "nav_blog", title: "Blog", bg_path: "/icons/blog.svg", link: "/blog" }}
-                className="text-[#000000] font-bold flex shrink-0" onClick={onNavigate} />
+                className="text-[#000000] font-bold flex shrink-0" onClick={onNavigate} /> */}
 
             <button
                 type="button"

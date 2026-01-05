@@ -1,8 +1,14 @@
 import { environment } from "@/environments/environment";
 import { Post, PostStatus } from "@/utils/types";
 
+// Extract image ID from URL like "/api/media/abc123" -> "abc123"
+function extractImageId(urlOrId: string | null): string | null {
+    if (!urlOrId) return null;
+    const match = urlOrId.match(/\/api\/media\/([^/]+)$/);
+    return match ? match[1] : urlOrId;
+}
 
-export async function createPost(post: { title: string; content: string; status: string; selectedTags: string[] }) {
+export async function createPost(post: { title: string; content: string; status: string; selectedTags: string[]; coverImageId: string | null }) {
     const res = await fetch('/api/posts', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -11,6 +17,7 @@ export async function createPost(post: { title: string; content: string; status:
             content: post.content,
             status: post.status,
             tags: post.selectedTags,
+            coverImageId: extractImageId(post.coverImageId),
         })
     });
 
@@ -68,11 +75,11 @@ export async function getPostById(id: string) {
     return data;
 }
 
-export async function updatePost(id: string, title: string, content: string, tags: string[], status: PostStatus) {
+export async function updatePost(id: string, title: string, content: string, tags: string[], status: PostStatus, coverImageId: string | null) {
     const res = await fetch(`/api/posts/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, content, tags, status })
+        body: JSON.stringify({ title, content, tags, status, coverImageId: extractImageId(coverImageId) })
     });
 
     const data = await res.json();

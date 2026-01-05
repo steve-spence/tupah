@@ -109,7 +109,7 @@ export default function AboutPage() {
                 <h3 className="text-xl font-bold text-black dark:text-white">
                   Michigan State University
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">2022 - 2026</p>
+                <p className="text-gray-600 dark:text-gray-400">2022 - 2025</p>
               </div>
             </div>
             <div className="space-y-2">

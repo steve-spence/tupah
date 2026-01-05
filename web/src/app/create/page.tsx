@@ -13,6 +13,8 @@ import { PostStatus } from "@/utils/types";
 import TextField from "@mui/material/TextField";
 import Markdown from "react-markdown";
 import Loading from "@/components/Loading/Loading";
+import ImagePicker from "@/components/ImagePicker/ImagePicker";
+import { ImagePlus, X } from "lucide-react";
 
 const statusOptions: PostStatus[] = ["draft", "published", "archived"]
 
@@ -30,6 +32,8 @@ function CreateForm() {
   const [selectedTags, setSelectedTags] = useState<string[]>(
     p_tags ? p_tags.split(",") : []
   );
+  const [coverImageId, setCoverImageId] = useState<string | null>(null);
+  const [isImagePickerOpen, setIsImagePickerOpen] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -40,7 +44,7 @@ function CreateForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const post = { title, content, status, selectedTags };
+    const post = { title, content, status, selectedTags, coverImageId };
     try {
       console.log("title", { title, content });
       await createPost(post);
@@ -54,6 +58,50 @@ function CreateForm() {
     <div className="max-w-4xl mx-auto p-5">
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Cover Image */}
+        <div>
+          <label className="block text-lg font-semibold text-gray-700 dark:text-white mb-2">
+            Cover Image
+          </label>
+          {coverImageId ? (
+            <div className="relative w-full h-48 rounded-lg overflow-hidden border-2 border-gray-300 dark:border-gray-600">
+              <img
+                src={coverImageId}
+                alt="Cover"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-2 right-2 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsImagePickerOpen(true)}
+                  className="p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <ImagePlus size={18} className="text-gray-700 dark:text-gray-300" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCoverImageId(null)}
+                  className="p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                >
+                  <X size={18} className="text-gray-700 dark:text-gray-300" />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsImagePickerOpen(true)}
+              className="w-full h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600
+                flex flex-col items-center justify-center gap-2
+                text-gray-500 dark:text-gray-400 hover:border-[#1272CC] dark:hover:border-[#9379cc]
+                hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors"
+            >
+              <ImagePlus size={32} />
+              <span>Add cover image</span>
+            </button>
+          )}
+        </div>
+
         {/* Title Input */}
         <div>
           <label
@@ -149,6 +197,7 @@ function CreateForm() {
             onClick={() => {
               setTitle("");
               setContent("");
+              setCoverImageId(null);
             }}
             className="px-8 py-3 text-lg font-semibold rounded-lg border-2 border-gray-400
             text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
@@ -158,12 +207,21 @@ function CreateForm() {
       </form>
 
       {/* Preview Section */}
-      {(title || content) && (
+      {(title || content || coverImageId) && (
         <div className="mt-10 p-6 rounded-lg bg-white dark:bg-[#1a1a1a] shadow-lg">
           <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
             Preview
           </h2>
           <div className="border-t-2 border-gray-300 dark:border-gray-600 pt-4">
+            {coverImageId && (
+              <div className="w-full h-64 rounded-lg overflow-hidden mb-4">
+                <img
+                  src={coverImageId}
+                  alt="Cover preview"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
             {title && (
               <h3 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
                 {title}
@@ -177,6 +235,13 @@ function CreateForm() {
           </div>
         </div>
       )}
+
+      {/* Image Picker Modal */}
+      <ImagePicker
+        isOpen={isImagePickerOpen}
+        onClose={() => setIsImagePickerOpen(false)}
+        onSelect={(url) => setCoverImageId(url)}
+      />
     </div>
   );
 }

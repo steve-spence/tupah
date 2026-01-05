@@ -11,6 +11,8 @@ import TextField from "@mui/material/TextField";
 import Markdown from "react-markdown";
 import MarkdownEditor from "@/components/MarkdownEditor/MarkdownEditor";
 import Loading from "@/components/Loading/Loading";
+import ImagePicker from "@/components/ImagePicker/ImagePicker";
+import { ImagePlus, X } from "lucide-react";
 
 const statusOptions: PostStatus[] = ["draft", "published", "archived"]
 
@@ -27,6 +29,8 @@ function EditForm() {
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState("");
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [coverImageId, setCoverImageId] = useState<string | null>(null);
+    const [isImagePickerOpen, setIsImagePickerOpen] = useState(false);
 
     useEffect(() => {
         if (!postId) {
@@ -41,8 +45,9 @@ function EditForm() {
                 setTitle(data.title);
                 setContent(data.content_md);
                 setStatus(data.status);
-                console.log("tags", data.tags);
                 setSelectedTags(data.tags);
+                // Convert ID to URL for display
+                setCoverImageId(data.cover_image_id ? `/api/media/${data.cover_image_id}` : null);
             })
             .catch((err) => setError(err.message))
             .finally(() => setLoading(false));
@@ -56,7 +61,8 @@ function EditForm() {
         setError("");
 
         try {
-            await updatePost(postId, title, content, selectedTags, status);
+            console.log("coverImageId::", coverImageId);
+            await updatePost(postId, title, content, selectedTags, status, coverImageId);
             router.push("/dashboard");
         } catch (err: any) {
             setError(err.message);
@@ -132,6 +138,50 @@ function EditForm() {
                     />
                 </div>
 
+                {/* Cover Image */}
+                <div>
+                    <label className="block text-lg font-semibold text-gray-700 dark:text-white mb-2">
+                        Cover Image
+                    </label>
+                    {coverImageId ? (
+                        <div className="relative w-full h-48 rounded-lg overflow-hidden border-2 border-gray-300 dark:border-gray-600">
+                            <img
+                                src={coverImageId}
+                                alt="Cover"
+                                className="w-full h-full object-contain"
+                            />
+                            <div className="absolute top-2 right-2 flex gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsImagePickerOpen(true)}
+                                    className="p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                >
+                                    <ImagePlus size={18} className="text-gray-700 dark:text-gray-300" />
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setCoverImageId(null)}
+                                    className="p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                                >
+                                    <X size={18} className="text-gray-700 dark:text-gray-300" />
+                                </button>
+                            </div>
+                        </div>
+                    ) : (
+                        <button
+                            type="button"
+                            onClick={() => setIsImagePickerOpen(true)}
+                            className="w-full h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600
+                                flex flex-col items-center justify-center gap-2
+                                text-gray-500 dark:text-gray-400 hover:border-[#1272CC] dark:hover:border-[#9379cc]
+                                hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors"
+                        >
+                            <ImagePlus size={32} />
+                            <span>Add cover image</span>
+                        </button>
+                    )}
+                </div>
+
                 {/* Status */}
                 <div>
                     <Autocomplete
@@ -183,7 +233,7 @@ function EditForm() {
             </form>
 
             {/* Preview Section */}
-            {(title || content) && (
+            {(title || content || coverImageId) && (
                 <div className="mt-10 p-6 rounded-lg bg-white dark:bg-[#1a1a1a] shadow-lg">
                     <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
                         Preview
@@ -202,6 +252,13 @@ function EditForm() {
                     </div>
                 </div>
             )}
+
+            {/* Image Picker Modal */}
+            <ImagePicker
+                isOpen={isImagePickerOpen}
+                onClose={() => setIsImagePickerOpen(false)}
+                onSelect={(url) => setCoverImageId(url)}
+            />
         </div>
     );
 }
