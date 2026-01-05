@@ -4,6 +4,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import { notFound, useParams } from "next/navigation";
 import { Header } from "@/components/Header/Header";
 import BlogImage from "@/components/BlogImage/BlogImage";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Loading from "@/components/Loading/Loading";
 import LikeButton from "./LikeButton";
@@ -80,6 +81,18 @@ export default function BlogPost() {
       </section>
 
       <div className="w-full px-10 bg-white dark:bg-[#171717] pb-10">
+        {post.cover_image_url && (
+          <div className="max-w-prose mx-auto pt-8">
+            <Image
+              src={post.cover_image_url}
+              alt={post.title}
+              width={800}
+              height={400}
+              className="w-full h-auto rounded-lg object-cover"
+              priority
+            />
+          </div>
+        )}
         <div className="flex flex-col prose lg:prose-xl dark:prose-invert mx-auto h-fit py-5">
           <MDXRemote {...mdxSource} components={components} />
         </div>

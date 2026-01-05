@@ -48,7 +48,7 @@ export async function GET(request: Request, { params }: RouteParams) {
             return NextResponse.json({ error: error.message }, { status: 500 });
         }
 
-        if (!data || data.profiles?.username !== username.toLowerCase()) {
+        if (!data || data.profiles?.username?.toLowerCase() !== username.toLowerCase()) {
             return NextResponse.json({ error: "Post not found" }, { status: 404 });
         }
 
