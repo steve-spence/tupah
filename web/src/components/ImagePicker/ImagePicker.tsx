@@ -2,8 +2,10 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { X, Upload, Images, CloudUpload } from "lucide-react";
+import { X, Upload, Images, CloudUpload, Trash2 } from "lucide-react";
 import Loading from "../Loading/Loading";
+import { fetchUserImages, uploadImage, deleteImage } from "@/services/mediaUpload";
+import { ImageCtx } from "@/utils/types";
 
 interface ImagePickerProps {
     isOpen: boolean;
@@ -13,27 +15,20 @@ interface ImagePickerProps {
 
 type Tab = "library" | "upload";
 
-interface StoredImage {
-    id: string;
-    filename: string;
-    createdAt: string;
-}
-
 export default function ImagePicker({ isOpen, onClose, onSelect }: ImagePickerProps) {
     const [activeTab, setActiveTab] = useState<Tab>("library");
-    const [images, setImages] = useState<StoredImage[]>([]);
+    const [images, setImages] = useState<ImageCtx[]>([]);
     const [loading, setLoading] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [dragOver, setDragOver] = useState(false);
+    const [deleting, setDeleting] = useState<string | null>(null);
 
     // Fetch user's images from database
     const fetchImages = useCallback(async () => {
         setLoading(true);
         try {
-            const res = await fetch("/api/media");
-            if (!res.ok) throw new Error("Failed to fetch images");
-            const data = await res.json();
-            setImages(data.images || []);
+            const imgs = await fetchUserImages();
+            setImages(imgs);
         } catch (err) {
             console.error("Failed to fetch images:", err);
         } finally {
@@ -48,26 +43,9 @@ export default function ImagePicker({ isOpen, onClose, onSelect }: ImagePickerPr
     }, [isOpen, fetchImages]);
 
     const handleUpload = async (file: File) => {
-        if (!file.type.startsWith("image/")) {
-            alert("Please select an image file");
-            return;
-        }
-
         setUploading(true);
         try {
-            const formData = new FormData();
-            formData.append("file", file);
-
-            const res = await fetch("/api/upload", {
-                method: "POST",
-                body: formData,
-            });
-
-            if (!res.ok) {
-                const data = await res.json();
-                throw new Error(data.error || "Upload failed");
-            }
-
+            await uploadImage(file);
             // Refresh the library and switch to it
             await fetchImages();
             setActiveTab("library");
@@ -89,6 +67,20 @@ export default function ImagePicker({ isOpen, onClose, onSelect }: ImagePickerPr
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) handleUpload(file);
+    };
+
+    const handleDelete = async (imageId: string) => {
+        setDeleting(imageId);
+        try {
+            await deleteImage(imageId);
+            // Remove from local state
+            setImages((prev) => prev.filter((img) => img.id !== imageId));
+        } catch (err: any) {
+            console.error("Delete failed:", err);
+            alert(err.message || "Delete failed");
+        } finally {
+            setDeleting(null);
+        }
     };
 
     if (!isOpen) return null;
@@ -169,20 +161,32 @@ export default function ImagePicker({ isOpen, onClose, onSelect }: ImagePickerPr
                                 ) : (
                                     <div className="grid grid-cols-3 gap-3">
                                         {images.map((image) => (
-                                            <button
-                                                key={image.id}
-                                                onClick={() => {
-                                                    onSelect(`/api/media/${image.id}`);
-                                                    onClose();
-                                                }}
-                                                className="aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-[#1272CC] dark:hover:border-[#9379cc] transition-colors"
-                                            >
-                                                <img
-                                                    src={`/api/media/${image.id}`}
-                                                    alt={image.filename}
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </button>
+                                            <div key={image.id} className="relative group">
+                                                <button
+                                                    onClick={() => {
+                                                        onSelect(`/api/media/${image.id}`);
+                                                        onClose();
+                                                    }}
+                                                    disabled={deleting === image.id}
+                                                    className="aspect-square w-full rounded-lg overflow-hidden border-2 border-transparent hover:border-[#1272CC] dark:hover:border-[#9379cc] transition-colors"
+                                                >
+                                                    <img
+                                                        src={`/api/media/${image.id}`}
+                                                        alt={image.filename}
+                                                        className={`w-full h-full object-cover ${deleting === image.id ? "opacity-50" : ""}`}
+                                                    />
+                                                </button>
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleDelete(image.id);
+                                                    }}
+                                                    disabled={deleting === image.id}
+                                                    className="absolute bottom-2 right-1 p-1.5 bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                                                >
+                                                    <Trash2 size={16} color="white" />
+                                                </button>
+                                            </div>
                                         ))}
                                     </div>
                                 )}

@@ -58,50 +58,6 @@ function CreateForm() {
     <div className="max-w-4xl mx-auto p-5">
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Cover Image */}
-        <div>
-          <label className="block text-lg font-semibold text-gray-700 dark:text-white mb-2">
-            Cover Image
-          </label>
-          {coverImageId ? (
-            <div className="relative w-full h-48 rounded-lg overflow-hidden border-2 border-gray-300 dark:border-gray-600">
-              <img
-                src={coverImageId}
-                alt="Cover"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute top-2 right-2 flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setIsImagePickerOpen(true)}
-                  className="p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <ImagePlus size={18} className="text-gray-700 dark:text-gray-300" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCoverImageId(null)}
-                  className="p-2 bg-white dark:bg-[#1a1a1a] rounded-full shadow-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <X size={18} className="text-gray-700 dark:text-gray-300" />
-                </button>
-              </div>
-            </div>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setIsImagePickerOpen(true)}
-              className="w-full h-48 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600
-                flex flex-col items-center justify-center gap-2
-                text-gray-500 dark:text-gray-400 hover:border-[#1272CC] dark:hover:border-[#9379cc]
-                hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors"
-            >
-              <ImagePlus size={32} />
-              <span>Add cover image</span>
-            </button>
-          )}
-        </div>
-
         {/* Title Input */}
         <div>
           <label
@@ -115,6 +71,7 @@ function CreateForm() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Enter your post title..."
+            maxLength={30}
             className="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600
               bg-white dark:bg-[#1a1a1a] text-gray-800 dark:text-white
               focus:outline-none focus:border-[#1272CC] dark:focus:border-[#9379cc]
@@ -138,6 +95,46 @@ function CreateForm() {
             rows={15}
           />
         </div>
+        {/* Cover Image */}
+        <div className="flex items-center justify-between">
+          {coverImageId ? (
+            <div className="relative w-24 h-24 rounded-lg overflow-hidden border-2 border-gray-300 dark:border-gray-600 group">
+              <img
+                src={coverImageId}
+                alt="Cover"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setIsImagePickerOpen(true)}
+                  className="p-1.5 bg-white/90 rounded-full hover:bg-white transition-colors"
+                >
+                  <ImagePlus size={14} className="text-gray-700" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCoverImageId(null)}
+                  className="p-1.5 bg-white/90 rounded-full hover:bg-red-500 hover:text-white transition-colors"
+                >
+                  <X size={14} className="text-gray-700" />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setIsImagePickerOpen(true)}
+              className="w-32 h-32 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600
+                flex flex-col items-center justify-center gap-1
+                text-gray-500 dark:text-gray-400 hover:border-[#1272CC] dark:hover:border-[#9379cc]
+                hover:text-[#1272CC] dark:hover:text-[#9379cc] transition-colors"
+            >
+              <ImagePlus size={20} />
+              <span className="text-xs">Cover Image</span>
+            </button>
+          )}
+        </div>
 
         {/* Tags */}
         <div>
@@ -149,6 +146,8 @@ function CreateForm() {
             onTagsChange={setSelectedTags}
           />
         </div>
+
+
 
         {/* Status */}
         <div>
@@ -209,24 +208,14 @@ function CreateForm() {
       {/* Preview Section */}
       {(title || content || coverImageId) && (
         <div className="mt-10 p-6 rounded-lg bg-white dark:bg-[#1a1a1a] shadow-lg">
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
-            Preview
-          </h2>
+          <h1 className="pb-3 text-center text-gray-800 dark:text-white text-3xl font-bold">Preview</h1>
           <div className="border-t-2 border-gray-300 dark:border-gray-600 pt-4">
-            {coverImageId && (
-              <div className="w-full h-64 rounded-lg overflow-hidden mb-4">
-                <img
-                  src={coverImageId}
-                  alt="Cover preview"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
             {title && (
-              <h3 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
+              <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4 text-center">
                 {title}
-              </h3>
+              </h2>
             )}
+
             {content && (
               <div className="prose dark:prose-invert prose-gray max-w-none">
                 <Markdown>{content}</Markdown>
@@ -251,9 +240,10 @@ export default function CreatePage() {
     <div className="min-h-screen bg-[#f0f0f0] dark:bg-[#0e0e0e]">
       <Header
         data={{
-          title: "Tupah",
-          subtext: "Welcome back",
+          title: "Create",
+          subtext: "Create",
           showLinks: true,
+          skinny: true,
         }}
       />
       <Suspense fallback={<Loading />}>

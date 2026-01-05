@@ -53,6 +53,7 @@ export function CookBlog({ onBack }: CookBlogProps) {
                                 type="text"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
+                                maxLength={30}
                                 onKeyDown={enterKeyHandler}
                                 placeholder="What should your blog be about?"
                                 className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
