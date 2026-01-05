@@ -52,7 +52,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
   return (
     <div className={`flex items-center justify-between w-full px-10 bg-[#ffffff] shadow-sm dark:bg-[#1c1c1c] h-fit p-3 z-10`}>
       {/* Logo - Left side */}
-      <div className="absolute left-10 hidden sm:flex items-center">
+      <div className="absolute left-10 hidden md:flex items-center">
         <Link className={`relative ${skinny ? 'w-12 h-12' : 'w-20 h-20'}`} href="/">
           <Image src="/pictures/owl_logo.png" fill alt="Logo" />
         </Link>
@@ -66,30 +66,26 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
           {!skinny ? title : subtext}
         </h1>
         {!skinny ? (
-          <h4 className="text-gray-600 dark:text-gray-300 italic text-center">
+          <h4 className="text-gray-600 dark:text-gray-300 text-xs md:text-1xl italic text-center">
             {subtext}
           </h4>
         ) : <div />}
 
       </div>
 
-      {/* Links - Right side */}
+      {/* Theme & Blogs - Left on mobile, Right on desktop */}
       {showLinks && (
-        <div className="absolute flex right-10 text-gray-800 dark:text-white gap-5 items-center font-semibold">
-          {/* <Link href="/about" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
-            About
-          </Link> */}
-
+        <div className="absolute flex left-2 md:left-auto md:right-28 text-gray-800 dark:text-white gap-2 md:gap-5 items-center font-semibold">
           <button
             type="button"
-            className="flex items-center justify-center w-10 h-10"
+            className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10"
             onClick={toggleTheme}
             aria-label="Toggle theme"
             aria-pressed={mounted ? isDark : undefined}
             title={mounted ? `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode` : 'Toggle theme'}>
             <AnimatePresence mode="wait" initial={false}>
               {!mounted ? (
-                <span className="w-5 h-5" aria-hidden />
+                <span className="w-4 h-4 md:w-5 md:h-5" aria-hidden />
               ) : theme === 'dark' ? (
                 <motion.div
                   key="sun"
@@ -98,7 +94,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
                   exit={{ rotate: 90, scale: 0, opacity: 0 }}
                   transition={{ duration: 0.2, ease: "easeInOut" }}
                 >
-                  <Sun className="w-5 h-5" />
+                  <Sun className="w-4 h-4 md:w-5 md:h-5" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -108,15 +104,21 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
                   exit={{ rotate: -90, scale: 0, opacity: 0 }}
                   transition={{ duration: 0.2, ease: "easeInOut" }}
                 >
-                  <Moon className="w-5 h-5" />
+                  <Moon className="w-4 h-4 md:w-5 md:h-5" />
                 </motion.div>
               )}
             </AnimatePresence>
           </button>
 
-          <Link href="/blog" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
+          <Link href="/blog" className="text-sm md:text-base hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
             Blogs
           </Link>
+        </div>
+      )}
+
+      {/* Login/Avatar - Always on the right */}
+      {showLinks && (
+        <div className="absolute flex right-4 md:right-10 text-gray-800 dark:text-white items-center font-semibold">
           {user ? (
             <div className="relative" ref={dropdownRef}>
               <button
@@ -164,7 +166,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
               )}
             </div>
           ) : (
-            <Link href="/login" className="hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
+            <Link href="/login" className="text-sm md:text-base hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
               Login
             </Link>
           )}

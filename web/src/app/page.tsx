@@ -164,7 +164,7 @@ export default function HomePage() {
       {/* Info Section */}
       <section className="relative">
         <div className="flex flex-col md:flex-row gap-10 py-20 px-10 md:px-20 drop-shadow-text-sm min-h-50 md:min-h-80">
-          <div className="flex-1 p-1 md:pr-40">
+          <div className="flex-1 p-3 bg-black/20 rounded-lg h-fit">
             <h2 className="text-white font-bold text-2xl mb-3 transition-colors">
               What you'll find here
             </h2>
@@ -173,7 +173,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="flex-1 md:text-right p-1 md:pl-40">
+          <div className="flex-1 p-3 bg-black/20 rounded-lg h-fit text-right">
             <h2 className="text-white font-bold text-2xl mb-3 transition-colors">
               Why Tupah?
             </h2>
