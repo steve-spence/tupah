@@ -1,8 +1,9 @@
-import React from 'react'
+import { Header } from '@/components/Header/Header'
 
 export default function PrivacyPage() {
     return (
         <div className="w-full bg-white dark:bg-[#212121]">
+            <Header data={{ title: "Privacy", subtext: "Privacy", skinny: true }} />
             <div className="px-6 py-12 max-w-3xl mx-auto text-base leading-relaxed text-black dark:text-white">
                 <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
                 <section id="policy" className="mb-12">
@@ -70,6 +71,5 @@ export default function PrivacyPage() {
                 </section>
             </div>
         </div>
-
     )
 }

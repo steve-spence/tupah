@@ -20,6 +20,7 @@ export function NavIcon({ data, size = "16", onClick }: Props) {
           <Image
             src={imageSrc}
             alt={title ?? "Blog cover"}
+            sizes="25vw"
             className={`object-contain p-3`}
             fill
           />

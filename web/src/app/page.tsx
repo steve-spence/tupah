@@ -44,20 +44,6 @@ export default function HomePage() {
     return () => clearInterval(interval);
   }, [backgroundImages.length]);
 
-  // Add canonical URL for home page
-  useEffect(() => {
-    const canonicalUrl = "https://tupah.me";
-    let canonicalLink = document.querySelector(
-      'link[rel="canonical"]'
-    ) as HTMLLinkElement;
-    if (!canonicalLink) {
-      canonicalLink = document.createElement("link");
-      canonicalLink.rel = "canonical";
-      document.head.appendChild(canonicalLink);
-    }
-    canonicalLink.href = canonicalUrl;
-  }, []);
-
   return (
     <div className="flex flex-col">
       {/* Fixed Background Images */}
@@ -73,8 +59,9 @@ export default function HomePage() {
                   className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === currentImageIndex ? "opacity-100" : "opacity-0"}`}
                   style={{ filter: 'blur(8px)' }}
                   fill
+                  sizes="50vw"
                   alt="Artwork by andsproject"
-                  priority={index === 0}
+                //priority={index === 0}
                 />
                 {/* Light mode - Sharp layer with masked edges */}
                 <Image
@@ -82,8 +69,10 @@ export default function HomePage() {
                   className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === currentImageIndex ? "opacity-100" : "opacity-0"}`}
                   style={{ maskImage: 'radial-gradient(ellipse 80% 80% at center, black 60%, transparent 100%)' }}
                   fill
+                  sizes="50vw"
                   alt="Artwork by andsproject"
-                  priority={index === 0}
+                  loading="eager"
+                //priority={index === 0}
                 />
                 {/* Dark mode - Blurred background layer */}
                 <Image
@@ -91,8 +80,9 @@ export default function HomePage() {
                   className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === currentImageIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
                   style={{ filter: 'blur(8px)' }}
                   fill
+                  sizes="50vw"
                   alt="Artwork by andsproject"
-                  priority={index === 0}
+                //priority={index === 0}
                 />
                 {/* Dark mode - Sharp layer with masked edges */}
                 <Image
@@ -100,8 +90,10 @@ export default function HomePage() {
                   className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === currentImageIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
                   style={{ maskImage: 'radial-gradient(ellipse 80% 80% at center, black 60%, transparent 100%)' }}
                   fill
+                  sizes="50vw"
                   alt="Artwork by andsproject"
-                  priority={index === 0}
+                  loading="eager"
+                //priority={index === 0}
                 />
               </React.Fragment>
             ))}
@@ -119,8 +111,9 @@ export default function HomePage() {
                     className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === nextIndex ? "opacity-100" : "opacity-0"}`}
                     style={{ filter: 'blur(8px)' }}
                     fill
+                    sizes="50vw"
                     alt="Artwork by andsproject"
-                    priority={index === 1}
+                  //priority={index === 1}
                   />
                   {/* Light mode - Sharp layer with masked edges */}
                   <Image
@@ -128,8 +121,10 @@ export default function HomePage() {
                     className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === nextIndex ? "opacity-100" : "opacity-0"}`}
                     style={{ maskImage: 'radial-gradient(ellipse 80% 80% at center, black 60%, transparent 100%)' }}
                     fill
+                    sizes="50vw"
                     alt="Artwork by andsproject"
-                    priority={index === 1}
+                    loading="eager"
+                  //priority={index === 1}
                   />
                   {/* Dark mode - Blurred background layer */}
                   <Image
@@ -137,8 +132,9 @@ export default function HomePage() {
                     className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === nextIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
                     style={{ filter: 'blur(8px)' }}
                     fill
+                    sizes="50vw"
                     alt="Artwork by andsproject"
-                    priority={index === 1}
+                  //priority={index === 1}
                   />
                   {/* Dark mode - Sharp layer with masked edges */}
                   <Image
@@ -146,8 +142,10 @@ export default function HomePage() {
                     className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === nextIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
                     style={{ maskImage: 'radial-gradient(ellipse 80% 80% at center, black 60%, transparent 100%)' }}
                     fill
+                    sizes="50vw"
                     alt="Artwork by andsproject"
-                    priority={index === 1}
+                    loading="eager"
+                  //priority={index === 1}
                   />
                 </React.Fragment>
               );
@@ -264,7 +262,7 @@ export default function HomePage() {
             Featured Posts
           </h1>
           <div className="w-full max-w-7xl px-5">
-            <Swiper
+            {featuredPosts.length > 0 && (<Swiper
               modules={[Navigation, Pagination, Autoplay]}
               spaceBetween={0}
               slidesPerView={1}
@@ -286,6 +284,7 @@ export default function HomePage() {
                 </SwiperSlide>
               ))}
             </Swiper>
+            )}
           </div>
         </div>
       </section>
@@ -300,6 +299,7 @@ export default function HomePage() {
               src="/pictures/brook.png"
               alt="Brook, One Piece"
               fill
+              sizes="50vw"
               className="rounded-4xl object-contain"
             />
           </div>

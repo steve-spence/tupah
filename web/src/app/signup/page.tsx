@@ -177,13 +177,14 @@ export default function SignupPage() {
                                     htmlFor="username"
                                     className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                                 >
-                                    Username
+                                    Username (At Least 5 Characters)
                                 </label>
                                 <input
                                     id="username"
                                     type="text"
                                     required
                                     value={username}
+                                    minLength={5}
                                     onChange={(e) => setUsername(e.target.value)}
                                     className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#2a2a2a] text-black dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-purple-500 focus:border-transparent transition-colors"
                                     placeholder="friedliver321"
@@ -313,7 +314,7 @@ export default function SignupPage() {
 
                     <p className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
                         By signing up, you agree to our{" "}
-                        <Link href="/terms" className="hover:underline">
+                        <Link href="/privacy" className="hover:underline">
                             Terms of Service
                         </Link>{" "}
                         and{" "}

@@ -22,6 +22,8 @@ export default function ImageCarousel({ verticalImages, wideImages }: ImageCarou
     }, [])
 
     // Only run the carousel when at md+
+    // Note: This should be done with tailwind and just making one div hidden on md: breakpoint
+    // but we learn from our mistakes
     useEffect(() => {
         const whichImage = isMd ? wideImages.length : verticalImages.length
         const interval = setInterval(() => {
@@ -38,7 +40,9 @@ export default function ImageCarousel({ verticalImages, wideImages }: ImageCarou
         >
             <Image
                 fill
+                loading="eager"
                 src={src}
+                sizes="50vw"
                 alt="Blog hero"
                 className="object-cover transition-opacity duration-700 ease-in-out"
             />

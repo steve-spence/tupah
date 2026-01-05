@@ -1,23 +1,10 @@
-// Metadata configuration for canonical URLs and SEO
 import { Metadata } from 'next';
 
-const baseUrl = 'https://tupah.me';
+const BASE_URL = 'https://tupah.me';
 
-export function generateCanonicalMetadata(path: string): Metadata {
-    const canonicalUrl = `${baseUrl}${path}`;
-
-    return {
-        alternates: {
-            canonical: canonicalUrl,
-        },
-        robots: {
-            index: true,
-            follow: true,
-        },
-        other: {
-            'canonical': canonicalUrl,
-        }
-    };
+function buildCanonicalUrl(path: string) {
+    // Make sure path starts with /
+    return `${BASE_URL}${path.startsWith('/') ? path : '/' + path}`;
 }
 
 export function generatePageMetadata(
@@ -25,18 +12,13 @@ export function generatePageMetadata(
     description: string,
     path: string
 ): Metadata {
-    const canonicalUrl = `${baseUrl}${path}`;
+    const canonicalUrl = buildCanonicalUrl(path);
 
     return {
         title,
         description,
-        alternates: {
-            canonical: canonicalUrl,
-        },
-        robots: {
-            index: true,
-            follow: true,
-        },
+        alternates: { canonical: canonicalUrl },
+        robots: { index: true, follow: true },
         openGraph: {
             title,
             description,

@@ -16,6 +16,7 @@ export async function GET() {
         .eq("id", user.id)
         .maybeSingle();
 
+
     if (error) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
@@ -24,7 +25,7 @@ export async function GET() {
         return NextResponse.json({ error: "Profile not found" }, { status: 404 });
     }
 
-    return NextResponse.json(profile);
+    return NextResponse.json({ ...profile, email: user.email, created_at: user.created_at });
 }
 
 // PUT - Update current user's profile
@@ -37,9 +38,11 @@ export async function PUT(request: Request) {
     }
 
     const body = await request.json();
-    const { avatar_url } = body;
+    const { avatar_url, username } = body;
+    const updateData: Record<string, any> = {};
 
     // Validate avatar_url is one of the allowed options
+    // This will change in the future
     const allowedAvatars = [
         "/avatars/avatar1.png",
         "/avatars/avatar2.png",
@@ -49,13 +52,30 @@ export async function PUT(request: Request) {
         "/avatars/avatar6.png",
     ];
 
+    // username updating
+    const { data: existingUser, error: usernameError } = await supabase
+        .from("profiles")
+        .select("id")
+        .eq("username", username)
+        .maybeSingle();
+
+    if (usernameError) {
+        return NextResponse.json({ error: usernameError.message }, { status: 500 });
+    }
+    if (existingUser && existingUser.id !== user.id) {
+        return NextResponse.json({ error: "Username is already taken" }, { status: 500 })
+    }
+
     if (avatar_url && !allowedAvatars.includes(avatar_url)) {
         return NextResponse.json({ error: "Invalid avatar" }, { status: 400 });
     }
 
+    if (avatar_url) updateData.avatar_url = avatar_url;
+    if (username) updateData.username = username;
+
     const { data, error } = await supabase
         .from("profiles")
-        .update({ avatar_url })
+        .update(updateData)
         .eq("id", user.id)
         .select()
         .single();

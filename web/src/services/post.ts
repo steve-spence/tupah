@@ -56,7 +56,6 @@ export async function getRandomPosts() {
     if (!res.ok) {
         throw new Error(data.error || "Could not get from /api/posts");
     }
-    console.log("data: ", data);
     return data;
 }
 

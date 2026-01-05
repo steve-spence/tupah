@@ -65,7 +65,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
       {/* Logo - Left side */}
       <div className="absolute left-10 hidden md:flex items-center">
         <Link className={`relative ${skinny ? 'w-12 h-12' : 'w-20 h-20'}`} href="/">
-          <Image src="/pictures/owl_logo.png" fill alt="Logo" />
+          <Image src="/pictures/owl_logo.png" fill sizes="50vw" alt="Logo" />
         </Link>
       </div>
       {/* Left spacer to balance the layout */}

@@ -109,7 +109,7 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                 />
                 {showAuthPrompt && (
                     <p className="text-gray-700 dark:text-gray-300 text-sm mt-2">
-                        You need to have an account to comment. Do you want to{" "}
+                        You need to have an account to <b>Comment.</b> Do you want to{" "}
                         <Link href="/login" className="text-[#9379cc] hover:underline font-semibold">
                             sign up
                         </Link>
