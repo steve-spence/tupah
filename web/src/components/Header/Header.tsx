@@ -26,14 +26,25 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
 
   useEffect(() => {
     if (user) {
+      // Load cached avatar immediately for instant display
+      const cached = localStorage.getItem("avatar_url");
+      if (cached) {
+        setAvatar(cached);
+      }
+
+      // Fetch fresh data in background to keep cache updated
       fetch("/api/profile")
         .then(res => res.json())
         .then(data => {
           if (data.avatar_url) {
             setAvatar(data.avatar_url);
+            localStorage.setItem("avatar_url", data.avatar_url);
           }
         })
         .catch(() => { });
+    } else {
+      // Clear cache on logout
+      localStorage.removeItem("avatar_url");
     }
   }, [user]);
 

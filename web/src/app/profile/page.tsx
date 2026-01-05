@@ -63,6 +63,8 @@ export default function ProfilePage() {
 
             if (res.ok) {
                 setCurrentAvatar(selectedAvatar);
+                // Update localStorage cache so Header shows new avatar immediately
+                localStorage.setItem("avatar_url", selectedAvatar);
             } else {
                 const data = await res.json();
                 alert(data.error || "Failed to update avatar");
