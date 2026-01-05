@@ -1,8 +1,5 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { db } from "@/db";
-import { images } from "@/db/schema";
-import { eq, desc } from "drizzle-orm";
 
 export async function GET() {
     const supabase = await createClient();
@@ -12,11 +9,15 @@ export async function GET() {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const userImages = await db
-        .select()
-        .from(images)
-        .where(eq(images.userId, user.id))
-        .orderBy(desc(images.createdAt));
+    const { data: userImages, error } = await supabase
+        .from("images")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+
+    if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
     return NextResponse.json({ images: userImages });
 }

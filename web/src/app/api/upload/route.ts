@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { db } from "@/db";
-import { images } from "@/db/schema";
 
 function generateShortId(length: number = 8): string {
     const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -50,14 +48,22 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Generate short ID and save to database
+    // Generate short ID and save to database using Supabase client
     const shortId = generateShortId();
-    await db.insert(images).values({
-        id: shortId,
-        userId: user.id,
-        filename: file.name,
-        storagePath: data.path,
-    });
+    const { error: insertError } = await supabase
+        .from("images")
+        .insert({
+            id: shortId,
+            user_id: user.id,
+            filename: file.name,
+            storage_path: data.path,
+        });
+
+    if (insertError) {
+        // Clean up uploaded file if DB insert fails
+        await supabase.storage.from("post-images").remove([data.path]);
+        return NextResponse.json({ error: insertError.message }, { status: 500 });
+    }
 
     // Return short URL
     const shortUrl = `/api/media/${shortId}`;
