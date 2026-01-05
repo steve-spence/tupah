@@ -5,7 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 export function NavIcon({ data, size = "16", onClick }: Props) {
-  const { title, cover_image_id, link } = data;
+  const { title, cover_image_id, cover_image_url, link } = data;
+
+  // Use direct Supabase URL if available, otherwise fall back to API route
+  const imageSrc = cover_image_url
+    ?? (cover_image_id ? `/api/media/${cover_image_id}` : null)
+    ?? "/pictures/blog/default.png";
 
   const inner = (
     <div
@@ -13,11 +18,10 @@ export function NavIcon({ data, size = "16", onClick }: Props) {
       <div className="cursor-pointer flex flex-col items-center justify-center h-fit rounded-2xl">
         <div className="relative w-full h-30 rounded-3xl overflow-hidden">
           <Image
-            src={cover_image_id ? `/api/media/${cover_image_id}` : "/pictures/blog/default.png"}
+            src={imageSrc}
             alt={title ?? "Blog cover"}
             className={`object-contain p-3`}
             fill
-            unoptimized // working on this bad solution but i dont have time to set up a cdn and convet my images to webp etc..
           />
         </div>
         <p className="relative text-1xl text-center font-bold">{title}</p>
@@ -38,7 +42,8 @@ export function NavIcon({ data, size = "16", onClick }: Props) {
 export interface NavIconProps {
   id: string;
   title: string;
-  cover_image_id: string;
+  cover_image_id?: string;
+  cover_image_url?: string | null;
   link?: string;
 }
 

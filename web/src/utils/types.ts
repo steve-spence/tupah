@@ -14,6 +14,7 @@ export type Post = {
     updated_at: Date;
     status: PostStatus;
     cover_image_id: string | null;
+    cover_image_url?: string | null;
     views: number;
     likes: number;
     comments: number;

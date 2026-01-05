@@ -1,5 +1,3 @@
-export const runtime = 'nodejs';
-
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { db } from "@/db";
@@ -11,16 +9,18 @@ export async function GET(
     { params }: { params: Promise<{ id: string }> }
 ) {
     const { id } = await params;
+    const supabase = await createClient();
+    console.log("here");
+    const { data: image, error } = await supabase
+        .from("images")
+        .select("*")
+        .eq("id", id)
+        .single()
 
-    const image = await db.query.images.findFirst({
-        where: eq(images.id, id),
-    });
-
-    if (!image) {
+    if (!image || error) {
         return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
 
-    const supabase = await createClient();
     const { data: { publicUrl } } = supabase.storage
         .from("post-images")
         .getPublicUrl(image.storagePath);

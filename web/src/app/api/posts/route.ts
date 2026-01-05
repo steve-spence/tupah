@@ -1,6 +1,12 @@
 import { NextResponse, NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
+// Helper to construct Supabase public URL
+function getPublicImageUrl(storagePath: string | null): string | null {
+    if (!storagePath) return null;
+    return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/post-images/${storagePath}`;
+}
+
 // Get all posts by the authenticated user
 export async function GET() {
     const supabase = await createClient();
@@ -12,16 +18,18 @@ export async function GET() {
 
     const { data, error } = await supabase
         .from("posts")
-        .select("*, profiles:user_id(username)")
+        .select("*, profiles:user_id(username), images:cover_image_id(storage_path)")
         .eq("user_id", user.id);
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
 
-    // Flatten the username into each post
+    // Flatten the username and add cover_image_url
     const postsWithUsername = data?.map(post => ({
         ...post,
         username: post.profiles?.username,
-        profiles: undefined
+        cover_image_url: getPublicImageUrl(post.images?.storage_path),
+        profiles: undefined,
+        images: undefined
     })) ?? [];
 
     return NextResponse.json(postsWithUsername);

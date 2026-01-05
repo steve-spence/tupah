@@ -20,6 +20,12 @@ function isUUID(str: string) {
     return uuidRegex.test(str);
 }
 
+// Helper to construct Supabase public URL
+function getPublicImageUrl(storagePath: string | null): string | null {
+    if (!storagePath) return null;
+    return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/post-images/${storagePath}`;
+}
+
 export async function GET(request: Request, { params }: RouteParams) {
     const slugOrId = (await params).slug;
     const { searchParams } = new URL(request.url);
@@ -34,7 +40,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     if (username) {
         const { data, error } = await supabase
             .from("posts")
-            .select("*, profiles:user_id(username)")
+            .select("*, profiles:user_id(username), images:cover_image_id(storage_path)")
             .eq(column, slugOrId)
             .maybeSingle();
 
@@ -46,13 +52,19 @@ export async function GET(request: Request, { params }: RouteParams) {
             return NextResponse.json({ error: "Post not found" }, { status: 404 });
         }
 
-        return NextResponse.json({ ...data, username: data.profiles?.username, profiles: undefined });
+        return NextResponse.json({
+            ...data,
+            username: data.profiles?.username,
+            cover_image_url: getPublicImageUrl(data.images?.storage_path),
+            profiles: undefined,
+            images: undefined
+        });
     }
 
     // No username provided, still include username in response
     const { data, error } = await supabase
         .from("posts")
-        .select("*, profiles:user_id(username)")
+        .select("*, profiles:user_id(username), images:cover_image_id(storage_path)")
         .eq(column, slugOrId)
         .maybeSingle();
 
@@ -64,7 +76,13 @@ export async function GET(request: Request, { params }: RouteParams) {
         return NextResponse.json({ error: "Post not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ ...data, username: data.profiles?.username, profiles: undefined });
+    return NextResponse.json({
+        ...data,
+        username: data.profiles?.username,
+        cover_image_url: getPublicImageUrl(data.images?.storage_path),
+        profiles: undefined,
+        images: undefined
+    });
 }
 
 export async function PUT(request: Request, { params }: RouteParams) {
