@@ -1,4 +1,5 @@
-export const runtime = 'nodejs'
+export const runtime = 'nodejs';
+
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { db } from "@/db";
@@ -24,7 +25,13 @@ export async function GET(
         .from("post-images")
         .getPublicUrl(image.storagePath);
 
-    return NextResponse.redirect(publicUrl);
+    return new NextResponse(null, {
+        status: 302,
+        headers: {
+            Location: publicUrl,
+            'Cache-Control': 'public, max-age=31536000, immutable',
+        },
+    });
 }
 
 export async function DELETE(
