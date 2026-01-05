@@ -10,6 +10,7 @@ import SortSelect, { SortOption } from "./SortSelect";
 import { Post } from "@/utils/types";
 import ConfirmDialog from "@/components/ConfirmDialog/ConfirmDialog";
 import Loading from "@/components/Loading/Loading";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function DashboardPage() {
     const router = useRouter();
@@ -102,53 +103,74 @@ export default function DashboardPage() {
                     <SortSelect value={sortBy} onChange={setSortBy} />
                 </div>
 
-                <div id="user-posts" className="p-4 space-y-4">
+                <div id="user-posts" className="p-4 flex flex-col gap-2">
                     {loading && <Loading />}
                     {!loading && sortedPosts.length === 0 && <p>No posts yet.</p>}
                     {sortedPosts.map((post) => (
                         <div
                             key={post.id}
                             onClick={() => router.push(`/blog/${post.username}/${post.slug}`)}
-                            className="p-4 bg-white text-black dark:text-white dark:bg-[#1a1a1a] rounded-lg shadow cursor-pointer hover:shadow-md transition-shadow flex justify-between items-center">
-                            <div className="flex items-center gap-4">
-                                <button
-                                    className="p-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-500 dark:hover:text-purple-400 transition-colors"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        router.push(`/edit?id=${post.id}`);
-                                    }}>
-                                    <Pencil size={16} />
-                                </button>
-                                <div>
-                                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-                                        {post.title}
-                                    </h3>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                                        {new Date(post.created_at).toLocaleDateString()}
-                                    </p>
-                                </div>
+                            className="p-2 bg-white text-black dark:text-white dark:bg-[#1a1a1a] 
+                            rounded-lg shadow cursor-pointer hover:shadow-md flex
+                            justify-between items-center gap-6 hover:scale-101 transition-all!">
+                            <div className="flex items-center gap-2 min-w-0">
+                                <Tooltip title="Edit Post" arrow>
+                                    <button
+                                        className="p-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-blue-500 dark:hover:text-purple-400 transition-colors"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            router.push(`/edit?id=${post.id}`);
+                                        }}>
+                                        <Pencil size={16} />
+                                    </button>
+                                </Tooltip>
+                                <Tooltip title={post.title} arrow>
+                                    <div className="min-w-0 max-w-full">
+                                        <h3 className="truncate text-sm md:text-lg font-semibold text-gray-800 dark:text-white">
+                                            {post.title}
+                                        </h3>
+                                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                                            {new Date(post.created_at).toLocaleDateString()}
+                                        </p>
+                                    </div>
+                                </Tooltip>
                             </div>
-                            <div className="flex gap-4 text-sm text-gray-500 dark:text-gray-400">
-                                <span className="flex items-center gap-1">
-                                    {post.status}
-                                </span>
-                                <span className="flex items-center gap-1">
-                                    <Eye size={16} /> {post.views ?? 0}
-                                </span>
-                                <span className="flex items-center gap-1">
-                                    <Heart size={16} /> {post.likes ?? 0}
-                                </span>
-                                <span className="flex items-center gap-1">
-                                    <MessageCircle size={16} /> {post.comments ?? 0}
-                                </span>
-                                <button
-                                    className="flex items-center gap-1 hover:text-red-500 transition-colors"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        setDeletePostId(post.id);
-                                    }}>
-                                    <Trash2 size={16} />
-                                </button>
+                            <div className="flex gap-2 md:gap-4 text-sm text-gray-500 dark:text-gray-400">
+                                <Tooltip title="Post Status (only published posts are public)" arrow>
+                                    <span className="flex items-center gap-1 font-bold text-white">
+                                        <span className="sm:hidden">
+                                            {post.status.charAt(0).toUpperCase()}
+                                        </span>
+                                        <span className="hidden sm:inline">
+                                            {post.status.charAt(0).toUpperCase() + post.status.substring(1,)}
+                                        </span>
+                                    </span>
+                                </Tooltip>
+                                <Tooltip title="Page Visits" arrow>
+                                    <span className="flex items-center gap-1">
+                                        <Eye size={16} color="#ffffff" /> {post.views ?? 0}
+                                    </span>
+                                </Tooltip>
+                                <Tooltip title="Likes" arrow>
+                                    <span className="flex items-center gap-1">
+                                        <Heart size={16} color="red" /> {post.likes ?? 0}
+                                    </span>
+                                </Tooltip>
+                                <Tooltip title="Comments" arrow>
+                                    <span className="flex items-center gap-1">
+                                        <MessageCircle size={16} color="white" /> {post.comments ?? 0}
+                                    </span>
+                                </Tooltip>
+                                <Tooltip title="Delete Post">
+                                    <button
+                                        className="flex items-center gap-1 hover:text-red-500 transition-colors"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setDeletePostId(post.id);
+                                        }}>
+                                        <Trash2 size={16} />
+                                    </button>
+                                </Tooltip>
                             </div>
                         </div>
                     ))}
