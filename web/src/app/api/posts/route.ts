@@ -18,7 +18,7 @@ export async function GET() {
 
     const { data, error } = await supabase
         .from("posts")
-        .select("*, profiles:user_id(username), images:cover_image_id(storage_path)")
+        .select("*, profiles!user_id(username), images!cover_image_id(storage_path)")
         .eq("user_id", user.id);
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });

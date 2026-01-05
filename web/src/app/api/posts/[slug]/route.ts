@@ -40,7 +40,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     if (username) {
         const { data, error } = await supabase
             .from("posts")
-            .select("*, profiles:user_id(username), images:cover_image_id(storage_path)")
+            .select("*, profiles!user_id(username), images!cover_image_id(storage_path)")
             .eq(column, slugOrId)
             .maybeSingle();
 
@@ -64,7 +64,7 @@ export async function GET(request: Request, { params }: RouteParams) {
     // No username provided, still include username in response
     const { data, error } = await supabase
         .from("posts")
-        .select("*, profiles:user_id(username), images:cover_image_id(storage_path)")
+        .select("*, profiles!user_id(username), images!cover_image_id(storage_path)")
         .eq(column, slugOrId)
         .maybeSingle();
 

@@ -14,7 +14,7 @@ export async function GET() {
     // Fetch posts with username, image storage path, and shuffle on server
     const { data, error } = await supabase
         .from("posts")
-        .select("*, profiles:user_id(username), images:cover_image_id(storage_path)")
+        .select("*, profiles!user_id(username), images!cover_image_id(storage_path)")
         .limit(50);
 
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });

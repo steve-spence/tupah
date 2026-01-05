@@ -61,10 +61,41 @@ export default function DashboardPage() {
             <div className="flex-1 dark:bg-[#212121]">
                 <div className="flex flex-row gap-5 items-center justify-between px-5 py-3 dark:text-gray-100 text-black">
                     <div className="flex gap-3">
-                        <Button variant="outlined" onClick={() => { router.push('/') }}>
+                        <Button variant="outlined" onClick={() => { router.push('/') }} sx={{
+                            borderColor: '#1272CC',
+                            color: '#1272CC',
+                            '&:hover': {
+                                borderColor: '#5994cc',
+                                backgroundColor: 'rgba(18, 114, 204, 0.1)',
+                            },
+                            '.dark &': {
+                                borderColor: '#9379cc',
+                                color: '#9379cc',
+                            },
+                            '.dark &:hover': {
+                                borderColor: '#b49ddb',
+                                backgroundColor: 'rgba(147, 121, 204, 0.1)',
+                            },
+                        }}>
                             Home
                         </Button>
-                        <Button variant="outlined" onClick={() => { router.push('/kitchen') }}>
+                        <Button variant="outlined" onClick={() => { router.push('/kitchen') }}
+                            sx={{
+                                borderColor: '#1272CC',
+                                color: '#1272CC',
+                                '&:hover': {
+                                    borderColor: '#5994cc',
+                                    backgroundColor: 'rgba(18, 114, 204, 0.1)',
+                                },
+                                '.dark &': {
+                                    borderColor: '#9379cc',
+                                    color: '#9379cc',
+                                },
+                                '.dark &:hover': {
+                                    borderColor: '#b49ddb',
+                                    backgroundColor: 'rgba(147, 121, 204, 0.1)',
+                                },
+                            }}>
                             Go to Kitchen
                         </Button>
                     </div>

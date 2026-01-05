@@ -21,9 +21,10 @@ export async function GET(
         return NextResponse.json({ error: "Image not found" }, { status: 404 });
     }
 
+    // Supabase returns snake_case column names
     const { data: { publicUrl } } = supabase.storage
         .from("post-images")
-        .getPublicUrl(image.storagePath);
+        .getPublicUrl(image.storage_path);
 
     return new NextResponse(null, {
         status: 302,

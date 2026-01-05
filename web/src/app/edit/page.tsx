@@ -223,8 +223,23 @@ function EditForm() {
                         type="button"
                         variant="outlined"
                         onClick={() => router.push("/dashboard")}
-                        className="px-8 py-3 text-lg font-semibold rounded-lg border-2 border-gray-400
-                                text-gray-700 dark:text-gray-300">
+                        className="px-8 py-3 text-lg font-semibold rounded-lg"
+                        sx={{
+                            borderColor: '#1272CC',
+                            color: '#1272CC',
+                            '&:hover': {
+                                borderColor: '#5994cc',
+                                backgroundColor: 'rgba(18, 114, 204, 0.1)',
+                            },
+                            '.dark &': {
+                                borderColor: '#9379cc',
+                                color: '#9379cc',
+                            },
+                            '.dark &:hover': {
+                                borderColor: '#b49ddb',
+                                backgroundColor: 'rgba(147, 121, 204, 0.1)',
+                            },
+                        }}>
                         Cancel
                     </Button>
                 </div>

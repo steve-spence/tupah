@@ -19,8 +19,8 @@ export async function GET() {
       slug,
       cover_image_id,
       views,
-      profiles:user_id (username),
-      images:cover_image_id (storage_path)
+      profiles!user_id (username),
+      images!cover_image_id (storage_path)
     `)
     .eq("status", "published")
     .order("views", { ascending: false })
