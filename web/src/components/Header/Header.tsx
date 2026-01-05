@@ -62,7 +62,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
 
       {/* Title*/}
       <div className="flex flex-col items-center justify-center flex-1">
-        <h1 className={`text-black dark:text-white font-extrabold mb-2 tracking-wide text-2xl sm:text-${skinny ? 3 : 5}xl text-center whitespace-nowrap`}>
+        <h1 className={`text-black dark:text-white font-extrabold mb-2 tracking-wide text-1xl sm:text-2xl md:text-3xl text-center whitespace-nowrap`}>
           {!skinny ? title : subtext}
         </h1>
         {!skinny ? (
