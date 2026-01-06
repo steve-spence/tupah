@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { createClient } from '@/utils/supabase/server'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -64,23 +65,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         },
     ]
 
-    // Fetch published blog posts from API
+    // Fetch published blog posts directly from database
     let blogPages: MetadataRoute.Sitemap = []
     try {
-        const res = await fetch(`${baseUrl}/api/sitemap/posts`, {
-            cache: 'no-store',
-        })
+        const supabase = await createClient()
 
-        if (res.ok) {
-            const publishedPosts: { slug: string; username: string; updatedAt: string }[] = await res.json()
+        const { data: posts, error } = await supabase
+            .from('posts')
+            .select('slug, updated_at, profiles:user_id(username)')
+            .eq('status', 'published')
 
-            blogPages = publishedPosts.map((post) => ({
-                url: `${baseUrl}/blog/${post.username}/${post.slug}`,
-                lastModified: post.updatedAt ? new Date(post.updatedAt) : new Date(),
+        if (!error && posts) {
+            blogPages = posts.map((post: any) => ({
+                url: `${baseUrl}/blog/${post.profiles?.username}/${post.slug}`,
+                lastModified: post.updated_at ? new Date(post.updated_at) : new Date(),
                 changeFrequency: 'weekly' as const,
                 priority: 0.6,
             }))
-            console.log('[sitemap] API returned %d published posts', publishedPosts.length)
         }
     } catch (error) {
         console.error('Failed to fetch posts for sitemap:', error)
