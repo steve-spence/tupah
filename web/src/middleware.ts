@@ -43,7 +43,7 @@ export function middleware(request: NextRequest) {
         const customHeader = request.headers.get("x-requested-with");
         if (customHeader !== "tupah-frontend") {
             return NextResponse.json(
-                { error: "YOU SHALL NOT PASS! WHY ARE YOU TRYING TO LOOK AT MY STUFF?" },
+                { error: "THOU SHALL NOT PASS! WHY ARE YOU TRYING TO LOOK AT MY STUFF?" },
                 { status: 403 }
             );
         }

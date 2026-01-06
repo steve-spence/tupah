@@ -7,7 +7,8 @@ import { useState, useEffect, useMemo } from "react";
 import { Eye, Heart, MessageCircle, Pencil, Trash2 } from "lucide-react";
 import Button from "@mui/material/Button";
 import SortSelect, { SortOption } from "./SortSelect";
-import { Post } from "@/utils/types";
+import DisplaySelect from "./DisplaySelect";
+import { Post, PostStatus } from "@/utils/types";
 import ConfirmDialog from "@/components/ConfirmDialog/ConfirmDialog";
 import Loading from "@/components/Loading/Loading";
 import Tooltip from "@mui/material/Tooltip";
@@ -17,6 +18,7 @@ export default function DashboardPage() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState<SortOption>("newest");
+    const [displayBy, setDisplayBy] = useState<PostStatus>("all");
     const [deletePostId, setDeletePostId] = useState<string | null>(null);
 
     const handleDeleteConfirm = () => {
@@ -34,8 +36,13 @@ export default function DashboardPage() {
             .finally(() => setLoading(false));
     }, []);
 
+
+    // filter and sort
     const sortedPosts = useMemo(() => {
-        const sorted = [...posts];
+        const filtered = displayBy === "all"
+            ? [...posts]
+            : posts.filter(post => post.status === displayBy);
+        const sorted = [...filtered];
         switch (sortBy) {
             case "newest":
                 return sorted.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
@@ -54,7 +61,7 @@ export default function DashboardPage() {
             default:
                 return sorted;
         }
-    }, [posts, sortBy]);
+    }, [posts, sortBy, displayBy]);
 
     return (
         <div className="min-h-screen flex flex-col">
@@ -100,7 +107,10 @@ export default function DashboardPage() {
                             Go to Kitchen
                         </Button>
                     </div>
-                    <SortSelect value={sortBy} onChange={setSortBy} />
+                    <div className="flex gap-3">
+                        <DisplaySelect value={displayBy} onChange={setDisplayBy} />
+                        <SortSelect value={sortBy} onChange={setSortBy} />
+                    </div>
                 </div>
 
                 <div id="user-posts" className="p-4 flex flex-col gap-2">

@@ -1,7 +1,7 @@
 // types.ts for db schema
 
 export type UUID = string;
-export type PostStatus = "draft" | "published" | "archived";
+export type PostStatus = "draft" | "published" | "archived" | "all";
 
 export type Post = {
     id: UUID;
