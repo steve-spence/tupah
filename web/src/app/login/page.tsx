@@ -218,7 +218,7 @@ export default function LoginPage() {
 
                     <p className="mt-8 text-center text-sm text-gray-500 dark:text-gray-400">
                         By signing in, you agree to our{" "}
-                        <Link href="/terms" className="hover:underline">
+                        <Link href="/privacy" className="hover:underline">
                             Terms of Service
                         </Link>{" "}
                         and{" "}

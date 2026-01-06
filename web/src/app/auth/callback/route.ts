@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
     await supabase
       .from('profiles')
       .upsert({
-        id: user,
+        id: user.id,
         username: tmpUsername,
         avatar_url: null,
         created_at: new Date(),
