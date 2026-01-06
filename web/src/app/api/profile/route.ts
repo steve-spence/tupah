@@ -52,6 +52,11 @@ export async function PUT(request: Request) {
         "/avatars/avatar6.png",
     ];
 
+    // Validate username length
+    if (username && username.length < 5) {
+        return NextResponse.json({ error: "Username must be at least 5 characters" }, { status: 400 });
+    }
+
     // username updating
     const { data: existingUser, error: usernameError } = await supabase
         .from("profiles")
@@ -63,7 +68,7 @@ export async function PUT(request: Request) {
         return NextResponse.json({ error: usernameError.message }, { status: 500 });
     }
     if (existingUser && existingUser.id !== user.id) {
-        return NextResponse.json({ error: "Username is already taken" }, { status: 500 })
+        return NextResponse.json({ error: "Username is already taken" }, { status: 409 })
     }
 
     if (avatar_url && !allowedAvatars.includes(avatar_url)) {
@@ -75,8 +80,7 @@ export async function PUT(request: Request) {
 
     const { data, error } = await supabase
         .from("profiles")
-        .update(updateData)
-        .eq("id", user.id)
+        .upsert({ id: user.id, ...updateData })
         .select()
         .single();
 

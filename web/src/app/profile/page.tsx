@@ -27,6 +27,7 @@ export default function ProfilePage() {
     const [saving, setSaving] = useState(false);
     const [username, setUsername] = useState<string>("");
     const [originalUsername, setOriginalUsername] = useState<string>("");
+    const [usernameError, setUsernameError] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [createdAt, setCreatedAt] = useState<string>("");
 
@@ -64,7 +65,14 @@ export default function ProfilePage() {
     const handleSave = async () => {
         if (!hasChanges) return;
 
+        // Validate username length
+        if (username.length < 5) {
+            setUsernameError("Username must be at least 5 characters");
+            return;
+        }
+
         setSaving(true);
+        setUsernameError("");
         try {
             const res = await fetch("/api/profile", {
                 method: "PUT",
@@ -82,7 +90,12 @@ export default function ProfilePage() {
                 if (selectedAvatar) localStorage.setItem("avatar_url", selectedAvatar);
             } else {
                 const data = await res.json();
-                alert(data.error || "Failed to update profile");
+                // Show username errors inline, other errors as alert
+                if (res.status === 409) {
+                    setUsernameError(data.error);
+                } else {
+                    alert(data.error || "Failed to update profile");
+                }
             }
         } catch (err) {
             alert("Failed to update profile");
@@ -118,7 +131,11 @@ export default function ProfilePage() {
                             fullWidth
                             placeholder="Update your unique username"
                             value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            onChange={(e) => {
+                                setUsername(e.target.value);
+                                setUsernameError("");
+                            }}
+                            error={!!usernameError}
                             slotProps={{ htmlInput: { minLength: 5 } }}
                             sx={{
                                 "& .MuiOutlinedInput-root": {
@@ -134,13 +151,16 @@ export default function ProfilePage() {
                                     },
                                 },
                                 "& .MuiOutlinedInput-notchedOutline": {
-                                    borderColor: "gray",
+                                    borderColor: usernameError ? "red" : "gray",
                                 },
                                 "&:hover .MuiOutlinedInput-notchedOutline": {
-                                    borderColor: "#9379cc",
+                                    borderColor: usernameError ? "red" : "#9379cc",
                                 },
                             }}
                         />
+                        {usernameError && (
+                            <p className="text-red-500 text-sm mt-1">{usernameError}</p>
+                        )}
 
 
                         <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 my-4">
