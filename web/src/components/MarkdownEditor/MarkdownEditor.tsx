@@ -1,9 +1,11 @@
 'use client'
 
-import { useRef, useState } from "react";
-import { Bold, Italic, Image, Link, Heading2, List, Code, Quote, HelpCircle } from "lucide-react";
+import { useRef, useState, useCallback } from "react";
+import { Bold, Italic, Image, Link, Heading2, List, Code, Quote, HelpCircle, Maximize2 } from "lucide-react";
 import Tooltip from "@mui/material/Tooltip";
 import ImagePicker from "@/components/ImagePicker/ImagePicker";
+import ImageResizeModal from "@/components/ImageResizeModal/ImageResizeModal";
+import { parseImageAtCursor, buildImageMarkdown, ImageMatch } from "@/utils/imageMarkdown";
 
 interface MarkdownEditorProps {
     value: string;
@@ -20,6 +22,27 @@ export default function MarkdownEditor({
 }: MarkdownEditorProps) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const [showImagePicker, setShowImagePicker] = useState(false);
+    const [showResizeModal, setShowResizeModal] = useState(false);
+    const [selectedImage, setSelectedImage] = useState<ImageMatch | null>(null);
+    const [cursorOnImage, setCursorOnImage] = useState<ImageMatch | null>(null);
+
+    // Check if cursor is on an image and update state
+    const checkCursorPosition = useCallback(() => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+
+        const cursorPos = textarea.selectionStart;
+        const imageMatch = parseImageAtCursor(value, cursorPos);
+        setCursorOnImage(imageMatch);
+    }, [value]);
+
+    // Open resize modal for the image at cursor
+    const handleResizeClick = () => {
+        if (cursorOnImage) {
+            setSelectedImage(cursorOnImage);
+            setShowResizeModal(true);
+        }
+    };
 
     const insertFormatting = (before: string, after: string = before) => {
         const textarea = textareaRef.current;
@@ -52,6 +75,40 @@ export default function MarkdownEditor({
         insertFormatting(`![image](${url})`, "");
     };
 
+    // Handle double-click on textarea to detect image markdown
+    const handleDoubleClick = () => {
+        const textarea = textareaRef.current;
+        if (!textarea) return;
+
+        const cursorPos = textarea.selectionStart;
+        const imageMatch = parseImageAtCursor(value, cursorPos);
+        console.log(imageMatch);
+        if (imageMatch) {
+            setSelectedImage(imageMatch);
+            setShowResizeModal(true);
+        }
+    };
+
+    // Handle image resize save
+    const handleResizeSave = (width: number | null, height: number | null) => {
+        if (!selectedImage) return;
+
+        const newMarkdown = buildImageMarkdown(
+            selectedImage.alt,
+            selectedImage.url,
+            width,
+            height
+        );
+
+        const newText =
+            value.substring(0, selectedImage.startIndex) +
+            newMarkdown +
+            value.substring(selectedImage.endIndex);
+
+        onChange(newText);
+        setSelectedImage(null);
+    };
+
     const toolbarButtons = [
         { icon: Bold, action: () => insertFormatting("**"), title: "Bold" },
         { icon: Italic, action: () => insertFormatting("*"), title: "Italic" },
@@ -80,6 +137,20 @@ export default function MarkdownEditor({
                         </button>
                     </Tooltip>
                 ))}
+                {cursorOnImage && (
+                    <Tooltip title="Resize Image" arrow>
+                        <button
+                            type="button"
+                            onClick={handleResizeClick}
+                            className="p-2 rounded bg-[#1272CC] dark:bg-[#9379cc] text-white
+                                hover:bg-[#5994cc] dark:hover:bg-[#b49ddb]
+                                transition-colors flex items-center gap-1"
+                        >
+                            <Maximize2 size={18} />
+                            <span className="text-sm">Resize</span>
+                        </button>
+                    </Tooltip>
+                )}
                 <Tooltip title="Markdown Guide" arrow>
                     <a
                         href="https://www.markdownguide.org/basic-syntax/"
@@ -99,6 +170,9 @@ export default function MarkdownEditor({
                 ref={textareaRef}
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
+                onClick={checkCursorPosition}
+                onKeyUp={checkCursorPosition}
+                onDoubleClick={handleDoubleClick}
                 placeholder={placeholder}
                 rows={rows}
                 className="w-full px-4 py-3 rounded-b-lg border-2 border-gray-300 dark:border-gray-600
@@ -107,11 +181,26 @@ export default function MarkdownEditor({
                     transition-colors resize-none"
                 required
             />
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                {cursorOnImage ? "Click 'Resize Image' in toolbar to resize" : "Click on an image link to resize it"}
+            </p>
 
             <ImagePicker
                 isOpen={showImagePicker}
                 onClose={() => setShowImagePicker(false)}
                 onSelect={handleImageSelect}
+            />
+
+            <ImageResizeModal
+                isOpen={showResizeModal}
+                onClose={() => {
+                    setShowResizeModal(false);
+                    setSelectedImage(null);
+                }}
+                imageUrl={selectedImage?.url || ''}
+                currentWidth={selectedImage?.width}
+                currentHeight={selectedImage?.height}
+                onSave={handleResizeSave}
             />
         </div>
     );
