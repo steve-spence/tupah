@@ -9,9 +9,34 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     const supabase = await createClient()
-    await supabase.auth.exchangeCodeForSession(code)
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+
+    if (error) {
+      console.log('Auth error:', error)
+      return NextResponse.redirect(`${origin}/login`)
+    }
+
+    const user = data.user;
+    if (!user) {
+      return NextResponse.redirect(`${origin}/login`)
+    }
+
+    const tmpUsername = user.email?.substring(0, user.email.indexOf('@'))
+
+    // create user profile
+    await supabase
+      .from('profiles')
+      .upsert({
+        id: user,
+        username: tmpUsername,
+        avatar_url: null,
+        created_at: new Date(),
+      }, {
+        onConflict: 'id',
+      })
   }
 
+
   // Redirect to dashboard after successful authentication
-  return NextResponse.redirect(`${origin}/kitchen`)
+  return NextResponse.redirect(`${origin}/profile`)
 }
