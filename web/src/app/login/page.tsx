@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { Header } from "@/components/Header/Header";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -8,7 +8,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useServerRateLimit } from "@/hooks/useServerRateLimit";
 import { Eye, EyeOff } from "lucide-react";
 
-export default function LoginPage() {
+function LoginContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const redirectTo = searchParams.get('redirect') || '/create';
@@ -231,5 +231,17 @@ export default function LoginPage() {
                 </div>
             </div>
         </div>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-gray-50 dark:bg-[#0f0f0f] flex items-center justify-center">
+                <div className="text-gray-500">Loading...</div>
+            </div>
+        }>
+            <LoginContent />
+        </Suspense>
     );
 }
