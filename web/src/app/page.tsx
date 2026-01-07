@@ -201,7 +201,7 @@ export default function HomePage() {
           <Button
             variant="contained"
             className="scale-115 px-12 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-120 transition-all! duration-300 bg-linear-to-r from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#562e9b]"
-            onClick={() => router.push('/kitchen')}>
+            onClick={() => router.push('/create')}>
             Start Writing
           </Button>
         </div>

@@ -97,7 +97,7 @@ export default function SignupPage() {
                     }
 
                     await clearAttempts();
-                    router.push('/kitchen');
+                    router.push('/create');
                 }
             }
         } catch (err) {

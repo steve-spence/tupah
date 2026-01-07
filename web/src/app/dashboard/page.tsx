@@ -21,6 +21,17 @@ export default function DashboardPage() {
     const [displayBy, setDisplayBy] = useState<PostStatus>("all");
     const [deletePostId, setDeletePostId] = useState<string | null>(null);
 
+    // Load cached display preference on mount
+    useEffect(() => {
+        const cached = localStorage.getItem("displayBy") as PostStatus | null;
+        if (cached) setDisplayBy(cached);
+    }, []);
+
+    const handleDisplayChange = (value: PostStatus) => {
+        setDisplayBy(value);
+        localStorage.setItem("displayBy", value);
+    };
+
     const handleDeleteConfirm = () => {
         if (!deletePostId) return;
         deletePost(deletePostId)
@@ -87,7 +98,7 @@ export default function DashboardPage() {
                         }}>
                             Home
                         </Button>
-                        <Button variant="outlined" onClick={() => { router.push('/kitchen') }}
+                        <Button variant="outlined" onClick={() => { router.push('/create') }}
                             sx={{
                                 borderColor: '#1272CC',
                                 color: '#1272CC',
@@ -104,11 +115,11 @@ export default function DashboardPage() {
                                     backgroundColor: 'rgba(147, 121, 204, 0.1)',
                                 },
                             }}>
-                            Go to Kitchen
+                            Create
                         </Button>
                     </div>
                     <div className="flex gap-3">
-                        <DisplaySelect value={displayBy} onChange={setDisplayBy} />
+                        <DisplaySelect value={displayBy} onChange={handleDisplayChange} />
                         <SortSelect value={sortBy} onChange={setSortBy} />
                     </div>
                 </div>
