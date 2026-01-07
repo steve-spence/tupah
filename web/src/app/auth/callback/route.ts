@@ -5,6 +5,7 @@ import { NextRequest } from 'next/server'
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
+  const redirectTo = requestUrl.searchParams.get('redirect') || '/profile'
   const origin = process.env.NEXT_PUBLIC_BASE_URL
 
   if (code) {
@@ -37,6 +38,6 @@ export async function GET(request: NextRequest) {
   }
 
 
-  // Redirect to dashboard after successful authentication
-  return NextResponse.redirect(`${origin}/profile`)
+  // Redirect to original page after successful authentication
+  return NextResponse.redirect(`${origin}${redirectTo}`)
 }

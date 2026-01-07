@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAuth } from "@/contexts/AuthContext";
 import { User, LayoutDashboard, LogOut, Moon, Sun } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from '@/hooks/useTheme';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -14,6 +14,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
   const { title, subtext, showLinks = true, skinny = false } = data;
   const { user, signOut } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
   const [avatar, setAvatar] = useState<string>("/avatars/avatar1.png");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -77,7 +78,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
           {!skinny ? title : subtext}
         </h1>
         {!skinny ? (
-          <h4 className="text-gray-600 dark:text-gray-300 text-xs md:text-1xl italic text-center">
+          <h4 className="text-gray-600 dark:text-gray-300 text-sm md:text-md italic text-center">
             {subtext}
           </h4>
         ) : <div />}
@@ -166,7 +167,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
                     onClick={async () => {
                       setDropdownOpen(false);
                       await signOut();
-                      router.push('/');
+                      router.refresh();
                     }}
                     className="flex items-center gap-3 px-4 py-2 w-full text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                   >
@@ -177,7 +178,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
               )}
             </div>
           ) : (
-            <Link href="/login" className="text-sm md:text-base hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
+            <Link href={`/login?redirect=${encodeURIComponent(pathname)}`} className="text-sm md:text-base hover:text-blue-500 dark:hover:text-purple-400 transition-colors">
               Login
             </Link>
           )}

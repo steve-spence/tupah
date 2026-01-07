@@ -3,13 +3,15 @@
 import React, { useState } from "react";
 import { Header } from "@/components/Header/Header";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
 import { useServerRateLimit } from "@/hooks/useServerRateLimit";
 import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/create';
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -41,7 +43,7 @@ export default function LoginPage() {
                 setError("Invalid credentials");
             } else {
                 await clearAttempts();
-                router.push('/create');
+                router.push(redirectTo);
             }
         } catch (err) {
             await recordAttempt();
@@ -58,7 +60,7 @@ export default function LoginPage() {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`
+                    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback?redirect=${encodeURIComponent(redirectTo)}`
                 }
             });
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { HeartIcon, HeartIconHandle } from "@/components/ui/heart";
 import Button from "@mui/material/Button";
 import Link from "next/link";
@@ -8,9 +9,11 @@ import Link from "next/link";
 interface LikeButtonProps {
     slug: string;
     initialLikes: number;
+    showLikeCount?: boolean;
 }
 
-export default function LikeButton({ slug, initialLikes }: LikeButtonProps) {
+export default function LikeButton({ slug, initialLikes, showLikeCount = true }: LikeButtonProps) {
+    const pathname = usePathname();
     const [likes, setLikes] = useState(initialLikes);
     const [liked, setLiked] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -59,42 +62,57 @@ export default function LikeButton({ slug, initialLikes }: LikeButtonProps) {
     };
 
     return (
-        <div>
-
-
+        <div className="flex items-center gap-2">
             <Button
                 variant="outlined"
                 onClick={handleLike}
                 disabled={loading}
-                startIcon={
+                startIcon={showLikeCount ? (
                     <HeartIcon
                         ref={heartRef}
                         size={20}
                         filled={liked}
                         className={liked ? "text-red-500" : ""}
                     />
-                }
+                ) : undefined}
                 sx={{
                     borderColor: liked ? "#ef4444" : "gray",
                     color: liked ? "#ef4444" : "inherit",
+                    minWidth: showLikeCount ? undefined : 'auto',
+                    padding: showLikeCount ? undefined : '6px 12px',
                     "&:hover": {
                         borderColor: "#ef4444",
                         backgroundColor: "rgba(239, 68, 68, 0.1)",
                     },
                 }}
             >
-                {likes} {likes === 1 ? "Like" : "Likes"}
+                {showLikeCount ? (
+                    `${likes} ${likes === 1 ? "Like" : "Likes"}`
+                ) : (
+                    <HeartIcon
+                        ref={heartRef}
+                        size={20}
+                        filled={liked}
+                        className={liked ? "text-red-500" : ""}
+                    />
+                )}
             </Button>
-            {
+            {showLikeCount ? (
                 showAuthPrompt && (
                     <p className="text-gray-700 dark:text-gray-300 text-sm mt-2">
                         You need to have an account to <b>Like</b> posts. Do you want to{" "}
-                        <Link href="/login" className="text-[#9379cc] hover:underline font-semibold">
+                        <Link href={`/login?redirect=${encodeURIComponent(pathname)}`} className="text-[#9379cc] hover:underline font-semibold">
                             sign up
                         </Link>
                         ?
                     </p>
                 )
-            }
+            ) : (
+                showAuthPrompt && (
+                    <span className="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                        Sign in to like
+                    </span>
+                )
+            )}
         </div>);
 }
