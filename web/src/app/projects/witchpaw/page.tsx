@@ -1,5 +1,4 @@
 import React from "react";
-import { generatePageMetadata } from "@/lib/metadata";
 
 export default function WitchPawPage() {
   return (

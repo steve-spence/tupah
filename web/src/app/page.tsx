@@ -167,7 +167,8 @@ export default function HomePage() {
               What you'll find here
             </h2>
             <p className="text-white font-semibold">
-              Join a growing library of blogs, all anonymously. Follow creators you like and publish your first post in minutes.
+              Join a growing library of blogs, all anonymously.
+              Follow creators you like and publish your first post in minutes.
             </p>
           </div>
 
@@ -176,7 +177,8 @@ export default function HomePage() {
               Why Tupah?
             </h2>
             <p className="text-white font-semibold">
-              Just like the Tupah forest in Malaysia, this is a quiet space on a loud internet. Enjoy the content, create your own, and explore.
+              Like the Tupah forest in Malaysia, this is a quiet space in a loud internet.
+              Explore thoughtful content, share your voice, and discover new perspectives.
             </p>
           </div>
         </div>
@@ -223,9 +225,8 @@ export default function HomePage() {
                 Experiences
               </h3>
               <p className="text-gray-800 dark:text-white">
-                I think people have a lot to share. I want to give people another platform
-                to express their opinions and make others laugh. You can be the one to
-                create a new post that might take this site to the next level. Be that guy.
+                A platform for diverse perspectives and engaging discussions. Share your
+                thoughts, spark conversations, and contribute to a growing community of voices.
               </p>
             </div>
 
@@ -234,10 +235,8 @@ export default function HomePage() {
                 Anime
               </h3>
               <p className="text-gray-800 dark:text-white">
-                I hope we get some good anime opinions. I love anime and I have been watching
-                for a long time. I hope some people can come together and use this site to share
-                their opinions in a nuanced way. I am still working on how this site can stand out,
-                so let's hope for more on that in the future!
+                In-depth discussions and thoughtful analysis of anime series, films, and industry
+                trends. A space for fans to share perspectives and explore the medium's cultural impact.
               </p>
             </div>
 
@@ -246,11 +245,8 @@ export default function HomePage() {
                 Code
               </h3>
               <p className="text-gray-800 dark:text-white">
-                I'm a Computer Science major at Michigan State University, and
-                I've helped enough people fix their computers/code to know it’s
-                worth writing down. I want to create some basic tutorials on how
-                to create and find good code. I don't know how far I'll get, but I have a
-                love for the game, so we'll see.
+                Practical tutorials and guides for developers at all levels. From debugging
+                strategies to best practices, helping you write better code and solve technical challenges.
               </p>
             </div>
           </div>

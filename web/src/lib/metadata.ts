@@ -7,11 +7,7 @@ function buildCanonicalUrl(path: string) {
     return `${BASE_URL}${path.startsWith('/') ? path : '/' + path}`;
 }
 
-export function generatePageMetadata(
-    title: string,
-    description: string,
-    path: string
-): Metadata {
+export function generatePageMetadata(title: string, description: string, path: string): Metadata {
     const canonicalUrl = buildCanonicalUrl(path);
 
     return {
