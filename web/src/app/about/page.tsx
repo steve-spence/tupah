@@ -42,7 +42,7 @@ export default function AboutPage() {
             onInit={(typewriter) => {
               typewriter
                 .pauseFor(2500)
-                .typeString("Hi, I'm Steve.")
+                .typeString("Hi, I'm Steven.")
                 .pauseFor(2500) // show full text for 2.5s
                 .deleteAll() // wipe it
                 .typeString("I build software solutions.")
