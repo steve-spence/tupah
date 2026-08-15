@@ -43,7 +43,7 @@ make clean  # Stop and remove volumes
 
 **API calls from client components**: Always use `apiFetch` or the `api` helper from `@/utils/api.ts` instead of raw `fetch`. This automatically adds the `x-requested-with: tupah-frontend` header required by the middleware.
 
-**Middleware** (`src/middleware.ts`): Protects all `/api/*` routes by checking origin or the custom header. External requests without a matching origin/referer are blocked unless they send `x-requested-with: tupah-frontend`.
+**Proxy** (`src/proxy.ts`): Protects all `/api/*` routes by checking origin or the custom header. External requests without a matching origin/referer are blocked unless they send `x-requested-with: tupah-frontend`.
 
 **Auth**: `AuthProvider` (from `@/contexts/AuthContext`) is in the root layout and provides `useAuth()` throughout the app. For server-side auth in API routes, use `createClient()` from `@/utils/supabase/server` and call `supabase.auth.getUser()`.
 

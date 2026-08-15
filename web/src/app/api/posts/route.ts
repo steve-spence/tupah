@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Title and content are required" }, { status: 400 });
     }
     // Generate slug from title if not provided
-    let baseSlug = slug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+    const baseSlug = slug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
     let postSlug = baseSlug;
 
     // Check for duplicate slugs and append number if needed

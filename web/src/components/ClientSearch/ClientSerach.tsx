@@ -86,8 +86,9 @@ export default function ClientSearch({ className }: { className?: string }) {
             placeholder="Search blogs..."
             variant="outlined"
             slotProps={{
+              ...params.slotProps,
               input: {
-                ...params.InputProps,
+                ...params.slotProps.input,
                 startAdornment: (
                   <InputAdornment position="start">
                     <Search className="w-5 h-5 text-gray-500 dark:text-gray-400" />
@@ -96,7 +97,7 @@ export default function ClientSearch({ className }: { className?: string }) {
                 endAdornment: (
                   <>
                     {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                    {params.InputProps.endAdornment}
+                    {params.slotProps.input.endAdornment}
                   </>
                 ),
               },

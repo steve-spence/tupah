@@ -7,32 +7,30 @@ import { useAuth } from "@/contexts/AuthContext";
 import { User, LayoutDashboard, LogOut, Moon, Sun } from "lucide-react";
 import { useRouter, usePathname } from "next/navigation";
 import { useTheme } from '@/hooks/useTheme';
+import { useHasMounted } from '@/hooks/useHasMounted';
 import { motion, AnimatePresence } from 'motion/react';
 
+function getCachedAvatar(): string {
+  if (typeof window === "undefined") return "/avatars/avatar1.png";
+  return localStorage.getItem("avatar_url") || "/avatars/avatar1.png";
+}
 
 export function Header({ data }: { data: { title?: string, subtext: string, showLinks?: boolean, skinny?: boolean } }) {
   const { title, subtext, showLinks = true, skinny = false } = data;
   const { user, signOut } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
-  const [avatar, setAvatar] = useState<string>("/avatars/avatar1.png");
+  const [avatar, setAvatar] = useState<string>(getCachedAvatar);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  const mounted = useHasMounted();
 
   const isDark = theme === 'dark';
   const toggleTheme = () => setTheme(isDark ? 'light' : 'dark');
 
   useEffect(() => {
     if (user) {
-      // Load cached avatar immediately for instant display
-      const cached = localStorage.getItem("avatar_url");
-      if (cached) {
-        setAvatar(cached);
-      }
-
       // Fetch fresh data in background to keep cache updated
       fetch("/api/profile")
         .then(res => res.json())
@@ -66,7 +64,7 @@ export function Header({ data }: { data: { title?: string, subtext: string, show
       {/* Logo - Left side */}
       <div className="absolute left-10 hidden md:flex items-center">
         <Link className={`relative ${skinny ? 'w-12 h-12' : 'w-20 h-20'}`} href="/">
-          <Image src="/pictures/owl_logo.png" fill sizes="50vw" alt="Logo" />
+          <Image src="/pictures/logo.png" fill sizes="50vw" alt="Logo" />
         </Link>
       </div>
       {/* Left spacer to balance the layout */}

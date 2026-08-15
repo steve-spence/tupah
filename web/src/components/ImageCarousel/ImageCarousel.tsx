@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useSyncExternalStore } from 'react'
 import Image from 'next/image'
 
 interface ImageCarouselProps {
@@ -8,18 +8,19 @@ interface ImageCarouselProps {
     wideImages: string[],
 }
 
-export default function ImageCarousel({ verticalImages, wideImages }: ImageCarouselProps) {
-    const [isMd, setIsMd] = useState(false)
-    const [idx, setIdx] = useState(0)
-    // Watch for md breakpoint
-    useEffect(() => {
-        const mql = window.matchMedia('(min-width: 1440px)')
-        const onChange = (e: MediaQueryListEvent) => setIsMd(e.matches)
+function subscribeMd(callback: () => void) {
+    const mql = window.matchMedia('(min-width: 1440px)')
+    mql.addEventListener('change', callback)
+    return () => mql.removeEventListener('change', callback)
+}
 
-        setIsMd(mql.matches)
-        mql.addEventListener('change', onChange)
-        return () => mql.removeEventListener('change', onChange)
-    }, [])
+function getMdSnapshot() {
+    return window.matchMedia('(min-width: 1440px)').matches
+}
+
+export default function ImageCarousel({ verticalImages, wideImages }: ImageCarouselProps) {
+    const isMd = useSyncExternalStore(subscribeMd, getMdSnapshot, () => false)
+    const [idx, setIdx] = useState(0)
 
     // Only run the carousel when at md+
     // Note: This should be done with tailwind and just making one div hidden on md: breakpoint

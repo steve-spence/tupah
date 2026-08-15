@@ -2,15 +2,14 @@
 'use client'
 
 import React from 'react';
-import { useState, useEffect } from 'react'
 import { NavIcon } from '@/components/NavIcon/NavIcon'
 import { useTheme } from '@/hooks/useTheme';
+import { useHasMounted } from '@/hooks/useHasMounted';
 import { MoonStar, SunMoon } from 'lucide-react';
 
 export function LeftNav({ data, className = "", onNavigate }: Props) {
     const { theme, setTheme } = useTheme();
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
+    const mounted = useHasMounted();
 
     const isDark = theme === 'dark';
     const toggleTheme = () => setTheme(isDark ? 'light' : 'dark');

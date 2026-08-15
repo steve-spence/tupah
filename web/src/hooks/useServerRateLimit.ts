@@ -58,7 +58,9 @@ export function useServerRateLimit(action: 'login' | 'signup') {
     }, [action]);
 
     useEffect(() => {
-        checkRateLimit();
+        (async () => {
+            await checkRateLimit();
+        })();
 
         // Only poll if user is rate limited
         if (state.isLimited && state.remainingTime > 0) {

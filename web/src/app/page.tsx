@@ -5,28 +5,70 @@ import React, { useEffect } from "react";
 import { NavIconProps } from "@/components/NavIcon/NavIcon";
 import { NavIcon } from "@/components/NavIcon/NavIcon";
 import { Header } from "@/components/Header/Header";
+import { DrawOnLogo } from "@/components/DrawOnLogo/DrawOnLogo";
 import Image from "next/image";
 import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { motion } from 'motion/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Link from "next/link";
 
+// Scroll-reveal wrapper: children fade up into view as the user scrolls
+function Reveal({ children, className }: { children: React.ReactNode; className?: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.4 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+interface PostType {
+  number: string;
+  title: string;
+  description: string;
+  image: string;
+  imageAlt: string;
+  credit?: { label: string; href: string };
+}
+
+const postTypes: PostType[] = [
+  {
+    number: "01",
+    title: "Experiences",
+    description: "Tell the story only you can tell — no byline needed.",
+    image: "/pictures/japan_streetview.jpg",
+    imageAlt: "A neon-lit street at night",
+  },
+  {
+    number: "02",
+    title: "Anime",
+    description: "Deep dives and hot takes, judged on merit alone.",
+    image: "/blowing_girl.png",
+    imageAlt: "Illustration of a girl beneath a starry sky",
+    credit: { label: "art by @andsproject", href: "https://pixabay.com/users/andsproject-26081561/" },
+  },
+  {
+    number: "03",
+    title: "Code",
+    description: "Notes from the trenches — bugs, fixes, hard-won lessons.",
+    image: "/pictures/wide_codingview.jpg",
+    imageAlt: "A desk with code on a monitor",
+  },
+];
+
 export default function HomePage() {
   const router = useRouter();
-  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
   const [featuredPosts, setFeaturedPosts] = React.useState<NavIconProps[]>([]);
-
-  // Background images to rotate through
-  const backgroundImages = [
-    { light: "/pictures/favorite_light.svg", dark: "/pictures/favorite_dark.svg" },
-    { light: "/pictures/bird-bg.svg", dark: "/pictures/bird-bg.svg" },
-    { light: "/pictures/girl-bg.svg", dark: "/pictures/girl-bg.svg" },
-    { light: "/blowing_girl.png", dark: "/blowing_girl.png" },
-  ];
 
   // Fetch featured posts
   useEffect(() => {
@@ -36,228 +78,122 @@ export default function HomePage() {
       .catch(err => console.error('Failed to fetch featured posts:', err));
   }, []);
 
-  // Rotate images every 5 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % backgroundImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [backgroundImages.length]);
-
   return (
-    <div className="flex flex-col">
-      {/* Fixed Background Images */}
-      <div className="fixed top-0 w-full h-screen -z-10 bg-linear-to-br from-white to-[#dbdbdb] dark:from-[#1f1a24] dark:to-[#121212] transition-colors duration-300">
-        <div className="flex flex-col md:flex-row gap-10 items-center justify-center pb-30">
-          {/* First rotating background image with theme support */}
-          <div className="relative w-[90vw] max-w-[640px] aspect-square">
-            {backgroundImages.map((img, index) => (
-              <React.Fragment key={index}>
-                {/* Light mode - Blurred background layer */}
-                <Image
-                  src={img.light}
-                  className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === currentImageIndex ? "opacity-100" : "opacity-0"}`}
-                  style={{ filter: 'blur(8px)' }}
-                  fill
-                  sizes="50vw"
-                  alt="Artwork by andsproject"
-                //priority={index === 0}
-                />
-                {/* Light mode - Sharp layer with masked edges */}
-                <Image
-                  src={img.light}
-                  className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === currentImageIndex ? "opacity-100" : "opacity-0"}`}
-                  style={{ maskImage: 'radial-gradient(ellipse 80% 80% at center, black 60%, transparent 100%)' }}
-                  fill
-                  sizes="50vw"
-                  alt="Artwork by andsproject"
-                  loading="eager"
-                //priority={index === 0}
-                />
-                {/* Dark mode - Blurred background layer */}
-                <Image
-                  src={img.dark}
-                  className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === currentImageIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
-                  style={{ filter: 'blur(8px)' }}
-                  fill
-                  sizes="50vw"
-                  alt="Artwork by andsproject"
-                //priority={index === 0}
-                />
-                {/* Dark mode - Sharp layer with masked edges */}
-                <Image
-                  src={img.dark}
-                  className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === currentImageIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
-                  style={{ maskImage: 'radial-gradient(ellipse 80% 80% at center, black 60%, transparent 100%)' }}
-                  fill
-                  sizes="50vw"
-                  alt="Artwork by andsproject"
-                  loading="eager"
-                //priority={index === 0}
-                />
-              </React.Fragment>
+    <>
+      {/* Background — CSS grid, no image to download/decode, pinned behind everything */}
+      <div
+        className="fixed inset-0 -z-10 bg-white dark:bg-[#121212] [--grid-line:rgba(0,0,0,0.06)] dark:[--grid-line:rgba(255,255,255,0.07)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, var(--grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+
+      <div className="flex flex-col bg-white dark:bg-transparent transition-colors duration-300">
+        {/* Home Page Header */}
+        <section id="home">
+          <Header data={{ title: "Tupah", subtext: "Explore | Create | Enjoy", }} />
+        </section>
+
+        {/* Hero */}
+        <section className="relative flex min-h-screen flex-col items-center justify-center px-6 py-24">
+          <div className="grid md:grid-cols-2 gap-15 md:gap-16 items-center w-full max-w-[90rem] mx-auto">
+            <div className="flex flex-col items-center md:items-start text-center md:text-left gap-6">
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-gray-900 dark:text-white">
+                No names.{' '}
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-[#1272CC] to-[#5994cc] dark:from-[#b79bf3] dark:to-[#9379cc]">
+                  Just voices.
+                </span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300">
+                A quiet corner of a loud internet — write freely, read deeply, stay anonymous.
+              </p>
+              <div className="mt-2 flex flex-col sm:flex-row items-center gap-4">
+                <Button
+                  variant="contained"
+                  className="px-10 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-2xl hover:scale-105 transition-all! duration-300 bg-linear-to-r from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#562e9b]"
+                  onClick={() => router.push('/create')}>
+                  Start Writing
+                </Button>
+                <Link
+                  href="/blog"
+                  className="text-lg font-semibold text-gray-700 dark:text-gray-300 hover:text-[#1272CC] dark:hover:text-[#b79bf3] transition-colors"
+                >
+                  Explore the blogs →
+                </Link>
+              </div>
+            </div>
+
+            <DrawOnLogo
+              src="/pictures/logo-drawn.svg"
+              label="Tupah logo"
+              className="w-full"
+            />
+          </div>
+        </section>
+
+        <div className="border-t border-black/10 dark:border-white/10" />
+
+        {/* What to Post — one numbered feature per post type */}
+        <section id="posts" className="mx-auto w-full max-w-5xl px-6 py-24 md:py-32">
+          <Reveal className="text-center mb-20 md:mb-28">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+              What to Post
+            </h2>
+            <p className="mt-3 text-gray-600 dark:text-gray-400">
+              A few ideas to get you started.
+            </p>
+          </Reveal>
+
+          <div className="flex flex-col gap-20 md:gap-32">
+            {postTypes.map((post, i) => (
+              <Reveal
+                key={post.title}
+                className="grid md:grid-cols-2 gap-8 md:gap-16 items-center"
+              >
+                <div className={`relative aspect-4/3 rounded-2xl overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+                  <Image
+                    src={post.image}
+                    alt={post.imageAlt}
+                    fill
+                    sizes="(min-width: 768px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className={`text-center ${i % 2 === 1 ? "md:order-1 md:text-right" : "md:text-left"}`}>
+                  <span className="font-mono text-sm text-[#1272CC] dark:text-[#9379cc]">
+                    {post.number}
+                  </span>
+                  <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">
+                    {post.title}
+                  </h3>
+                  <p className="text-lg text-gray-600 dark:text-gray-400">
+                    {post.description}
+                  </p>
+                  {post.credit && (
+                    <Link
+                      href={post.credit.href}
+                      target="_blank"
+                      className="mt-3 inline-block text-xs text-gray-500 dark:text-gray-500 opacity-70 hover:opacity-100 transition-opacity"
+                    >
+                      {post.credit.label}
+                    </Link>
+                  )}
+                </div>
+              </Reveal>
             ))}
           </div>
+        </section>
 
-          {/* Second rotating background image (offset by 1) - hidden on mobile, shown on md+ */}
-          <div className="relative w-[90vw] max-w-[640px] aspect-square md:block">
-            {backgroundImages.map((img, index) => {
-              const nextIndex = (currentImageIndex + 1) % backgroundImages.length;
-              return (
-                <React.Fragment key={index}>
-                  {/* Light mode - Blurred background layer */}
-                  <Image
-                    src={img.light}
-                    className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === nextIndex ? "opacity-100" : "opacity-0"}`}
-                    style={{ filter: 'blur(8px)' }}
-                    fill
-                    sizes="50vw"
-                    alt="Artwork by andsproject"
-                  //priority={index === 1}
-                  />
-                  {/* Light mode - Sharp layer with masked edges */}
-                  <Image
-                    src={img.light}
-                    className={`object-contain absolute inset-0 transition-opacity duration-1000 dark:hidden ${index === nextIndex ? "opacity-100" : "opacity-0"}`}
-                    style={{ maskImage: 'radial-gradient(ellipse 80% 80% at center, black 60%, transparent 100%)' }}
-                    fill
-                    sizes="50vw"
-                    alt="Artwork by andsproject"
-                    loading="eager"
-                  //priority={index === 1}
-                  />
-                  {/* Dark mode - Blurred background layer */}
-                  <Image
-                    src={img.dark}
-                    className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === nextIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
-                    style={{ filter: 'blur(8px)' }}
-                    fill
-                    sizes="50vw"
-                    alt="Artwork by andsproject"
-                  //priority={index === 1}
-                  />
-                  {/* Dark mode - Sharp layer with masked edges */}
-                  <Image
-                    src={img.dark}
-                    className={`object-contain absolute inset-0 transition-opacity duration-1000 hidden dark:block ${index === nextIndex ? "dark:opacity-100" : "dark:opacity-0"}`}
-                    style={{ maskImage: 'radial-gradient(ellipse 80% 80% at center, black 60%, transparent 100%)' }}
-                    fill
-                    sizes="50vw"
-                    alt="Artwork by andsproject"
-                    loading="eager"
-                  //priority={index === 1}
-                  />
-                </React.Fragment>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Home Page Header */}
-      <section id="home">
-        <Header data={{ title: "Tupah", subtext: "Explore | Create | Enjoy", }} />
-      </section>
-
-      {/* Info Section */}
-      <section className="relative">
-        <div className="flex flex-col md:flex-row gap-10 py-20 px-10 md:px-20 drop-shadow-text-sm min-h-50 md:min-h-80">
-          <div className="flex-1 p-3 bg-black/20 rounded-lg h-fit">
-            <h2 className="text-white font-bold text-2xl mb-3 transition-colors">
-              What you'll find here
-            </h2>
-            <p className="text-white font-semibold">
-              Join a growing library of blogs, all anonymously.
-              Follow creators you like and publish your first post in minutes.
-            </p>
-          </div>
-
-          <div className="flex-1 p-3 bg-black/20 rounded-lg h-fit text-right">
-            <h2 className="text-white font-bold text-2xl mb-3 transition-colors">
-              Why Tupah?
-            </h2>
-            <p className="text-white font-semibold">
-              Like the Tupah forest in Malaysia, this is a quiet space in a loud internet.
-              Explore thoughtful content, share your voice, and discover new perspectives.
-            </p>
-          </div>
-        </div>
-
-        {/* Artist Credit */}
-        <Link className="absolute bottom-4 right-4 text-xl text-gray-300 opacity-50 drop-shadow-text-sm" target="_blank" href="https://pixabay.com/users/andsproject-26081561/">
-          @andsproject
-        </Link>
-      </section>
-
-      <section>
-        <div className="flex grow flex-col items-center justify-center gap-8 py-20 bg-linear-to-b from-[#f0f0f0] to-[#e5e5e5] dark:from-[#171717] dark:to-[#121212]
-        transition-all duration-300">
-          <div className="flex flex-col items-center gap-4">
-            <h1 className="text-6xl font-bold bg-linear-to-r text-black dark:text-white bg-clip-text">
-              Create
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-md text-center">
-              Share your thoughts, stories, and ideas with the world!
-            </p>
-          </div>
-          <Button
-            variant="contained"
-            className="scale-115 px-12 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-120 transition-all! duration-300 bg-linear-to-r from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#562e9b]"
-            onClick={() => router.push('/create')}>
-            Start Writing
-          </Button>
-        </div>
-      </section>
-
-
-      {/* What I hope people post */}
-      <section id="posts">
-        <div
-          className="flex flex-col p-10 gap-5 w-full justify-center items-center bg-linear-to-b from-[#e5e5e5] to-[#d6d6d6] dark:from-[#121212] dark:to-[#171717]
-        shadow-xl shodow-indigo-500/50 text-white text-center"
-        >
-          <h2 className="text-4xl font-bold text-gray-700 dark:text-white">
-            What to Post
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            <div className="flex flex-col items-center">
-              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#b79bf3] mb-4">
-                Experiences
-              </h3>
-              <p className="text-gray-800 dark:text-white">
-                A platform for diverse perspectives and engaging discussions. Share your
-                thoughts, spark conversations, and contribute to a growing community of voices.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#b79bf3] text-center md:text-left mb-2">
-                Anime
-              </h3>
-              <p className="text-gray-800 dark:text-white">
-                In-depth discussions and thoughtful analysis of anime series, films, and industry
-                trends. A space for fans to share perspectives and explore the medium's cultural impact.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <h3 className="text-2xl font-semibold text-[#1272CC] dark:text-[#b79bf3] text-center md:text-left mb-2">
-                Code
-              </h3>
-              <p className="text-gray-800 dark:text-white">
-                Practical tutorials and guides for developers at all levels. From debugging
-                strategies to best practices, helping you write better code and solve technical challenges.
-              </p>
-            </div>
-          </div>
-        </div>
+        <div className="border-t border-black/10 dark:border-white/10" />
 
         {/* Featured Posts */}
-        <div className="flex flex-col items-center w-full h-fit bg-linear-to-b from-[#d6d6d6] to-[#e7e7e7] dark:from-[#171717] dark:to-[#242424] bg-gray-200 dark:bg-[#121212] py-10 pb-20">
-          <h1 className="text-3xl text-black dark:text-white font-bold mb-8">
+        {/* <section className="flex flex-col items-center w-full px-5 py-20">
+          <h2 className="text-3xl text-gray-900 dark:text-white font-bold mb-10">
             Featured Posts
-          </h1>
-          <div className="w-full max-w-7xl px-5">
+          </h2>
+          <div className="w-full max-w-7xl">
             {featuredPosts.length > 0 && (<Swiper
               modules={[Navigation, Pagination, Autoplay]}
               spaceBetween={0}
@@ -271,7 +207,6 @@ export default function HomePage() {
                 1024: { slidesPerView: 3 },
                 1280: { slidesPerView: 4 },
               }}
-
               className="right-1 left-1 relative bottom-1"
             >
               {featuredPosts.map((post) => (
@@ -282,13 +217,13 @@ export default function HomePage() {
             </Swiper>
             )}
           </div>
-        </div>
-      </section>
+        </section> */}
 
-      {/* Brook Image */}
-      <section id="brook">
-        <div className="flex flex-col gap-1 justify-center items-center h-fit w-full bg-linear-to-b to-gray-100 dark:to-[#111111] p-5">
-          <p className="italic text-2xl p-3 text-white drop-shadow-text-sm">"Death leaves nothing behind."</p>
+        <div className="border-t border-black/10 dark:border-white/10" />
+
+        {/* Brook Image */}
+        <section id="brook" className="flex flex-col gap-1 justify-center items-center w-full px-5 py-16 text-center">
+          <p className="italic text-2xl p-3 text-gray-700 dark:text-gray-300">"Death leaves nothing behind."</p>
           {/* Responsive Image Container */}
           <div className="relative lg:w-32 lg:h-32 md:w-24 md:h-24 w-16 h-16">
             <Image
@@ -299,10 +234,10 @@ export default function HomePage() {
               className="rounded-4xl object-contain"
             />
           </div>
-          <p className="text-white drop-shadow-text-sm font-bold ">Brook</p>
-          <p className="drop-shadow-text-sm text-[#ffffff] font-semibold">Musician, New World</p>
-        </div>
-      </section>
-    </div>
+          <p className="text-gray-900 dark:text-white font-bold">Brook</p>
+          <p className="text-gray-600 dark:text-gray-400 font-semibold">Musician, New World</p>
+        </section>
+      </div>
+    </>
   );
 }

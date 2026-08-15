@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   transpilePackages: ['next-mdx-remote', 'three'],
 
   images: {
+    qualities: [75, 95],
     remotePatterns: [
       {
         protocol: 'https',

@@ -18,14 +18,11 @@ export default function DashboardPage() {
     const [posts, setPosts] = useState<Post[]>([]);
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState<SortOption>("newest");
-    const [displayBy, setDisplayBy] = useState<PostStatus>("all");
+    const [displayBy, setDisplayBy] = useState<PostStatus>(() => {
+        if (typeof window === "undefined") return "all";
+        return (localStorage.getItem("displayBy") as PostStatus | null) ?? "all";
+    });
     const [deletePostId, setDeletePostId] = useState<string | null>(null);
-
-    // Load cached display preference on mount
-    useEffect(() => {
-        const cached = localStorage.getItem("displayBy") as PostStatus | null;
-        if (cached) setDisplayBy(cached);
-    }, []);
 
     const handleDisplayChange = (value: PostStatus) => {
         setDisplayBy(value);
