@@ -1,7 +1,7 @@
 // Home Page
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { NavIconProps } from "@/components/NavIcon/NavIcon";
 import { NavIcon } from "@/components/NavIcon/NavIcon";
 import { Header } from "@/components/Header/Header";
@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import { motion } from 'motion/react';
+import { motion, useScroll, useSpring, useTransform } from 'motion/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -21,10 +21,10 @@ import Link from "next/link";
 function Reveal({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 40, scale: 0.96 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.4 }}
-      transition={{ duration: 0.7, ease: "easeOut" }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -41,18 +41,71 @@ interface PostType {
   credit?: { label: string; href: string };
 }
 
+// One distinct background pattern per card, all built from the same
+// accent-tinted --card-pattern custom property (set per-card via className).
+const CARD_PATTERNS: React.CSSProperties[] = [
+  {
+    // dots
+    backgroundImage: "radial-gradient(var(--card-pattern) 1.5px, transparent 1.5px)",
+    backgroundSize: "20px 20px",
+  },
+  {
+    // diagonal lines
+    backgroundImage:
+      "repeating-linear-gradient(45deg, var(--card-pattern) 0, var(--card-pattern) 1px, transparent 1px, transparent 14px)",
+  },
+  {
+    // large grid
+    backgroundImage:
+      "linear-gradient(to right, var(--card-pattern) 1px, transparent 1px), linear-gradient(to bottom, var(--card-pattern) 1px, transparent 1px)",
+    backgroundSize: "40px 40px",
+  },
+];
+
+interface CharacterQuote {
+  quote: string;
+  image: string;
+  imageAlt: string;
+  name: string;
+  role: string;
+}
+
+const characterQuotes: CharacterQuote[] = [
+  {
+    quote: "I Shouldn't Discount The Possibility That I'm Unique.",
+    image: "/pictures/rudeus.webp",
+    imageAlt: "Rudeus Greyrat, Mushoku Tensei",
+    name: "Rudeus Greyrat",
+    role: "Mushoku Tensei",
+  },
+  {
+    quote: "Death leaves nothing behind.",
+    image: "/pictures/brook.png",
+    imageAlt: "Brook, One Piece",
+    name: "Brook",
+    role: "Musician, New World",
+  },
+  {
+    quote: "Behold, The Unthinkable Present.",
+    image: "/pictures/natsuki-subaru.webp",
+    imageAlt: "Natsuki Subaru, Re:Zero",
+    name: "Natsuki Subaru",
+    role: "Re:Zero",
+  },
+];
+
 const postTypes: PostType[] = [
   {
     number: "01",
     title: "Experiences",
-    description: "Tell the story only you can tell — no byline needed.",
+    description: "Tell your unique story.",
     image: "/pictures/japan_streetview.jpg",
     imageAlt: "A neon-lit street at night",
   },
   {
     number: "02",
     title: "Anime",
-    description: "Deep dives and hot takes, judged on merit alone.",
+    description: "Deep dives or hot takes - whever floats your boat.",
     image: "/blowing_girl.png",
     imageAlt: "Illustration of a girl beneath a starry sky",
     credit: { label: "art by @andsproject", href: "https://pixabay.com/users/andsproject-26081561/" },
@@ -60,15 +113,111 @@ const postTypes: PostType[] = [
   {
     number: "03",
     title: "Code",
-    description: "Notes from the trenches — bugs, fixes, hard-won lessons.",
+    description: "Notes from the trenches or hard learned lessons.",
     image: "/pictures/wide_codingview.jpg",
     imageAlt: "A desk with code on a monitor",
   },
 ];
 
+// One "What Can I Post" card — tracks its own scroll progress so its outline
+// lights up in accent color as the flowing light in the panel passes it.
+function PostCard({ post, index }: { post: PostType; index: number }) {
+  const imageFromLeft = index % 2 === 0;
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "start 50%"],
+  });
+  const glow = useSpring(scrollYProgress, { stiffness: 100, damping: 24, mass: 0.4 });
+
+  return (
+    <div
+      ref={cardRef}
+      className="relative grid md:grid-cols-2 gap-8 md:gap-16 items-center rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-black/20 p-6 sm:p-10 [--card-pattern:rgba(18,114,204,0.12)] dark:[--card-pattern:rgba(147,121,204,0.14)]"
+      style={CARD_PATTERNS[index % CARD_PATTERNS.length]}
+    >
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 rounded-2xl border-2 border-[#1272CC] dark:border-[#9379cc] shadow-[0_0_32px_6px_rgba(18,114,204,0.3)] dark:shadow-[0_0_32px_6px_rgba(147,121,204,0.3)]"
+        style={{ opacity: glow }}
+      />
+
+      <motion.div
+        initial={{ opacity: 0, x: imageFromLeft ? -60 : 60, rotate: imageFromLeft ? -3 : 3 }}
+        whileInView={{ opacity: 1, x: 0, rotate: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className={`relative aspect-4/3 rounded-2xl overflow-hidden ${index % 2 === 1 ? "md:order-2" : ""}`}
+      >
+        <Image
+          src={post.image}
+          alt={post.imageAlt}
+          fill
+          sizes="(min-width: 768px) 50vw, 100vw"
+          className="object-cover"
+        />
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: imageFromLeft ? 60 : -60 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.4 }}
+        transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+        className={`relative text-center ${index % 2 === 1 ? "md:order-1 md:text-right" : "md:text-left"}`}
+      >
+        <span className="font-mono text-sm text-[#1272CC] dark:text-[#9379cc]">
+          {post.number}
+        </span>
+        <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">
+          {post.title}
+        </h3>
+        <p className="text-lg text-gray-600 dark:text-gray-400">
+          {post.description}
+        </p>
+        {post.credit && (
+          <Link
+            href={post.credit.href}
+            target="_blank"
+            className="mt-3 inline-block text-xs text-gray-500 dark:text-gray-500 opacity-70 hover:opacity-100 transition-opacity"
+          >
+            {post.credit.label}
+          </Link>
+        )}
+      </motion.div>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const router = useRouter();
   const [featuredPosts, setFeaturedPosts] = React.useState<NavIconProps[]>([]);
+
+  // "What Can I Post" scroll light — tracks progress through the card stack
+  // and drives a glowing orb that flows down the spine as the user scrolls.
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: postsScrollProgress } = useScroll({
+    target: cardsRef,
+    offset: ["start end", "end start"],
+  });
+  const lightProgress = useSpring(postsScrollProgress, {
+    stiffness: 120,
+    damping: 22,
+    mass: 0.4,
+  });
+  const lightTop = useTransform(lightProgress, [0, 1], ["0%", "100%"]);
+  const beamHeight = useTransform(lightProgress, [0, 1], ["0%", "100%"]);
+
+  // Handoff glow — once the scroll light exits the card stack above, the next
+  // panel's outline gradually lights up as it's scrolled into view.
+  const quotesPanelRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress: quotesScrollProgress } = useScroll({
+    target: quotesPanelRef,
+    offset: ["start end", "start 50%"],
+  });
+  const quotesGlow = useSpring(quotesScrollProgress, {
+    stiffness: 100,
+    damping: 24,
+    mass: 0.4,
+  });
 
   // Fetch featured posts
   useEffect(() => {
@@ -154,42 +303,26 @@ export default function HomePage() {
               </p>
             </Reveal>
 
-            <div className="flex flex-col gap-20 md:gap-32">
+            <div ref={cardsRef} className="relative flex flex-col gap-20 md:gap-32">
+              {/* Flowing scroll light — a track + glowing orb that travels down the
+                  spine of the card stack in step with scroll progress. Sits behind
+                  the cards in DOM/stacking order, so it peeks out in the gaps. */}
+              <div className="pointer-events-none absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 bg-black/10 dark:bg-white/10" />
+              <motion.div
+                className="pointer-events-none absolute left-1/2 top-0 w-px -translate-x-1/2 bg-linear-to-b from-[#1272CC] to-[#5994cc] dark:from-[#9379cc] dark:to-[#b79bf3]"
+                style={{ height: beamHeight }}
+              />
+              <motion.div
+                className="pointer-events-none absolute left-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#1272CC]/30 dark:bg-[#9379cc]/30 blur-xl"
+                style={{ top: lightTop }}
+              />
+              <motion.div
+                className="pointer-events-none absolute left-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#1272CC] dark:bg-[#9379cc] shadow-[0_0_16px_4px_rgba(18,114,204,0.7)] dark:shadow-[0_0_16px_4px_rgba(147,121,204,0.7)]"
+                style={{ top: lightTop }}
+              />
+
               {postTypes.map((post, i) => (
-                <Reveal
-                  key={post.title}
-                  className="grid md:grid-cols-2 gap-8 md:gap-16 items-center"
-                >
-                  <div className={`relative aspect-4/3 rounded-2xl overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
-                    <Image
-                      src={post.image}
-                      alt={post.imageAlt}
-                      fill
-                      sizes="(min-width: 768px) 50vw, 100vw"
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className={`text-center ${i % 2 === 1 ? "md:order-1 md:text-right" : "md:text-left"}`}>
-                    <span className="font-mono text-sm text-[#1272CC] dark:text-[#9379cc]">
-                      {post.number}
-                    </span>
-                    <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">
-                      {post.title}
-                    </h3>
-                    <p className="text-lg text-gray-600 dark:text-gray-400">
-                      {post.description}
-                    </p>
-                    {post.credit && (
-                      <Link
-                        href={post.credit.href}
-                        target="_blank"
-                        className="mt-3 inline-block text-xs text-gray-500 dark:text-gray-500 opacity-70 hover:opacity-100 transition-opacity"
-                      >
-                        {post.credit.label}
-                      </Link>
-                    )}
-                  </div>
-                </Reveal>
+                <PostCard key={post.title} post={post} index={i} />
               ))}
             </div>
           </div>
@@ -230,21 +363,44 @@ export default function HomePage() {
 
         <div className="border-t border-black/10 dark:border-white/10" />
 
-        {/* Brook Image */}
-        <section id="brook" className="flex flex-col gap-1 justify-center items-center w-full px-5 py-16 text-center">
-          <p className="italic text-2xl p-3 text-gray-700 dark:text-gray-300">"Death leaves nothing behind."</p>
-          {/* Responsive Image Container */}
-          <div className="relative lg:w-32 lg:h-32 md:w-24 md:h-24 w-16 h-16">
-            <Image
-              src="/pictures/brook.png"
-              alt="Brook, One Piece"
-              fill
-              sizes="50vw"
-              className="rounded-4xl object-contain"
+        {/* Character Quotes */}
+        <section id="brook" className="w-full px-6 py-16 md:py-20">
+          <div
+            ref={quotesPanelRef}
+            className="relative mx-auto w-full max-w-5xl rounded-3xl border border-black/10 dark:border-white/10 px-6 py-14 sm:px-10 md:py-16"
+          >
+            {/* Handoff glow — dim border lights up in accent color as this panel
+                scrolls into view, picking up where the light above left off. */}
+            <motion.div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-3xl border-2 border-[#1272CC] dark:border-[#9379cc] shadow-[0_0_40px_8px_rgba(18,114,204,0.35)] dark:shadow-[0_0_40px_8px_rgba(147,121,204,0.35)]"
+              style={{ opacity: quotesGlow }}
             />
+
+            <div className="relative grid w-full grid-cols-1 gap-14 md:grid-cols-3 md:gap-4 md:divide-x md:divide-black/10 md:dark:divide-white/10">
+              {characterQuotes.map((character) => (
+                <Reveal
+                  key={character.name}
+                  className="flex flex-col items-center gap-2 px-6 text-center"
+                >
+                  <p className="italic text-xl min-h-14 flex items-center text-gray-700 dark:text-gray-300">
+                    &quot;{character.quote}&quot;
+                  </p>
+                  <div className="relative h-20 w-20 sm:h-24 sm:w-24 lg:h-28 lg:w-28 overflow-hidden rounded-full ring-2 ring-[#1272CC]/20 dark:ring-[#9379cc]/20">
+                    <Image
+                      src={character.image}
+                      alt={character.imageAlt}
+                      fill
+                      sizes="150px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-gray-900 dark:text-white font-bold">{character.name}</p>
+                  <p className="text-gray-600 dark:text-gray-400 font-semibold">{character.role}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
-          <p className="text-gray-900 dark:text-white font-bold">Brook</p>
-          <p className="text-gray-600 dark:text-gray-400 font-semibold">Musician, New World</p>
         </section>
       </div>
     </>
