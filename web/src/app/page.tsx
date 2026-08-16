@@ -135,54 +135,63 @@ export default function HomePage() {
 
         <div className="border-t border-black/10 dark:border-white/10" />
 
-        {/* What to Post — one numbered feature per post type */}
-        <section id="posts" className="mx-auto w-full max-w-5xl px-6 py-24 md:py-32">
-          <Reveal className="text-center mb-20 md:mb-28">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-              What to Post
-            </h2>
-            <p className="mt-3 text-gray-600 dark:text-gray-400">
-              A few ideas to get you started.
-            </p>
-          </Reveal>
+        {/* What to Post — one numbered feature per post type, inside its own grid-backed panel */}
+        <section id="posts" className="w-full px-6 py-24 md:py-32">
+          <div
+            className="relative mx-auto w-full overflow-hidden rounded-3xl border border-black/10 dark:border-white/10 bg-gray-50 dark:bg-white/[0.03] px-6 py-16 sm:px-10 md:px-16 md:py-24 [--panel-grid-line:rgba(18,114,204,0.08)] dark:[--panel-grid-line:rgba(147,121,204,0.1)]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, var(--panel-grid-line) 1px, transparent 1px), linear-gradient(to bottom, var(--panel-grid-line) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+            }}
+          >
+            <Reveal className="text-center mb-20 md:mb-28">
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white">
+                What Can I Post?
+              </h2>
+              <p className="mt-3 text-gray-600 dark:text-gray-400">
+                A few ideas to get you started.
+              </p>
+            </Reveal>
 
-          <div className="flex flex-col gap-20 md:gap-32">
-            {postTypes.map((post, i) => (
-              <Reveal
-                key={post.title}
-                className="grid md:grid-cols-2 gap-8 md:gap-16 items-center"
-              >
-                <div className={`relative aspect-4/3 rounded-2xl overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
-                  <Image
-                    src={post.image}
-                    alt={post.imageAlt}
-                    fill
-                    sizes="(min-width: 768px) 50vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-                <div className={`text-center ${i % 2 === 1 ? "md:order-1 md:text-right" : "md:text-left"}`}>
-                  <span className="font-mono text-sm text-[#1272CC] dark:text-[#9379cc]">
-                    {post.number}
-                  </span>
-                  <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">
-                    {post.title}
-                  </h3>
-                  <p className="text-lg text-gray-600 dark:text-gray-400">
-                    {post.description}
-                  </p>
-                  {post.credit && (
-                    <Link
-                      href={post.credit.href}
-                      target="_blank"
-                      className="mt-3 inline-block text-xs text-gray-500 dark:text-gray-500 opacity-70 hover:opacity-100 transition-opacity"
-                    >
-                      {post.credit.label}
-                    </Link>
-                  )}
-                </div>
-              </Reveal>
-            ))}
+            <div className="flex flex-col gap-20 md:gap-32">
+              {postTypes.map((post, i) => (
+                <Reveal
+                  key={post.title}
+                  className="grid md:grid-cols-2 gap-8 md:gap-16 items-center"
+                >
+                  <div className={`relative aspect-4/3 rounded-2xl overflow-hidden ${i % 2 === 1 ? "md:order-2" : ""}`}>
+                    <Image
+                      src={post.image}
+                      alt={post.imageAlt}
+                      fill
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className={`text-center ${i % 2 === 1 ? "md:order-1 md:text-right" : "md:text-left"}`}>
+                    <span className="font-mono text-sm text-[#1272CC] dark:text-[#9379cc]">
+                      {post.number}
+                    </span>
+                    <h3 className="text-2xl md:text-3xl font-semibold text-gray-900 dark:text-white mt-2 mb-3">
+                      {post.title}
+                    </h3>
+                    <p className="text-lg text-gray-600 dark:text-gray-400">
+                      {post.description}
+                    </p>
+                    {post.credit && (
+                      <Link
+                        href={post.credit.href}
+                        target="_blank"
+                        className="mt-3 inline-block text-xs text-gray-500 dark:text-gray-500 opacity-70 hover:opacity-100 transition-opacity"
+                      >
+                        {post.credit.label}
+                      </Link>
+                    )}
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </section>
 

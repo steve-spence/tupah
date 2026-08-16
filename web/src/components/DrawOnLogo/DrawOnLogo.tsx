@@ -18,7 +18,7 @@ export function DrawOnLogo({ src, className, label = "Logo" }: DrawOnLogoProps) 
     fetch(src)
       .then((res) => res.text())
       .then(setSvgMarkup)
-      .catch(() => {});
+      .catch(() => { });
   }, [src]);
 
   return (
