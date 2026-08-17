@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { MessageCircle, Send } from "lucide-react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -71,9 +72,9 @@ export default function CommentSection({ slug }: CommentSectionProps) {
     };
 
     return (
-        <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8">
+        <div className="mt-8 border-t border-black/10 dark:border-white/10 pt-8">
             <h3 className="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2 mb-6">
-                <MessageCircle size={24} />
+                <MessageCircle size={24} className="text-[#1272CC] dark:text-[#9379cc]" />
                 Comments ({comments.length})
             </h3>
 
@@ -100,17 +101,25 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                             },
                         },
                         "& .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "gray",
+                            borderColor: "rgba(0, 0, 0, 0.2)",
                         },
                         "&:hover .MuiOutlinedInput-notchedOutline": {
-                            borderColor: "#9379cc",
+                            borderColor: "#1272CC",
+                        },
+                        "@media (prefers-color-scheme: dark)": {
+                            "& .MuiOutlinedInput-notchedOutline": {
+                                borderColor: "rgba(255, 255, 255, 0.2)",
+                            },
+                            "&:hover .MuiOutlinedInput-notchedOutline": {
+                                borderColor: "#9379cc",
+                            },
                         },
                     }}
                 />
                 {showAuthPrompt && (
                     <p className="text-gray-700 dark:text-gray-300 text-sm mt-2">
                         You need to have an account to <b>Comment.</b> Do you want to{" "}
-                        <Link href="/login" className="text-[#9379cc] hover:underline font-semibold">
+                        <Link href="/login" className="text-[#1272CC] dark:text-[#9379cc] hover:underline font-semibold">
                             sign up
                         </Link>
                         ?
@@ -126,8 +135,12 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                     startIcon={<Send size={16} />}
                     sx={{
                         mt: 2,
-                        backgroundColor: "#9379cc",
-                        "&:hover": { backgroundColor: "#7a5fbd" },
+                        backgroundColor: "#1272CC",
+                        "&:hover": { backgroundColor: "#0f5fa8" },
+                        "@media (prefers-color-scheme: dark)": {
+                            backgroundColor: "#9379cc",
+                            "&:hover": { backgroundColor: "#7a5fbd" },
+                        },
                     }}
                 >
                     {submitting ? "Posting..." : "Post Comment"}
@@ -141,24 +154,29 @@ export default function CommentSection({ slug }: CommentSectionProps) {
                 ) : comments.length === 0 ? (
                     <p className="text-gray-500 dark:text-gray-400">No comments yet. Be the first!</p>
                 ) : (
-                    comments.map((comment) => (
-                        <div
-                            key={comment.id}
-                            className="p-4 bg-gray-50 dark:bg-[#2a2a2a] rounded-lg"
-                        >
-                            <div className="flex justify-between items-start mb-2">
-                                <span className="font-semibold text-gray-800 dark:text-white">
-                                    @{comment.username}
-                                </span>
-                                <span className="text-xs text-gray-500 dark:text-gray-400">
-                                    {new Date(comment.created_at).toLocaleDateString()}
-                                </span>
-                            </div>
-                            <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
-                                {comment.content}
-                            </p>
-                        </div>
-                    ))
+                    <AnimatePresence initial={false}>
+                        {comments.map((comment) => (
+                            <motion.div
+                                key={comment.id}
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                className="p-4 rounded-2xl border border-black/10 dark:border-white/10 bg-white/60 dark:bg-black/20"
+                            >
+                                <div className="flex justify-between items-start mb-2">
+                                    <span className="font-semibold text-gray-800 dark:text-white">
+                                        @{comment.username}
+                                    </span>
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                                        {new Date(comment.created_at).toLocaleDateString()}
+                                    </span>
+                                </div>
+                                <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+                                    {comment.content}
+                                </p>
+                            </motion.div>
+                        ))}
+                    </AnimatePresence>
                 )}
             </div>
         </div>

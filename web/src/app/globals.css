@@ -103,6 +103,21 @@ a {
   }
 }
 
+/* Ambient drifting glow — slow, idle float for decorative accent blobs
+   (e.g. behind blog page hero/panels). Pure CSS so it's safe to use on
+   pages with a client-side loading gate, no scroll/ref wiring needed. */
+@keyframes tupah-blob-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(4%, -5%) scale(1.08);
+  }
+  66% {
+    transform: translate(-4%, 4%) scale(0.95);
+  }
+}
+
 /* Scrollbar Styling */
 
 /* Firefox */

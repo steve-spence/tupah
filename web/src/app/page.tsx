@@ -83,7 +83,7 @@ const characterQuotes: CharacterQuote[] = [
     image: "/pictures/brook.png",
     imageAlt: "Brook, One Piece",
     name: "Brook",
-    role: "Musician, New World",
+    role: "Musician, One Piece",
   },
   {
     quote: "Behold, The Unthinkable Present.",

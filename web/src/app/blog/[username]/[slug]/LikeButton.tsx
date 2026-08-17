@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { HeartIcon, HeartIconHandle } from "@/components/ui/heart";
 import Button from "@mui/material/Button";
 import Link from "next/link";
+import { motion } from "motion/react";
 
 interface LikeButtonProps {
     slug: string;
@@ -63,40 +64,45 @@ export default function LikeButton({ slug, initialLikes, showLikeCount = true }:
 
     return (
         <div className="flex items-center gap-2">
-            <Button
-                variant="outlined"
-                onClick={handleLike}
-                disabled={loading}
-                startIcon={showLikeCount ? (
-                    <HeartIcon
-                        ref={heartRef}
-                        size={20}
-                        filled={liked}
-                        className={liked ? "text-red-500" : ""}
-                    />
-                ) : undefined}
-                sx={{
-                    borderColor: liked ? "#ef4444" : "gray",
-                    color: liked ? "#ef4444" : "inherit",
-                    minWidth: showLikeCount ? undefined : 'auto',
-                    padding: showLikeCount ? undefined : '6px 12px',
-                    "&:hover": {
-                        borderColor: "#ef4444",
-                        backgroundColor: "rgba(239, 68, 68, 0.1)",
-                    },
-                }}
-            >
-                {showLikeCount ? (
-                    `${likes} ${likes === 1 ? "Like" : "Likes"}`
-                ) : (
-                    <HeartIcon
-                        ref={heartRef}
-                        size={20}
-                        filled={liked}
-                        className={liked ? "text-red-500" : ""}
-                    />
-                )}
-            </Button>
+            <motion.div whileTap={{ scale: 0.9 }} className="inline-block">
+                <Button
+                    variant="outlined"
+                    onClick={handleLike}
+                    disabled={loading}
+                    startIcon={showLikeCount ? (
+                        <HeartIcon
+                            ref={heartRef}
+                            size={20}
+                            filled={liked}
+                            className={liked ? "text-red-500" : ""}
+                        />
+                    ) : undefined}
+                    sx={{
+                        borderColor: liked ? "#ef4444" : "rgba(0, 0, 0, 0.15)",
+                        color: liked ? "#ef4444" : "inherit",
+                        "@media (prefers-color-scheme: dark)": {
+                            borderColor: liked ? "#ef4444" : "rgba(255, 255, 255, 0.15)",
+                        },
+                        minWidth: showLikeCount ? undefined : 'auto',
+                        padding: showLikeCount ? undefined : '6px 12px',
+                        "&:hover": {
+                            borderColor: "#ef4444",
+                            backgroundColor: "rgba(239, 68, 68, 0.1)",
+                        },
+                    }}
+                >
+                    {showLikeCount ? (
+                        `${likes} ${likes === 1 ? "Like" : "Likes"}`
+                    ) : (
+                        <HeartIcon
+                            ref={heartRef}
+                            size={20}
+                            filled={liked}
+                            className={liked ? "text-red-500" : ""}
+                        />
+                    )}
+                </Button>
+            </motion.div>
             {showLikeCount ? (
                 showAuthPrompt && (
                     <p className="text-gray-700 dark:text-gray-300 text-sm mt-2">
