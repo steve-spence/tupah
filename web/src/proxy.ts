@@ -6,7 +6,7 @@ const ALLOWED_ORIGINS = [
     "https://www.tupah.me",
     "https://tupah.me",
     "https://tupah.space",
-    "https://www.tupah.me",
+    "https://www.tupah.space",
     "http://localhost:4200",
     "http://localhost:4201",
 ];
